@@ -1,0 +1,19 @@
+{
+  "name": "Remote API proxy",
+  "version": "1",
+  "slug": "remote_api",
+  "description": "Remote API proxy for Home Assistant",
+  "url": "https://developers.home-assistant.io/docs/en/hassio_hass.html",
+  "startup": "once",
+  "boot": "manual",
+  "hassio_api": true,
+  "hassio_role": "admin",
+  "ports": {
+    "80/tcp": 80
+   },
+  "options": {
+  },
+  "schema": {
+  },
+  "image": "homeassistant/{arch}-addon-dev-remote_api"
+}
