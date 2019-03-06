@@ -4,6 +4,7 @@
   "slug": "remote_api",
   "description": "Remote API proxy for Home Assistant",
   "url": "https://developers.home-assistant.io/docs/en/hassio_hass.html",
+  "arch": ["armhf", "aarch64", "amd64", "i386"],
   "startup": "once",
   "boot": "manual",
   "hassio_api": true,
