@@ -1,0 +1,20 @@
+{
+  "name": "Custom deps deployment",
+  "version": "1",
+  "slug": "custom_deps",
+  "description": "Manage custom python modules in Home Assistant deps",
+  "url": "https://home-assistant.io/addons/custom_deps/",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "startup": "once",
+  "boot": "manual",
+  "map": ["config:rw"],
+  "options": {
+    "pypi": [null],
+    "apk": []
+  },
+  "schema": {
+    "pypi": ["str"],
+    "apk": ["str"]
+  },
+  "image": "homeassistant/{arch}-addon-dev-custom_deps"
+}
