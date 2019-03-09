@@ -1,5 +1,5 @@
 {
   "name": "Home Assistant Developer Add-ons",
-  "url": "https://developers.home-assistant.io/",
+  "url": "https://github.com/home-assistant/hassio-addons-development",
   "maintainer": "HomeAssistant Team <info@home-assistant.io>"
 }
