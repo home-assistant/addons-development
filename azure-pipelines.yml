@@ -1,0 +1,342 @@
+# https://dev.azure.com/home-assistant
+
+trigger:
+  branches:
+    include:
+    - master
+pr:
+- master
+
+variables:
+  versionHadolint: 'v1.16.3'
+  versionShellCheck: 'v0.6.0'
+  versionBuilder: '2.0'
+
+jobs:
+
+- job: 'Hadolint'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: sudo docker pull hadolint/hadolint:$(versionHadolint)
+    displayName: 'Install Hadolint'
+  - script: |
+      set -e
+      shopt -s globstar
+      for dockerfile in **/Dockerfile
+      do
+        echo "Linting: $dockerfile"
+        sudo docker run --rm -i \
+          -v $(pwd)/.hadolint.yaml:/.hadolint.yaml:ro \
+          hadolint/hadolint:$(versionHadolint) < "$dockerfile"
+      done
+    displayName: 'Run Hadolint'
+
+
+- job: 'ShellCheck'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: sudo docker pull koalaman/shellcheck:$(versionShellCheck)
+    displayName: 'Install ShellCheck'
+  - script: |
+      shopt -s globstar
+      sudo docker run --rm -i \
+        -v $(pwd):/mnt:ro koalaman/shellcheck:$(versionShellCheck) **/*.sh
+    displayName: 'Run ShellCheck'
+
+- job: 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - script: sudo apt-get install -y jq
+    displayName: 'Install JQ'
+  - bash: |
+      shopt -s globstar
+      cat **/*.json | jq '.'
+    displayName: 'Run JQ'
+
+
+- job: 'cec_scan'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'cec_scan'
+      arch: '--all'
+
+
+- job: 'check_config'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'check_config'
+      arch: '--all'
+
+
+- job: 'configurator'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'configurator'
+      arch: '--all'
+
+
+- job: 'deconz'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'deconz'
+      arch: '--amd64 --armhf'
+
+
+- job: 'dhcp_server'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'dhcp_server'
+      arch: '--all'
+
+
+- job: 'dnsmasq'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'dnsmasq'
+      arch: '--all'
+
+
+- job: 'duckdns'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'duckdns'
+      arch: '--all'
+
+
+- job: 'git_pull'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'git_pull'
+      arch: '--all'
+
+
+- job: 'google_assistant'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'google_assistant'
+      arch: '--amd64 --armv7'
+
+
+- job: 'homematic'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'homematic'
+      arch: '--i386 --armv7'
+
+
+- job: 'letsencrypt'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'letsencrypt'
+      arch: '--all'
+
+
+- job: 'mariadb'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'mariadb'
+      arch: '--all'
+
+
+- job: 'mosquitto'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'mosquitto'
+      arch: '--all'
+
+
+- job: 'nginx_proxy'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'nginx_proxy'
+      arch: '--all'
+
+
+- job: 'rpc_shutdown'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'rpc_shutdown'
+      arch: '--all'
+
+
+- job: 'samba'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'samba'
+      arch: '--all'
+
+
+- job: 'snips'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'snips'
+      arch: '--amd64 --armhf'
+
+
+- job: 'ssh'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'ssh'
+      arch: '--all'
+
+
+- job: 'tellstick'
+  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
+  dependsOn:
+  - 'Hadolint'
+  - 'ShellCheck'
+  - 'JQ'
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - template: azp-template-addon.yml
+    parameters:
+      addon: 'tellstick'
+      arch: '--all'
