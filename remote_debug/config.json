@@ -1,5 +1,5 @@
 {
-  "name": "Remote ptvsd debuger",
+  "name": "Remote ptvsd debugger",
   "version": "1.0",
   "slug": "remote_debug",
   "description": "Remote Debug proxy for Supervisor/ptvsd",
