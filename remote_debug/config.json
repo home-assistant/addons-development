@@ -1,0 +1,18 @@
+{
+  "name": "Remote ptvsd debugger",
+  "version": "1.0",
+  "slug": "remote_debug",
+  "description": "Remote Debug proxy for Supervisor/ptvsd",
+  "url": "https://developers.home-assistant.io/docs/en/hassio_debug.html",
+  "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
+  "startup": "once",
+  "boot": "manual",
+  "ports": {
+    "33333/tcp": 33333
+   },
+  "options": {
+  },
+  "schema": {
+  },
+  "image": "homeassistant/{arch}-addon-dev-remote_debug"
+}
