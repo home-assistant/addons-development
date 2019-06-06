@@ -10,7 +10,6 @@ pr:
 variables:
   versionHadolint: 'v1.16.3'
   versionShellCheck: 'v0.6.0'
-  versionBuilder: '2.0'
 
 jobs:
 
@@ -55,48 +54,3 @@ jobs:
       shopt -s globstar
       cat **/*.json | jq '.'
     displayName: 'Run JQ'
-
-
-- job: 'custom_deps'
-  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
-  dependsOn:
-  - 'Hadolint'
-  - 'ShellCheck'
-  - 'JQ'
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - template: .azure/azp-template-addon.yml
-    parameters:
-      addon: 'custom_deps'
-      arch: '--all'
-
-
-- job: 'remote_api'
-  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
-  dependsOn:
-  - 'Hadolint'
-  - 'ShellCheck'
-  - 'JQ'
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - template: .azure/azp-template-addon.yml
-    parameters:
-      addon: 'remote_api'
-      arch: '--all'
-
-
-- job: 'remote_debug'
-  condition: and(eq(variables['Build.SourceBranchName'], 'master'), succeeded('Hadolint'), succeeded('ShellCheck'), succeeded('JQ'))
-  dependsOn:
-  - 'Hadolint'
-  - 'ShellCheck'
-  - 'JQ'
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - template: .azure/azp-template-addon.yml
-    parameters:
-      addon: 'remote_debug'
-      arch: '--all'
