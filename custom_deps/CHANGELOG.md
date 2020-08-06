@@ -1,13 +1,13 @@
 # Changelog
 
-## 1
+# 1.2.0
+
+- Fix build
+
+# 1.1.0
+
+- Update Python 3.8
+
+## 1.0.0
+
 - Bug fix multiple pip packages v2
-
-## 0.3
-- Bug fix multiple pip packages
-
-## 0.2
-- Bug fix pip prefix settings
-
-## 0.1
-- Initial release
