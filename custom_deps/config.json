@@ -1,6 +1,6 @@
 {
   "name": "Custom deps deployment",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "slug": "custom_deps",
   "description": "Manage custom python modules in Home Assistant deps",
   "url": "https://home-assistant.io/addons/custom_deps/",
