@@ -8,13 +8,11 @@ WORKDIR /usr/src
 # Setup py-spy
 ARG PY_SPY_VERSION
 RUN \
-    apk add --no-cache \
-        libunwind \
     apk add --no-cache --virtual .build-deps \
         build-base \
         git \
         cargo \
-        libunwind-dev \
+        libunwind-static \
     && git clone --depth 1 -b v${PY_SPY_VERSION} https://github.com/benfred/py-spy \
     && cd py-spy \
     && pip3 install . \

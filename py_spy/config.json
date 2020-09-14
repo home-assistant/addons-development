@@ -10,6 +10,7 @@
   "host_pid": true,
   "init": false,
   "privileged": ["SYS_PTRACE"],
+  "map": ["share:rw"],
   "options": {
   },
   "schema": false,
