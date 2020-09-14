@@ -8,15 +8,19 @@ trigger:
     include:
     - py_spy/*
 pr: none
+resources:
+  repositories:
+    - repository: azure
+      type: github
+      name: "home-assistant/ci-azure"
+      endpoint: "home-assistant"
+
 
 variables:
-  - name: versionBuilder
-    value: '2.0'
   - group: docker
 
 
 jobs:
-- template: /.azure/azp-template-addon.yml
-  parameters:
-    addon: 'py_spy'
-    arch: '--all'
+  - template: templates/azp-job-addon.yaml@azure
+    parameters:
+      addon: 'py_spy'

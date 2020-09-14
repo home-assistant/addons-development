@@ -8,15 +8,19 @@ trigger:
     include:
     - remote_debug/*
 pr: none
+resources:
+  repositories:
+    - repository: azure
+      type: github
+      name: "home-assistant/ci-azure"
+      endpoint: "home-assistant"
+
 
 variables:
-  - name: versionBuilder
-    value: '2.0'
   - group: docker
 
 
 jobs:
-- template: /.azure/azp-template-addon.yml
-  parameters:
-    addon: 'remote_debug'
-    arch: '--all'
+  - template: templates/azp-job-addon.yaml@azure
+    parameters:
+      addon: "remote_debug"
