@@ -6,6 +6,8 @@
   "url": "https://developers.home-assistant.io/docs/en/hassio_hass.html",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "once",
+  "advanced": true,
+  "stage": "experimental",
   "boot": "manual",
   "hassio_api": true,
   "hassio_role": "admin",

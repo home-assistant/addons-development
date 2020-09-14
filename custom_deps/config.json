@@ -6,6 +6,8 @@
   "url": "https://home-assistant.io/addons/custom_deps/",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "once",
+  "advanced": true,
+  "stage": "experimental",
   "boot": "manual",
   "map": ["config:rw"],
   "options": {

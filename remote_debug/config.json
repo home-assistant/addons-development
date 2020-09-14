@@ -6,6 +6,8 @@
   "url": "https://developers.home-assistant.io/docs/en/hassio_debug.html",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "once",
+  "advanced": true,
+  "stage": "experimental",
   "boot": "manual",
   "ports": {
     "33333/tcp": 33333
