@@ -6,7 +6,7 @@ trigger:
     - master
   paths:
     include:
-    - remote_api/*
+    - py_spy/*
 pr: none
 resources:
   repositories:
@@ -23,4 +23,4 @@ variables:
 jobs:
   - template: templates/azp-job-addon.yaml@azure
     parameters:
-      addon: 'remote_api'
+      addon: 'py_spy'
