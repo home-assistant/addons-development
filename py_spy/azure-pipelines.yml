@@ -1,0 +1,22 @@
+# https://dev.azure.com/home-assistant
+
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - py_spy/*
+pr: none
+
+variables:
+  - name: versionBuilder
+    value: '2.0'
+  - group: docker
+
+
+jobs:
+- template: /.azure/azp-template-addon.yml
+  parameters:
+    addon: 'py_spy'
+    arch: '--all'
