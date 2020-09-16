@@ -2,7 +2,7 @@
   "name": "Py Spy",
   "version": "0.1.0",
   "slug": "py_spy",
-  "description": "Remote API proxy for Home Assistant",
+  "description": "Record Home Assistant process and write it to share",
   "url": "https://developers.home-assistant.io/docs/en/hassio_hass.html",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "once",
