@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "slug": "remote_api",
   "description": "Remote API proxy for Home Assistant",
-  "url": "https://developers.home-assistant.io/docs/en/hassio_hass.html",
+  "url": "https://developers.home-assistant.io/docs/supervisor/developing/#supervisor-api-access",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "once",
   "advanced": true,
