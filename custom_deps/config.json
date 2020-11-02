@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "slug": "custom_deps",
   "description": "Manage custom python modules in Home Assistant deps",
-  "url": "https://home-assistant.io/addons/custom_deps/",
+  "url": "https://github.com/home-assistant/hassio-addons-development",
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "once",
   "advanced": true,
