@@ -67,7 +67,7 @@ function cleanup_lastboot() {
 
 function cleanup_docker() {
     echo "Cleaning up stopped containers..."
-    docker rm $(docker ps -a -q) || true
+    docker rm "$(docker ps -a -q)" || true
 }
 
 function run_supervisor() {
