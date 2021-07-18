@@ -1,5 +1,8 @@
 # Changelog
 
+# 1.3.0
+- Update Python 3.9
+
 # 1.2.0
 
 - Fix build
