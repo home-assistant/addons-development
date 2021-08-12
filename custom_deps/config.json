@@ -7,6 +7,7 @@
   "arch": ["armhf", "armv7", "aarch64", "amd64", "i386"],
   "startup": "once",
   "advanced": true,
+  "homeassistant", "2021.7.0",
   "stage": "experimental",
   "boot": "manual",
   "map": ["config:rw"],
