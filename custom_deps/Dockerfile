@@ -6,7 +6,11 @@ ENV LANG C.UTF-8
 
 # Setup base
 RUN apk add --no-cache \
-    gcc g++ make cmake git
+    gcc \
+    g++ \
+    make \
+    cmake \
+    git
 
 # Copy data
 COPY run.sh /
