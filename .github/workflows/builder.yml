@@ -2,7 +2,7 @@ name: Build add-on
 
 env:
   BUILD_ARGS: "--test"
-  MONITORED_FILES: "build.json config.json Dockerfile run.sh"
+  MONITORED_FILES: "build.yaml config.yaml Dockerfile run.sh"
 
 on:
   pull_request:
@@ -30,7 +30,7 @@ jobs:
         id: addons
         run: |
           declare -a addons
-          for addon in $(find ./ -name config.json | cut -d "/" -f2 | sort -u); do
+          for addon in $(find ./ -name config.yaml | cut -d "/" -f2 | sort -u); do
             addons+=("$addon");
           done
           echo "::set-output name=addons::${addons[@]}"
