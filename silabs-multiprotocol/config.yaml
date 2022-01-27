@@ -10,7 +10,7 @@ arch:
 hassio_api: true
 privileged:
   - IPC_LOCK
-image: ghcr.io/home-assistant/{arch}-addon-silabs-multiprotocol
+image: homeassistant/{arch}-addon-silabs-multiprotocol
 init: false
 options:
   device: null
