@@ -2,7 +2,7 @@ version: 0.1.0
 slug: silabs_multiprotocol
 name: Silicon Labs Multiprotocol
 description: Zigbee and OpenThread multiprotocol add-on
-url: https://github.com/home-assistant/hassio-addons/tree/master/silabs-multiprotocol
+url: https://github.com/home-assistant/addons-development/tree/master/silabs-multiprotocol
 arch:
   - armv7
 # Currently zigbeed crashes with *** stack smashing detected ***
