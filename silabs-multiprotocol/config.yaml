@@ -8,6 +8,8 @@ arch:
 # Currently zigbeed crashes with *** stack smashing detected ***
 #  - aarch64
 hassio_api: true
+# IPC is only used within the Add-on
+host_ipc: false
 privileged:
   - IPC_LOCK
 image: homeassistant/{arch}-addon-silabs-multiprotocol
