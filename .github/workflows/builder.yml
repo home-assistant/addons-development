@@ -2,7 +2,7 @@ name: Build add-on
 
 env:
   BUILD_ARGS: "--test"
-  MONITORED_FILES: "build.yaml config.yaml Dockerfile run.sh"
+  MONITORED_FILES: "build.yaml config.yaml Dockerfile run.sh rootfs"
 
 on:
   pull_request:
