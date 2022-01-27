@@ -21,7 +21,7 @@ Once the firmware is loaded follow the following staps:
 
 1. Select the correct `device` in the add-on configuration tab and press `Save`.
 2. Start the add-on.
-3. Remember/copy the hostname of the add-on (e.g. `69c153b9-silabs-multiprotocol`).
+3. Remember/copy the hostname of the add-on (e.g. `c8f00288-silabs-multiprotocol`).
 4. Add the Zigbee Home Automation (ZHA) integration to Home Assitant Core
 5. When asked for the Serial Device Path, choose `Enter Manually`.
 6. Choose `EZSP` as Radio type.
