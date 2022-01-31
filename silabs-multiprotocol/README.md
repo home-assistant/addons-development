@@ -5,6 +5,7 @@ Zigbee/OpenThread Multiprotocol container for Silicon Labs based radios.
 **NOTE:** Requires Silicon Labs based radio with RCP Multi-PAN firmware flashed!
 
 ![Supports armv7 Architecture][armv7-shield]
+![Supports aarch64 Architecture][aarch64-shield]
 
 ## About
 
