@@ -18,15 +18,26 @@ RUN \
        build-essential \
        cmake \
        git \
+       git-lfs \
        libmbedtls-dev \
        libmbedtls12 \
        socat \
+       iproute2 \
+       lsb-release \
+       ninja-build \
+       pkg-config \
+       cpputest \
+       sudo \
     && git clone --depth 1 -b ${CPCD_VERSION} \
        https://github.com/SiliconLabs/cpc-daemon.git \
     && mkdir cpc-daemon/build && cd cpc-daemon/build \
     && cmake ../ \
     && make \
-    && make install \
+    && make install
+
+WORKDIR /usr/src
+RUN \
+    set -x \
     && cd /usr/src \
     && git clone --depth 1 -b ${GECKO_SDK_VERSION} \
        https://github.com/SiliconLabs/gecko_sdk.git \
@@ -42,13 +53,53 @@ RUN \
             exit 1; \
         fi \
     && chmod +x /usr/local/bin/zigbeed \
-    && cp "app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/etc/zigbeed.conf" /usr/local/etc/ \
-    && apt-get purge -y --auto-remove \
-       build-essential \
-       git \
-       libmbedtls-dev \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /usr/src/*
+    && cp "app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/etc/zigbeed.conf" /usr/local/etc/
+
+ENV BORDER_ROUTING=1
+ENV BACKBONE_ROUTER=1
+ENV OTBR_OPTIONS "-DOTBR_DBUS=OFF -DOT_MULTIPAN_RCP=ON -DOT_POSIX_CONFIG_RCP_BUS=CPC -DOT_LINK_RAW=1 -DOTBR_VENDOR_NAME=HomeAssistant -DOTBR_PRODUCT_NAME=OpenThreadBorderRouter"
+ENV WEB_GUI=1
+ENV DOCKER 1
+
+COPY 0001-Avoid-writing-to-system-console.patch /usr/src
+COPY 0001-web-set-text-html-Content-Type-for-html-files.patch /usr/src
+
+# Install npm/nodejs for WebUI manually to avoid systemd getting pulled in
+RUN \
+    set -x \
+    && apt-get install -y --no-install-recommends \
+       nodejs \
+       npm
+
+RUN \
+    set -x \
+    && cd /usr/src \
+    && cd gecko_sdk/util/third_party/ot-br-posix \
+    && chmod +x ./script/bootstrap \
+    && ./script/bootstrap
+
+RUN \
+    set -x \
+    && cd /usr/src \
+    && cd gecko_sdk/util/third_party/ot-br-posix \
+    && ln -s ../../../openthread/ third_party/openthread/repo \
+    && chmod +x ./script/* \
+    && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
+    && patch -p1 < /usr/src/0001-web-set-text-html-Content-Type-for-html-files.patch \
+    && ./script/setup
+
+#RUN \
+#    set -x \
+#    && cd /usr/src \
+#    && cd gecko_sdk/util/third_party/openthread \
+#    && chmod +x ./script/* \
+#    && ./script/cmake-build posix multipan_rcp -DOT_POSIX_CONFIG_RCP_BUS=CPC -DOT_LINK_RAW=1 \
+#    && apt-get purge -y --auto-remove \
+#       build-essential \
+#       git \
+#       libmbedtls-dev \
+#    && rm -rf /var/lib/apt/lists/* \
+#    && rm -rf /usr/src/*
 
 RUN touch /accept_silabs_msla
 
