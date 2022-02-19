@@ -1,0 +1,14 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start mDNSResponder daemon
+# ==============================================================================
+bashio::log.info "Starting mDNS Responder..."
+
+/usr/sbin/mdnsd
+
+# mdnsd runs as daemon. S6 would prefer if it would not do that,
+# but there is no option to disable that.
+sleep 1
+mdns_pid=$(cat /run/mdnsd.pid)
+bashio::log.info "mDNS Responder runs with PID ${mdns_pid}..."
+tail --pid="${mdns_pid}" -f /dev/null

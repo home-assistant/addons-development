@@ -1,0 +1,29 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# OpenThread BorderRouter start script
+# ==============================================================================
+
+s6-svwait -U /var/run/s6/services/cpcd
+
+declare otbr_agent_options
+declare backbone_ifa
+backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' '.interfaces[] | select (.primary == true) | .interface')"
+otbr_agent_options="-d6 -v"
+
+if bashio::config.false 'otbr_enable'; then
+    s6-svc -d /var/run/s6/services/otbr-agent
+fi
+
+if bashio::config.true 'otbr_debug'; then
+    otbr_agent_options="-d7 -v"
+fi
+
+if [ -z ${backbone_if} ]; then
+    bashio::log.fatal "No primary network interface found!"
+    bashio::exit.nok                              
+fi
+
+mkdir -p /data/thread && ln -sft /var/lib /data/thread || bashio::exit.nok "Could not create directory /var/lib/thread to store Thread data."
+
+bashio::log.info "Starting otbr-agent..."
+exec s6-notifyoncheck -d -s 300 -w 300 /usr/sbin/otbr-agent -I wpan0 -B "${backbone_if}" ${otbr_agent_options} -v spinel+cpc://cpcd_0?iid=2

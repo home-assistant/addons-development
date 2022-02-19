@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bashio
+#==============================================================================
+# mDNSResponder finish script
+#==============================================================================
+bashio::log.info "mDNS ended with exit code ${1} (signal ${2})..."
+mdns_pid=$(cat /run/mdnsd.pid)
+kill ${mdns_pid}

@@ -1,4 +1,4 @@
-version: 0.2.0
+version: 0.3.0
 slug: silabs_multiprotocol
 name: Silicon Labs Multiprotocol
 description: Zigbee and OpenThread multiprotocol add-on
@@ -10,6 +10,7 @@ arch:
 hassio_api: true
 # IPC is only used within the Add-on
 host_ipc: false
+host_network: true
 privileged:
   - IPC_LOCK
 image: homeassistant/{arch}-addon-silabs-multiprotocol
@@ -18,6 +19,8 @@ options:
   device: null
   cpcd_trace: false
   socat_trace: false
+  otbr_enable: true
+  otbr_debug: false
 ports:
   9999/tcp: null
 ports_description:
@@ -26,5 +29,7 @@ schema:
   device: device(subsystem=tty)
   cpcd_trace: bool
   socat_trace: bool
+  otbr_enable: bool
+  otbr_debug: bool
 stage: experimental
 startup: services
