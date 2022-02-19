@@ -10,51 +10,6 @@ ARG SYSTEM_ARCH=arm32v7
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-WORKDIR /usr/src
-RUN \
-    set -x \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-       build-essential \
-       cmake \
-       git \
-       git-lfs \
-       libmbedtls-dev \
-       libmbedtls12 \
-       socat \
-       iproute2 \
-       lsb-release \
-       ninja-build \
-       pkg-config \
-       cpputest \
-       sudo \
-    && git clone --depth 1 -b ${CPCD_VERSION} \
-       https://github.com/SiliconLabs/cpc-daemon.git \
-    && mkdir cpc-daemon/build && cd cpc-daemon/build \
-    && cmake ../ \
-    && make \
-    && make install
-
-WORKDIR /usr/src
-RUN \
-    set -x \
-    && cd /usr/src \
-    && git clone --depth 1 -b ${GECKO_SDK_VERSION} \
-       https://github.com/SiliconLabs/gecko_sdk.git \
-    && cd gecko_sdk \
-    && mkdir -p /usr/local/bin/ && mkdir -p /usr/local/etc/ \
-    &&  if [ "${BUILD_ARCH}" = "armv7" ]; \
-        then \
-            cp "app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/bin_arm32v7/zigbeed" /usr/local/bin/; \
-        elif [ "${BUILD_ARCH}" = "aarch64" ]; \
-        then \
-            cp "app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/bin_arm64v8/zigbeed" /usr/local/bin/; \
-        else \
-            exit 1; \
-        fi \
-    && chmod +x /usr/local/bin/zigbeed \
-    && cp "app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/etc/zigbeed.conf" /usr/local/etc/
-
 ENV BORDER_ROUTING=1
 ENV BACKBONE_ROUTER=1
 ENV OTBR_OPTIONS "-DOTBR_DBUS=OFF -DOT_MULTIPAN_RCP=ON -DOT_POSIX_CONFIG_RCP_BUS=CPC -DOT_LINK_RAW=1 -DOTBR_VENDOR_NAME=HomeAssistant -DOTBR_PRODUCT_NAME=OpenThreadBorderRouter"
@@ -71,15 +26,47 @@ ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
   libavahi-client-dev libboost-dev libboost-filesystem-dev libboost-system-dev \
   libnetfilter-queue-dev
 
-# Install npm/nodejs for WebUI manually to avoid systemd getting pulled in
+WORKDIR /usr/src
 RUN \
     set -x \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       build-essential \
+       cmake \
+       git \
+       git-lfs \
+       libmbedtls-dev \
+       libmbedtls12 \
+       socat \
+       iproute2 \
+       lsb-release \
+       sudo \
+    && git clone --depth 1 -b ${CPCD_VERSION} \
+       https://github.com/SiliconLabs/cpc-daemon.git \
+    && mkdir cpc-daemon/build && cd cpc-daemon/build \
+    && cmake ../ \
+    && make \
+    && make install \
+    && cd /usr/src \
+    && git clone --depth 1 -b ${GECKO_SDK_VERSION} \
+       https://github.com/SiliconLabs/gecko_sdk.git \
+    && cd gecko_sdk \
+    && mkdir -p /usr/local/bin/ && mkdir -p /usr/local/etc/ \
+    &&  if [ "${BUILD_ARCH}" = "armv7" ]; \
+        then \
+            cp "app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/bin_arm32v7/zigbeed" /usr/local/bin/; \
+        elif [ "${BUILD_ARCH}" = "aarch64" ]; \
+        then \
+            cp "app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/bin_arm64v8/zigbeed" /usr/local/bin/; \
+        else \
+            exit 1; \
+        fi \
+    && chmod +x /usr/local/bin/zigbeed \
+    && cp "app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/etc/zigbeed.conf" /usr/local/etc/ \
+    # Install npm/nodejs for WebUI manually to avoid systemd getting pulled in \
     && apt-get install -y --no-install-recommends \
        nodejs \
-       npm
-
-RUN \
-    set -x \
+       npm \
     && cd /usr/src \
     && cd gecko_sdk/util/third_party/ot-br-posix \
     && chmod +x ./script/bootstrap \
