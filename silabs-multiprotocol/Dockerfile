@@ -63,6 +63,7 @@ ENV DOCKER 1
 
 COPY 0001-Avoid-writing-to-system-console.patch /usr/src
 COPY 0001-web-set-text-html-Content-Type-for-html-files.patch /usr/src
+COPY 0001-web-Use-relative-paths-in-xhr-requests.patch /usr/src
 
 # Install npm/nodejs for WebUI manually to avoid systemd getting pulled in
 RUN \
