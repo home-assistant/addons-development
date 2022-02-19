@@ -65,6 +65,12 @@ COPY 0001-Avoid-writing-to-system-console.patch /usr/src
 COPY 0001-web-set-text-html-Content-Type-for-html-files.patch /usr/src
 COPY 0001-web-Use-relative-paths-in-xhr-requests.patch /usr/src
 
+# Required and installed during build (script/bootstrap), could be removed
+ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
+  libreadline-dev libncurses-dev libcpputest-dev libdbus-1-dev libavahi-common-dev \
+  libavahi-client-dev libboost-dev libboost-filesystem-dev libboost-system-dev \
+  libnetfilter-queue-dev
+
 # Install npm/nodejs for WebUI manually to avoid systemd getting pulled in
 RUN \
     set -x \
@@ -77,30 +83,21 @@ RUN \
     && cd /usr/src \
     && cd gecko_sdk/util/third_party/ot-br-posix \
     && chmod +x ./script/bootstrap \
-    && ./script/bootstrap
-
-RUN \
-    set -x \
-    && cd /usr/src \
-    && cd gecko_sdk/util/third_party/ot-br-posix \
+    && ./script/bootstrap \
     && ln -s ../../../openthread/ third_party/openthread/repo \
     && chmod +x ./script/* \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
     && patch -p1 < /usr/src/0001-web-set-text-html-Content-Type-for-html-files.patch \
-    && ./script/setup
-
-#RUN \
-#    set -x \
-#    && cd /usr/src \
-#    && cd gecko_sdk/util/third_party/openthread \
-#    && chmod +x ./script/* \
-#    && ./script/cmake-build posix multipan_rcp -DOT_POSIX_CONFIG_RCP_BUS=CPC -DOT_LINK_RAW=1 \
-#    && apt-get purge -y --auto-remove \
-#       build-essential \
-#       git \
-#       libmbedtls-dev \
-#    && rm -rf /var/lib/apt/lists/* \
-#    && rm -rf /usr/src/*
+    && patch -p1 < /usr/src/0001-web-Use-relative-paths-in-xhr-requests.patch \
+    && ./script/setup \
+    && apt-get purge -y --auto-remove \
+       build-essential \
+       git \
+       git-lfs \
+       libmbedtls-dev \
+       ${OTBR_BUILD_DEPS} \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /usr/src/*
 
 RUN touch /accept_silabs_msla
 
