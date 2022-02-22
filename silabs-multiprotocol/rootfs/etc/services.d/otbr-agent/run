@@ -20,7 +20,7 @@ fi
 
 if [ -z ${backbone_if} ]; then
     bashio::log.fatal "No primary network interface found!"
-    bashio::exit.nok                              
+    bashio::exit.nok
 fi
 
 mkdir -p /data/thread && ln -sft /var/lib /data/thread || bashio::exit.nok "Could not create directory /var/lib/thread to store Thread data."
