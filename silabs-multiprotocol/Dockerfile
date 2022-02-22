@@ -50,8 +50,8 @@ RUN \
     && cd /usr/src \
     && GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 -b ${GECKO_SDK_VERSION} \
        https://github.com/SiliconLabs/gecko_sdk.git \
-    && git lfs pull --include="*.png" \
     && cd gecko_sdk \
+    && git lfs pull --include="*.png" \
     && mkdir -p /usr/local/bin/ && mkdir -p /usr/local/etc/ \
     &&  if [ "${BUILD_ARCH}" = "armv7" ]; \
         then \
