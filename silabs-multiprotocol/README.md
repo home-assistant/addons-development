@@ -8,10 +8,7 @@ Zigbee/OpenThread Multiprotocol container for Silicon Labs based radios.
 
 ## About
 
-This add-on allows you to run Zigbee and OpenThread protocol on a single Silicon
-Labs based radio.
-
-## Features
-
-[aarch64-shield]: https://img.shields.io/badge/aarch64-yes-orange.svg
-[armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
+This add-on allows you to use Zigbee and OpenThread protocol simultaneous on a
+single Silicon Labs based radio. The radio needs the RCP Multi-PAN firmware
+installed to support multiple IEEE 802.15.4 Personal Area Networks (PAN). The
+addon has been tested with EFR32 Series 2 based radios.
