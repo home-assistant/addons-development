@@ -2,6 +2,7 @@
 
 ## 0.3.1
 
+- Fix permissions to make otbr-agent start correctly
 - Add OpenThread Border Router web frontend via ingress
 
 ## 0.3.0
