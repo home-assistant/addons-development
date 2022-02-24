@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+- Add OpenThread Border Router web frontend via ingress
+
 ## 0.3.0
 
 - Initial OpenThread support
