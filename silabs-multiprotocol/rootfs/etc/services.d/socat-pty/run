@@ -11,7 +11,7 @@ if bashio::config.true 'socat_trace'; then
     socat_options="-x -v"
 fi
 
-exec s6-notifyoncheck -s 300 -w 300 \
+exec s6-notifyoncheck -d -s 300 -w 300 \
      "/usr/bin/socat" ${socat_options} \
          pty,raw,echo=0,link=/tmp/ttyZigbeeNCPClient,ignoreeof \
          pty,raw,echo=0,link=/tmp/ttyZigbeeNCP,ignoreeof

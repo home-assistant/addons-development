@@ -1,6 +1,8 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Start Co-Processor Communication Daemon (CPCd)
+# Start OpenThread BorderRouter web interface
 # ==============================================================================
-bashio::log.info "Starting cpcd..."
-exec s6-notifyoncheck -d -s 300 -w 300 "/usr/bin/stdbuf" -o0 /usr/local/bin/cpcd
+s6-svwait -U /var/run/s6/services/otbr-agent
+
+bashio::log.info "Starting otbr-web..."
+exec /usr/sbin/otbr-web -I wpan0 -d6 -p 8080
