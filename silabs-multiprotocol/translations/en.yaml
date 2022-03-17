@@ -2,6 +2,12 @@ configuration:
   device:
     name: Device
     description: The serial port where the Silicon Labs radio is connected to.
+  baudrate:
+    name: Baudrate
+    description: The serial port baudrate used to communicate with the Silicon Labs radio.
+  flow_control:
+    name: Hardware flow control
+    description: Enable hardware flow control for serial port.
   cpcd_trace:
     name: Co-Processor Communication tracing
     description: Enable tracing for the Co-Processor Communication daemon.

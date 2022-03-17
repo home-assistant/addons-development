@@ -1,12 +1,11 @@
-version: 0.3.1
+version: 0.4.0
 slug: silabs_multiprotocol
 name: Silicon Labs Multiprotocol
 description: Zigbee and OpenThread multiprotocol add-on
 url: https://github.com/home-assistant/addons-development/tree/master/silabs-multiprotocol
 arch:
   - armv7
-# Currently zigbeed crashes with *** stack smashing detected ***
-#  - aarch64
+  - aarch64
 hassio_api: true
 # IPC is only used within the Add-on
 host_ipc: false
@@ -18,6 +17,8 @@ image: homeassistant/{arch}-addon-silabs-multiprotocol
 init: false
 options:
   device: null
+  baudrate: 115200
+  flow_control: true
   cpcd_trace: false
   socat_trace: false
   otbr_enable: true
@@ -28,6 +29,8 @@ ports_description:
   9999/tcp: EmberZNet EZSP/ASH port
 schema:
   device: device(subsystem=tty)
+  baudrate: list(57600|115200|230400|460800|921600)
+  flow_control: bool
   cpcd_trace: bool
   socat_trace: bool
   otbr_enable: bool
