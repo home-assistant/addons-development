@@ -3,8 +3,8 @@ FROM $BUILD_FROM
 
 ARG BUILD_ARCH
 
-ARG CPCD_VERSION=alpha/4.0.2.0
-ARG GECKO_SDK_VERSION=v4.0.2
+ARG CPCD_VERSION
+ARG GECKO_SDK_VERSION
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
