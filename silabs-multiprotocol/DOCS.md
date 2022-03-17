@@ -33,8 +33,8 @@ To use Zigbee with ZHA configure the Integration as follows:
 3. When asked for the Serial Device Path, choose `Enter Manually`.
 4. Choose `EZSP` as Radio type.
 5. As serial path, enter `socket://<hostname-from-above>:9999`.
-6. Choose 115200 as port speed.
-7.  Press `Submit`. Adding ZHA should succeed and you should be able to use ZHA
+6. Port speed and flow control don't matter.
+7. Press `Submit`. Adding ZHA should succeed and you should be able to use ZHA
    as if using any other supported radio type.
 
 ### OpenThread
@@ -59,6 +59,8 @@ Add-on configuration:
 | Configuration      | Description                                            |
 |--------------------|--------------------------------------------------------|
 | device (mandatory) | Serial sevice where the Silicon Labs radio is attached |
+| baudrate           | Serial port baudrate (depends on firmware)   |
+| flow_control       | If hardware flow control should be enabled (depends on firmware) |
 | cpcd_trace         | Co-Processsor Communication tracing (trace in log)     |
 | socat_trace        | ASH/EZSP communication trace (trace in log)            |
 | otbr_enable        | Enable OpenThread BorderRouter                         |

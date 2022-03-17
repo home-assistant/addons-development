@@ -4,7 +4,7 @@ Zigbee/OpenThread Multiprotocol container for Silicon Labs based radios.
 
 **NOTE:** Requires Silicon Labs based radio with RCP Multi-PAN firmware flashed!
 
-![Supports armv7 Architecture][armv7-shield]
+![Supports armv7 Architecture][armv7-shield] ![Supports aarch64 Architecture][aarch64-shield]
 
 ## About
 
@@ -14,3 +14,4 @@ installed to support multiple IEEE 802.15.4 Personal Area Networks (PAN). The
 addon has been tested with EFR32 Series 2 based radios.
 
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
+[aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg

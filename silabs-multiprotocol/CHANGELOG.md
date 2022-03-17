@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.0
+- Use Silicon Labs Gecko SDK 4.0.2
+- Enable native aarch64 support
+- Support baudrate and hardware flow control
+
 ## 0.3.1
 
 - Fix permissions to make otbr-agent start correctly

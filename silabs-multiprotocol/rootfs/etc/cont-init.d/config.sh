@@ -4,6 +4,8 @@
 # ==============================================================================
 
 declare device
+declare baudrate
+declare flow_control
 declare cpcd_trace
 
 if ! bashio::config.has_value 'device'; then
@@ -11,6 +13,18 @@ if ! bashio::config.has_value 'device'; then
     bashio::exit.nok
 fi
 device=$(bashio::config 'device')
+
+if ! bashio::config.has_value 'baudrate'; then
+    bashio::log.fatal "No serial port baudrate set!"
+    bashio::exit.nok
+fi
+baudrate=$(bashio::config 'baudrate')
+
+if  ! bashio::config.has_value 'flow_control'; then
+    flow_control="false"
+else
+    flow_control=$(bashio::config 'flow_control')
+fi
 
 if  ! bashio::config.has_value 'cpcd_trace'; then
     cpcd_trace="false"
@@ -21,6 +35,8 @@ fi
 bashio::log.info "Generating cpcd configuration."
 bashio::var.json \
     device "${device}" \
+    baudrate "${baudrate}" \
+    flow_control "${flow_control}" \
     cpcd_trace "${cpcd_trace}" \
     | tempio \
         -template /usr/local/share/cpcd.conf \
