@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.4.1
+- Support network device (CPC daemon via TCP/IP socket)
+
 ## 0.4.0
 - Use Silicon Labs Gecko SDK 4.0.2
 - Enable native aarch64 support
