@@ -14,6 +14,10 @@ if ! bashio::config.has_value 'device'; then
 fi
 device=$(bashio::config 'device')
 
+if bashio::config.has_value 'network_device'; then
+    device="/tmp/ttyCPC"
+fi
+
 if ! bashio::config.has_value 'baudrate'; then
     bashio::log.fatal "No serial port baudrate set!"
     bashio::exit.nok

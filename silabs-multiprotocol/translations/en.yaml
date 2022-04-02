@@ -8,6 +8,9 @@ configuration:
   flow_control:
     name: Hardware flow control
     description: Enable hardware flow control for serial port.
+  network_device:
+    name: Network Device
+    description: Host and Port when connecting to a device via sockets (takes precedence over above configuration).
   cpcd_trace:
     name: Co-Processor Communication tracing
     description: Enable tracing for the Co-Processor Communication daemon.
