@@ -1,0 +1,7 @@
+configuration:
+  device:
+    name: Device
+    description: The serial port where the OpenThread RCP radio is attached.
+  otbr_debug:
+    name: OpenThread agent debugging
+    description: Enable OpenThread agent debug output (otbr-agent).

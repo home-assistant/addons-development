@@ -1,0 +1,31 @@
+version: 0.1.0
+slug: openthread_border_router
+name: OpenThread Border Router
+description: OpenThread Border Router add-on
+url: https://github.com/home-assistant/addons-development/tree/master/openthread_border_router
+arch:
+  - armv7
+  - aarch64
+  - amd64
+hassio_api: true
+# IPC is only used within the Add-on
+host_ipc: false
+host_network: true
+privileged:
+  - IPC_LOCK
+  - NET_ADMIN
+image: homeassistant/{arch}-addon-otbr
+init: false
+options:
+  device: null
+  otbr_debug: false
+schema:
+  device: device(subsystem=tty)
+  otbr_debug: bool
+stage: experimental
+startup: services
+ingress: true
+ingress_port: 8080
+panel_title: OpenThread
+panel_icon: mdi:view-grid-plus-outline
+panel_admin: true
