@@ -61,6 +61,7 @@ Add-on configuration:
 | device (mandatory) | Serial sevice where the Silicon Labs radio is attached |
 | baudrate           | Serial port baudrate (depends on firmware)   |
 | flow_control       | If hardware flow control should be enabled (depends on firmware) |
+| network_device     | Host and port where CPC daemon can find the Silicon Labs radio (takes precedence over device) |
 | cpcd_trace         | Co-Processsor Communication tracing (trace in log)     |
 | socat_trace        | ASH/EZSP communication trace (trace in log)            |
 | otbr_enable        | Enable OpenThread BorderRouter                         |
