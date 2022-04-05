@@ -1,4 +1,4 @@
-version: 0.1.0
+version: 0.1.1
 slug: openthread_border_router
 name: OpenThread Border Router
 description: OpenThread Border Router add-on
@@ -18,9 +18,13 @@ image: homeassistant/{arch}-addon-otbr
 init: false
 options:
   device: null
+  baudrate: 115200
+  flow_control: false
   otbr_debug: false
 schema:
   device: device(subsystem=tty)
+  baudrate: list(57600|115200|230400|460800|921600)
+  flow_control: bool
   otbr_debug: bool
 stage: experimental
 startup: services
