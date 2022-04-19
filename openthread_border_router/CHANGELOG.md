@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+- Bump OTBR to ot-br-posix git f8399eb08/openthread git 7dfde1f12
+
 ## 0.1.1
 
 - Add baudrate and hardware flow control configurations
