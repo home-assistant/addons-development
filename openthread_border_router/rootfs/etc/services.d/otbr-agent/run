@@ -12,6 +12,7 @@ backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' '.interfaces[] | 
 otbr_agent_options="-d6 -v"
 device=$(bashio::config 'device')
 baudrate=$(bashio::config 'baudrate')
+flow_control=""
 
 if bashio::config.true 'flow_control'; then
     flow_control="&uart-flow-control"
