@@ -1,4 +1,4 @@
-version: 0.1.4
+version: 0.2.0
 slug: openthread_border_router
 name: OpenThread Border Router
 description: OpenThread Border Router add-on
@@ -21,11 +21,13 @@ options:
   baudrate: 115200
   flow_control: false
   otbr_debug: false
+  firewall: true
 schema:
   device: device(subsystem=tty)
   baudrate: list(57600|115200|230400|460800|921600)
   flow_control: bool
   otbr_debug: bool
+  firewall: bool
 stage: experimental
 startup: services
 ingress: true

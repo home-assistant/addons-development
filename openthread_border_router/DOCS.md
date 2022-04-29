@@ -49,6 +49,7 @@ Add-on configuration:
 | baudrate           | Serial port baudrate (depends on firmware)   |
 | flow_control       | If hardware flow control should be enabled (depends on firmware) |
 | otbr_debug         | Start OpenThread BorderRouter Agent with debug log     |
+| firewall           | Enable OpenThread Border Router firewall to block unnecessary traffic |
 
 ## Support
 
