@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0
+- Support OpenThread Border Router firewall to avoid unnecessary traffic in the
+  OpenThread network.
+
 ## 0.1.4
 - Enable OpenThread diagnostic mode
 
