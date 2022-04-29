@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.4
+- Enable OpenThread diagnostic mode
+
 ## 0.1.3
 - Fix startup without hardware flow control
 

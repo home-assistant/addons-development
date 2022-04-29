@@ -4,7 +4,7 @@
 # ==============================================================================
 
 declare otbr_agent_options
-declare backbone_ifa
+declare backbone_if
 declare device
 declare baudrate
 declare flow_control
