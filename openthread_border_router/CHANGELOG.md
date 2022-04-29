@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.1
+- Fix missing common script
+
 ## 0.2.0
 - Support OpenThread Border Router firewall to avoid unnecessary traffic in the
   OpenThread network.
