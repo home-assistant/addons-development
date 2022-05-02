@@ -2,3 +2,6 @@ build_from:
   armv7: ghcr.io/home-assistant/armv7-base-debian:bullseye
   aarch64: ghcr.io/home-assistant/aarch64-base-debian:bullseye
   amd64: ghcr.io/home-assistant/amd64-base-debian:bullseye
+args:
+  LIBWEBSOCKETS_VERSION: 4.3.1
+  TTYD_VERSION: 2b4dbacc10f0db7fceb092ea42ea12cd9301f4aa
