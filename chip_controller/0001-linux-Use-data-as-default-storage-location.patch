@@ -1,0 +1,41 @@
+From d23ed84d21c08b50ee006f85929e43ee43e748c6 Mon Sep 17 00:00:00 2001
+Message-Id: <d23ed84d21c08b50ee006f85929e43ee43e748c6.1651513392.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Mon, 2 May 2022 19:42:48 +0200
+Subject: [PATCH] [linux] Use /data as default storage location
+
+---
+ src/platform/Linux/CHIPLinuxStorage.h | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/src/platform/Linux/CHIPLinuxStorage.h b/src/platform/Linux/CHIPLinuxStorage.h
+index 6c51f4372e..2509d4cd51 100644
+--- a/src/platform/Linux/CHIPLinuxStorage.h
++++ b/src/platform/Linux/CHIPLinuxStorage.h
+@@ -37,19 +37,19 @@
+ #include <platform/Linux/CHIPLinuxStorageIni.h>
+ 
+ #ifndef FATCONFDIR
+-#define FATCONFDIR "/tmp"
++#define FATCONFDIR "/data"
+ #endif
+ 
+ #ifndef SYSCONFDIR
+-#define SYSCONFDIR "/tmp"
++#define SYSCONFDIR "/data"
+ #endif
+ 
+ #ifndef LOCALSTATEDIR
+-#define LOCALSTATEDIR "/tmp"
++#define LOCALSTATEDIR "/data"
+ #endif
+ 
+ #ifndef DEVICEINFODIR
+-#define DEVICEINFODIR "/tmp"
++#define DEVICEINFODIR "/data"
+ #endif
+ 
+ #define CHIP_DEFAULT_FACTORY_PATH                                                                                                  \
+-- 
+2.36.0
+

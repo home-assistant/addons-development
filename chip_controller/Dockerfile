@@ -8,6 +8,8 @@ ARG CHIP_VERSION=5df932897db4658504309446322ad09cbf7aaf2c
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+COPY 0001-linux-Use-data-as-default-storage-location.patch /usr/src
+
 WORKDIR /usr/src
 
 # Install and build CHIP Python Controller
@@ -35,6 +37,7 @@ RUN \
     && git fetch origin ${CHIP_VERSION} \
     && git checkout ${CHIP_VERSION} \
     && git submodule update --init \
+    && patch -p1 < /usr/src/0001-linux-Use-data-as-default-storage-location.patch \
     && source scripts/activate.sh \
     && scripts/build_python.sh -m minimal -i separate
 # && apt-get purge -y --auto-remove \
