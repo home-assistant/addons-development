@@ -1,0 +1,29 @@
+version: 0.1.0
+slug: chip_controller
+name: CHIP Controller
+description: Connected Home over IP (Matter) Controller
+url: https://github.com/home-assistant/addons-development/tree/master/chip_controller
+arch:
+  - armv7
+  - aarch64
+  - amd64
+hassio_api: true
+# IPC is only used within the Add-on
+host_ipc: false
+host_network: true
+privileged:
+  - IPC_LOCK
+  - NET_ADMIN
+image: agners/{arch}-addon-chip-controller
+init: false
+options:
+  chip_debug: false
+schema:
+  chip_debug: bool
+stage: experimental
+startup: services
+ingress: true
+ingress_port: 8080
+panel_title: OpenThread
+panel_icon: mdi:view-grid-plus-outline
+panel_admin: true
