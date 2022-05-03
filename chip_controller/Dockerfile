@@ -69,6 +69,7 @@ COPY 0001-linux-Use-data-as-default-storage-location.patch /usr/src
 WORKDIR /usr/src
 
 # Install and build CHIP Python Controller
+# hadolint ignore=SC1091
 RUN \
     set -x \
     && apt-get update \
