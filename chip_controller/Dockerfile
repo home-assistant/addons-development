@@ -96,11 +96,6 @@ RUN \
     && patch -p1 < /usr/src/0001-linux-Use-data-as-default-storage-location.patch \
     && source scripts/activate.sh \
     && scripts/build_python.sh -m minimal
-# && apt-get purge -y --auto-remove \
-#       git \
-#       python3-dev \
-#    && rm -rf /var/lib/apt/lists/* \
-#    && rm -rf /usr/src/*
 
 FROM $BUILD_FROM
 
@@ -133,6 +128,8 @@ COPY --from=chip-builder /usr/src/connectedhomeip/credentials /root/credentials
 COPY --from=chip-builder \
      /usr/src/connectedhomeip/out/python_lib/controller/python/chip-0.0-cp37-abi3-linux_x86_64.whl \
      /tmp
+
+# hadolint ignore=DL3013
 RUN \
     pip3 install --no-cache-dir /tmp/chip-0.0-cp37-abi3-linux_x86_64.whl \
     && rm /tmp/chip-0.0-cp37-abi3-linux_x86_64.whl
