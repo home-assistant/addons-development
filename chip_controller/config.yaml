@@ -1,4 +1,4 @@
-version: 0.1.0
+version: 0.1.1
 slug: chip_controller
 name: CHIP Controller
 description: Connected Home over IP (Matter) Controller
@@ -24,7 +24,6 @@ schema:
 stage: experimental
 startup: services
 ingress: true
-ingress_port: 8080
 panel_title: Matter
-panel_icon: material-symbols:matter
+panel_icon: mdi:atom
 panel_admin: true
