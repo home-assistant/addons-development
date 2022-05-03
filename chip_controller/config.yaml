@@ -11,6 +11,7 @@ hassio_api: true
 # IPC is only used within the Add-on
 host_ipc: false
 host_network: true
+host_dbus: true
 privileged:
   - IPC_LOCK
   - NET_ADMIN
@@ -24,6 +25,6 @@ stage: experimental
 startup: services
 ingress: true
 ingress_port: 8080
-panel_title: OpenThread
-panel_icon: mdi:view-grid-plus-outline
+panel_title: Matter
+panel_icon: material-symbols:matter
 panel_admin: true
