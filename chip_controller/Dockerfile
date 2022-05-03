@@ -57,10 +57,9 @@ RUN \
     && make \
     && make DESTDIR=./install install
 
-FROM $BUILD_FROM
-ARG BUILD_ARCH
+FROM $BUILD_FROM AS chip-builder
 
-ARG CHIP_VERSION=5df932897db4658504309446322ad09cbf7aaf2c
+ARG CHIP_VERSION=d5c4acc6751955dc592c10c4082f0f4d549c1ca7
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -88,10 +87,6 @@ RUN \
        unzip \
        libgirepository1.0-dev \
        libcairo2-dev \
-       libuv1 \
-       openssl \
-       zlib1g \
-       libjson-c5 \
     && git clone --depth 1 -b master \
        https://github.com/project-chip/connectedhomeip \
     && cd connectedhomeip \
@@ -100,14 +95,44 @@ RUN \
     && git submodule update --init \
     && patch -p1 < /usr/src/0001-linux-Use-data-as-default-storage-location.patch \
     && source scripts/activate.sh \
-    && scripts/build_python.sh -m minimal -i separate
+    && scripts/build_python.sh -m minimal
 # && apt-get purge -y --auto-remove \
 #       git \
 #       python3-dev \
 #    && rm -rf /var/lib/apt/lists/* \
 #    && rm -rf /usr/src/*
 
+FROM $BUILD_FROM
+
+RUN \
+    set -x \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       libuv1 \
+       openssl \
+       zlib1g \
+       libjson-c5 \
+       python3-venv \
+       python3-pip \
+       python3-gi \
+       python3-gi-cairo \
+       python3-dbus \
+       unzip \
+       libcairo2 \
+       pkg-config \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /usr/src/*
+
 COPY --from=builder /usr/src/libwebsockets/build/install /
 COPY --from=builder /usr/src/ttyd/build/install /
+
+RUN ldconfig
+
+COPY --from=chip-builder \
+     /usr/src/connectedhomeip/out/python_lib/controller/python/chip-0.0-cp37-abi3-linux_x86_64.whl \
+     /tmp
+RUN \
+    pip3 install /tmp/chip-0.0-cp37-abi3-linux_x86_64.whl \
+    && rm /tmp/chip-0.0-cp37-abi3-linux_x86_64.whl
 
 COPY rootfs /
