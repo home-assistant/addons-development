@@ -1,13 +1,27 @@
-From d23ed84d21c08b50ee006f85929e43ee43e748c6 Mon Sep 17 00:00:00 2001
-Message-Id: <d23ed84d21c08b50ee006f85929e43ee43e748c6.1651513392.git.stefan@agner.ch>
+From 11e220e9908086adc5e2f286ba910c3f439ead26 Mon Sep 17 00:00:00 2001
+Message-Id: <11e220e9908086adc5e2f286ba910c3f439ead26.1651522058.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Mon, 2 May 2022 19:42:48 +0200
 Subject: [PATCH] [linux] Use /data as default storage location
 
 ---
- src/platform/Linux/CHIPLinuxStorage.h | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ src/controller/python/chip-device-ctrl.py | 2 +-
+ src/platform/Linux/CHIPLinuxStorage.h     | 8 ++++----
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
+diff --git a/src/controller/python/chip-device-ctrl.py b/src/controller/python/chip-device-ctrl.py
+index 7d8a5f245d..6bd9281780 100755
+--- a/src/controller/python/chip-device-ctrl.py
++++ b/src/controller/python/chip-device-ctrl.py
+@@ -180,7 +180,7 @@ class DeviceMgrCmd(Cmd):
+         self.bleMgr = None
+ 
+         self.chipStack = ChipStack.ChipStack(
+-            bluetoothAdapter=bluetoothAdapter, persistentStoragePath='/tmp/chip-device-ctrl-storage.json')
++            bluetoothAdapter=bluetoothAdapter, persistentStoragePath='/data/chip-device-ctrl-storage.json')
+         self.fabricAdmin = FabricAdmin.FabricAdmin()
+         self.devCtrl = self.fabricAdmin.NewController(
+             nodeId=controllerNodeId, useTestCommissioner=True)
 diff --git a/src/platform/Linux/CHIPLinuxStorage.h b/src/platform/Linux/CHIPLinuxStorage.h
 index 6c51f4372e..2509d4cd51 100644
 --- a/src/platform/Linux/CHIPLinuxStorage.h
