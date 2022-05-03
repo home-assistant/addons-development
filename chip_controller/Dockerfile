@@ -59,7 +59,7 @@ RUN \
 
 FROM $BUILD_FROM AS chip-builder
 
-ARG CHIP_VERSION=d5c4acc6751955dc592c10c4082f0f4d549c1ca7
+ARG CHIP_VERSION=0b748ff55d1ae02a4ce23a1fabbe7e0ba73ca011
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -119,7 +119,6 @@ RUN \
        python3-dbus \
        unzip \
        libcairo2 \
-       pkg-config \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/src/*
 
@@ -128,11 +127,14 @@ COPY --from=builder /usr/src/ttyd/build/install /
 
 RUN ldconfig
 
+WORKDIR /root
+
+COPY --from=chip-builder /usr/src/connectedhomeip/credentials /root/credentials
 COPY --from=chip-builder \
      /usr/src/connectedhomeip/out/python_lib/controller/python/chip-0.0-cp37-abi3-linux_x86_64.whl \
      /tmp
 RUN \
-    pip3 install /tmp/chip-0.0-cp37-abi3-linux_x86_64.whl \
+    pip3 install --no-cache-dir /tmp/chip-0.0-cp37-abi3-linux_x86_64.whl \
     && rm /tmp/chip-0.0-cp37-abi3-linux_x86_64.whl
 
 COPY rootfs /
