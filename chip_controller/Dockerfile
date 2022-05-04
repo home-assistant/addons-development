@@ -67,6 +67,7 @@ RUN \
 
 FROM builder-base AS builder-chip
 
+ARG BUILD_ARCH=amd64
 ARG CHIP_VERSION=0b748ff55d1ae02a4ce23a1fabbe7e0ba73ca011
 
 # Set shell
@@ -74,6 +75,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY 0001-linux-Use-data-as-default-storage-location.patch /usr/src
 COPY 0002-Use-IPython-kernel-as-CHIP-REPL.patch /usr/src
+COPY 0003-Define-required_submodules-in-environment_no_cipd.js.patch /usr/src
 
 WORKDIR /usr/src
 
@@ -83,6 +85,8 @@ RUN \
     set -x \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
+       protobuf-compiler \
+       gn \
        libssl-dev \
        libdbus-1-dev \
        libglib2.0-dev \
@@ -102,7 +106,8 @@ RUN \
     && git submodule update --init \
     && patch -p1 < /usr/src/0001-linux-Use-data-as-default-storage-location.patch \
     && patch -p1 < /usr/src/0002-Use-IPython-kernel-as-CHIP-REPL.patch \
-    && source scripts/activate.sh \
+    && patch -p1 < /usr/src/0003-Define-required_submodules-in-environment_no_cipd.js.patch \
+    && source scripts/no_cipd_bootstrap.sh \
     && scripts/build_python.sh -m minimal
 
 FROM $BUILD_FROM

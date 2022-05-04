@@ -1,10 +1,10 @@
 From 0045aa385614f33480e12b399fc70b911b085ce2 Mon Sep 17 00:00:00 2001
-Message-Id: <0045aa385614f33480e12b399fc70b911b085ce2.1651675423.git.stefan@agner.ch>
-In-Reply-To: <0f7bb79464a8078930862622dcd85ec55c60278f.1651675423.git.stefan@agner.ch>
-References: <0f7bb79464a8078930862622dcd85ec55c60278f.1651675423.git.stefan@agner.ch>
+Message-Id: <0045aa385614f33480e12b399fc70b911b085ce2.1651675627.git.stefan@agner.ch>
+In-Reply-To: <0f7bb79464a8078930862622dcd85ec55c60278f.1651675627.git.stefan@agner.ch>
+References: <0f7bb79464a8078930862622dcd85ec55c60278f.1651675627.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Wed, 4 May 2022 16:09:26 +0200
-Subject: [PATCH 2/2] Use IPython kernel as CHIP REPL
+Subject: [PATCH] Use IPython kernel as CHIP REPL
 
 ---
  src/controller/python/chip-repl.py | 5 ++++-

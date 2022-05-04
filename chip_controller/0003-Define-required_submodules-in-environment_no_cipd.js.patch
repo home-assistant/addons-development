@@ -1,0 +1,33 @@
+From 23e1f586e02bf545295f50838ae3a9543d27aae8 Mon Sep 17 00:00:00 2001
+Message-Id: <23e1f586e02bf545295f50838ae3a9543d27aae8.1651675627.git.stefan@agner.ch>
+In-Reply-To: <0f7bb79464a8078930862622dcd85ec55c60278f.1651675627.git.stefan@agner.ch>
+References: <0f7bb79464a8078930862622dcd85ec55c60278f.1651675627.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Wed, 4 May 2022 10:17:28 +0200
+Subject: [PATCH] Define required_submodules in environment_no_cipd.json
+
+Currently no required_submodules are defined, which makes
+scripts/no_cipd_bootstrap.sh complain with:
+
+Not all submodules are initialized. Please run the following commands.
+
+    git submodule update --init third_party/mbed-mcu-boot/repo/boot/espressif/hal/esp-idf
+...
+---
+ scripts/environment_no_cipd.json | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/scripts/environment_no_cipd.json b/scripts/environment_no_cipd.json
+index 3efe20c8ff..cc9fde6220 100644
+--- a/scripts/environment_no_cipd.json
++++ b/scripts/environment_no_cipd.json
+@@ -3,5 +3,6 @@
+         "gn_root": ".",
+         "gn_targets": [":python_packages.install"]
+     },
++    "required_submodules": ["third_party/pigweed/repo"],
+     "gni_file": "build_overrides/pigweed_environment.gni"
+ }
+-- 
+2.36.0
+
