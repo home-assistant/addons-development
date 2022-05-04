@@ -76,6 +76,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 COPY 0001-linux-Use-data-as-default-storage-location.patch /usr/src
 COPY 0002-Use-IPython-kernel-as-CHIP-REPL.patch /usr/src
 COPY 0003-Define-required_submodules-in-environment_no_cipd.js.patch /usr/src
+COPY 0001-Avoid-python_runner.py-deadlock.patch /usr/src
 
 WORKDIR /usr/src
 
@@ -108,6 +109,10 @@ RUN \
     && patch -p1 < /usr/src/0001-linux-Use-data-as-default-storage-location.patch \
     && patch -p1 < /usr/src/0002-Use-IPython-kernel-as-CHIP-REPL.patch \
     && patch -p1 < /usr/src/0003-Define-required_submodules-in-environment_no_cipd.js.patch \
+    && ( \
+           cd third_party/pigweed/repo/pw_env_setup/ \
+           && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
+       ) \
     && source scripts/no_cipd_bootstrap.sh \
     && scripts/build_python.sh -m minimal
 
