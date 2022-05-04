@@ -4,6 +4,7 @@ name: CHIP Controller
 description: Connected Home over IP (Matter) Controller
 url: https://github.com/home-assistant/addons-development/tree/master/chip_controller
 arch:
+  - armv7
   - aarch64
   - amd64
 hassio_api: true
