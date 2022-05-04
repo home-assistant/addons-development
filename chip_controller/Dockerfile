@@ -1,5 +1,17 @@
 ARG BUILD_FROM
-FROM $BUILD_FROM AS builder
+FROM $BUILD_FROM AS builder-base
+
+RUN \
+    set -x \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       git \
+       patch \
+       gcc g++ \
+       make \
+       pkg-config
+
+FROM builder-base AS builder-ttyd
 
 ARG LIBWEBSOCKETS_VERSION
 ARG TTYD_VERSION
@@ -12,10 +24,6 @@ RUN \
     set -x \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-       git \
-       patch \
-       gcc g++ \
-       make \
        cmake \
        libuv1-dev \
        libc-dev \
@@ -57,7 +65,7 @@ RUN \
     && make \
     && make DESTDIR=./install install
 
-FROM $BUILD_FROM AS chip-builder
+FROM builder-base AS builder-chip
 
 ARG CHIP_VERSION=0b748ff55d1ae02a4ce23a1fabbe7e0ba73ca011
 
@@ -74,9 +82,6 @@ RUN \
     set -x \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-       git \
-       gcc g++ \
-       pkg-config \
        libssl-dev \
        libdbus-1-dev \
        libglib2.0-dev \
@@ -118,15 +123,15 @@ RUN \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/src/*
 
-COPY --from=builder /usr/src/libwebsockets/build/install /
-COPY --from=builder /usr/src/ttyd/build/install /
+COPY --from=builder-ttyd /usr/src/libwebsockets/build/install /
+COPY --from=builder-ttyd /usr/src/ttyd/build/install /
 
 RUN ldconfig
 
 WORKDIR /root
 
-COPY --from=chip-builder /usr/src/connectedhomeip/credentials /root/credentials
-COPY --from=chip-builder \
+COPY --from=builder-chip /usr/src/connectedhomeip/credentials /root/credentials
+COPY --from=builder-chip \
      /usr/src/connectedhomeip/out/python_lib/controller/python/chip-0.0-cp37-abi3-linux_x86_64.whl \
      /tmp
 
