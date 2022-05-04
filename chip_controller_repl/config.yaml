@@ -4,7 +4,6 @@ name: CHIP Controller REPL
 description: Connected Home over IP (Matter) Python Controller REPL
 url: https://github.com/home-assistant/addons-development/tree/master/chip_controller_repl
 arch:
-  - armv7
   - aarch64
   - amd64
 hassio_api: true
