@@ -1,6 +1,7 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM AS builder-base
 
+# hadolint ignore=DL3009
 RUN \
     set -x \
     && apt-get update \
@@ -22,7 +23,6 @@ WORKDIR /usr/src
 
 RUN \
     set -x \
-    && apt-get update \
     && apt-get install -y --no-install-recommends \
        cmake \
        libuv1-dev \
