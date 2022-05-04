@@ -1,0 +1,5 @@
+#!/usr/bin/execlineb -S1
+# ==============================================================================
+# Take down the S6 supervision tree when chip-repl exits
+# ==============================================================================
+s6-svscanctl -t /var/run/s6/services

@@ -1,8 +1,8 @@
 From 0f7bb79464a8078930862622dcd85ec55c60278f Mon Sep 17 00:00:00 2001
-Message-Id: <0f7bb79464a8078930862622dcd85ec55c60278f.1651580165.git.stefan@agner.ch>
+Message-Id: <0f7bb79464a8078930862622dcd85ec55c60278f.1651675423.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Mon, 2 May 2022 19:42:48 +0200
-Subject: [PATCH] [linux] Use /data as default storage location
+Subject: [PATCH 1/2] [linux] Use /data as default storage location
 
 ---
  src/controller/python/chip-device-ctrl.py     | 2 +-

@@ -73,6 +73,7 @@ ARG CHIP_VERSION=0b748ff55d1ae02a4ce23a1fabbe7e0ba73ca011
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY 0001-linux-Use-data-as-default-storage-location.patch /usr/src
+COPY 0002-Use-IPython-kernel-as-CHIP-REPL.patch /usr/src
 
 WORKDIR /usr/src
 
@@ -100,6 +101,7 @@ RUN \
     && git checkout ${CHIP_VERSION} \
     && git submodule update --init \
     && patch -p1 < /usr/src/0001-linux-Use-data-as-default-storage-location.patch \
+    && patch -p1 < /usr/src/0002-Use-IPython-kernel-as-CHIP-REPL.patch \
     && source scripts/activate.sh \
     && scripts/build_python.sh -m minimal
 
@@ -138,6 +140,7 @@ COPY --from=builder-chip \
 # hadolint ignore=DL3013
 RUN \
     pip3 install --no-cache-dir /tmp/chip-0.0-cp37-abi3-linux_x86_64.whl \
+    && pip3 install --no-cache-dir jupyter-console \
     && rm /tmp/chip-0.0-cp37-abi3-linux_x86_64.whl
 
 COPY rootfs /
