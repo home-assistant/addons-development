@@ -145,13 +145,13 @@ WORKDIR /root
 
 COPY --from=builder-chip /usr/src/connectedhomeip/credentials /root/credentials
 COPY --from=builder-chip \
-     /usr/src/connectedhomeip/out/python_lib/controller/python/chip-0.0-cp37-abi3-linux_x86_64.whl \
+     /usr/src/connectedhomeip/out/python_lib/controller/python/chip-0.0-cp37-abi3-linux_*.whl \
      /tmp
 
 # hadolint ignore=DL3013
 RUN \
-    pip3 install --no-cache-dir /tmp/chip-0.0-cp37-abi3-linux_x86_64.whl \
+    pip3 install --no-cache-dir /tmp/chip-0.0-cp37-abi3-linux_*.whl \
     && pip3 install --no-cache-dir jupyter-console \
-    && rm /tmp/chip-0.0-cp37-abi3-linux_x86_64.whl
+    && rm /tmp/chip-0.0-cp37-abi3-linux_*.whl
 
 COPY rootfs /
