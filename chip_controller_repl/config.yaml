@@ -1,8 +1,8 @@
 version: 0.1.1
-slug: chip_controller
-name: CHIP Controller
-description: Connected Home over IP (Matter) Controller
-url: https://github.com/home-assistant/addons-development/tree/master/chip_controller
+slug: chip_controller_repl
+name: CHIP Controller REPL
+description: Connected Home over IP (Matter) Python Controller REPL
+url: https://github.com/home-assistant/addons-development/tree/master/chip_controller_repl
 arch:
   - armv7
   - aarch64
