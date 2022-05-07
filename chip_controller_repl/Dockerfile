@@ -97,6 +97,8 @@ RUN \
        python3-venv \
        python3-dev \
        python3-pip \
+       python3-dbus \
+       python3-cryptography \
        unzip \
        libgirepository1.0-dev \
        libcairo2-dev \
