@@ -11,9 +11,6 @@ hassio_api: true
 host_ipc: false
 host_network: true
 host_dbus: true
-privileged:
-  - IPC_LOCK
-  - NET_ADMIN
 image: agners/{arch}-addon-chip-controller
 init: false
 options:
