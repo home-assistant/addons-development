@@ -1,9 +1,0 @@
-#!/usr/bin/with-contenv bashio
-# ==============================================================================
-# Start chip-repl service
-# ==============================================================================
-bashio::log.info "Starting CHIP REPL Kernel..."
-cd /root || bashio::exit.nok "Can't find root folder!"
-
-exec gdb -ex 'set confirm off' -ex run -ex bt -ex quit --args \
-    /usr/bin/python3 /usr/local/bin/chip-repl
