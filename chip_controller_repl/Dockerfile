@@ -136,6 +136,7 @@ RUN \
        python3-psutil \
        unzip \
        libcairo2 \
+       gdb \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/src/*
 

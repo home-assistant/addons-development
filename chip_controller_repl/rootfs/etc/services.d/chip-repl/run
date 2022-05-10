@@ -5,4 +5,5 @@
 bashio::log.info "Starting CHIP REPL Kernel..."
 cd /root || bashio::exit.nok "Can't find root folder!"
 
-exec chip-repl
+exec gdb -ex 'set confirm off' -ex run -ex bt -ex quit --args \
+    /usr/bin/python3 /usr/local/bin/chip-repl
