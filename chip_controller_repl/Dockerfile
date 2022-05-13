@@ -108,7 +108,6 @@ RUN \
     && git checkout ${CHIP_VERSION} \
     && git submodule update --init \
     && patch -p1 < /usr/src/0001-linux-Use-data-as-default-storage-location.patch \
-    && patch -p1 < /usr/src/0003-Define-required_submodules-in-environment_no_cipd.js.patch \
     && ( \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
