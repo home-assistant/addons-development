@@ -68,14 +68,13 @@ RUN \
 FROM builder-base AS builder-chip
 
 ARG BUILD_ARCH=amd64
-ARG CHIP_VERSION=0b748ff55d1ae02a4ce23a1fabbe7e0ba73ca011
+ARG CHIP_VERSION=44af81e6e29f2a2505a6cd7f1d0142e9975ffb97
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY 0001-linux-Use-data-as-default-storage-location.patch /usr/src
 COPY 0002-Use-IPython-kernel-as-CHIP-REPL.patch /usr/src
-COPY 0003-Define-required_submodules-in-environment_no_cipd.js.patch /usr/src
 COPY 0001-Avoid-python_runner.py-deadlock.patch /usr/src
 
 WORKDIR /usr/src
@@ -109,7 +108,6 @@ RUN \
     && git checkout ${CHIP_VERSION} \
     && git submodule update --init \
     && patch -p1 < /usr/src/0001-linux-Use-data-as-default-storage-location.patch \
-    && patch -p1 < /usr/src/0003-Define-required_submodules-in-environment_no_cipd.js.patch \
     && ( \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
