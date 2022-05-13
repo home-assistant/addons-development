@@ -1,0 +1,97 @@
+From 0f7bb79464a8078930862622dcd85ec55c60278f Mon Sep 17 00:00:00 2001
+Message-Id: <0f7bb79464a8078930862622dcd85ec55c60278f.1651675627.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Mon, 2 May 2022 19:42:48 +0200
+Subject: [PATCH] [linux] Use /data as default storage location
+
+---
+ src/controller/python/chip-device-ctrl.py     | 2 +-
+ src/controller/python/chip-repl.py            | 4 ++--
+ src/controller/python/chip/ChipReplStartup.py | 2 +-
+ src/platform/Linux/CHIPLinuxStorage.h         | 8 ++++----
+ src/platform/Linux/CHIPPlatformConfig.h       | 2 +-
+ 5 files changed, 9 insertions(+), 9 deletions(-)
+
+diff --git a/src/controller/python/chip-device-ctrl.py b/src/controller/python/chip-device-ctrl.py
+index 7d8a5f245d..6bd9281780 100755
+--- a/src/controller/python/chip-device-ctrl.py
++++ b/src/controller/python/chip-device-ctrl.py
+@@ -180,7 +180,7 @@ class DeviceMgrCmd(Cmd):
+         self.bleMgr = None
+ 
+         self.chipStack = ChipStack.ChipStack(
+-            bluetoothAdapter=bluetoothAdapter, persistentStoragePath='/tmp/chip-device-ctrl-storage.json')
++            bluetoothAdapter=bluetoothAdapter, persistentStoragePath='/data/chip-device-ctrl-storage.json')
+         self.fabricAdmin = FabricAdmin.FabricAdmin()
+         self.devCtrl = self.fabricAdmin.NewController(
+             nodeId=controllerNodeId, useTestCommissioner=True)
+diff --git a/src/controller/python/chip-repl.py b/src/controller/python/chip-repl.py
+index c37ef7ee29..1b76382163 100755
+--- a/src/controller/python/chip-repl.py
++++ b/src/controller/python/chip-repl.py
+@@ -33,8 +33,8 @@ import sys
+ 
+ def main():
+     parser = argparse.ArgumentParser()
+-    parser.add_argument("-p", "--storagepath", help="Path to persistent storage configuration file (default: /tmp/repl-storage.json)",
+-                        action="store", default="/tmp/repl-storage.json")
++    parser.add_argument("-p", "--storagepath", help="Path to persistent storage configuration file (default: /data/repl-storage.json)",
++                        action="store", default="/data/repl-storage.json")
+ 
+     args = parser.parse_args()
+ 
+diff --git a/src/controller/python/chip/ChipReplStartup.py b/src/controller/python/chip/ChipReplStartup.py
+index 7fcb9ad294..dd41b84ed2 100644
+--- a/src/controller/python/chip/ChipReplStartup.py
++++ b/src/controller/python/chip/ChipReplStartup.py
+@@ -121,7 +121,7 @@ console = Console()
+ 
+ parser = argparse.ArgumentParser()
+ parser.add_argument(
+-    "-p", "--storagepath", help="Path to persistent storage configuration file (default: /tmp/repl-storage.json)", action="store", default="/tmp/repl-storage.json")
++    "-p", "--storagepath", help="Path to persistent storage configuration file (default: /data/repl-storage.json)", action="store", default="/data/repl-storage.json")
+ args = parser.parse_args()
+ ReplInit()
+ chipStack = ChipStack(persistentStoragePath=args.storagepath)
+diff --git a/src/platform/Linux/CHIPLinuxStorage.h b/src/platform/Linux/CHIPLinuxStorage.h
+index 6c51f4372e..2509d4cd51 100644
+--- a/src/platform/Linux/CHIPLinuxStorage.h
++++ b/src/platform/Linux/CHIPLinuxStorage.h
+@@ -37,19 +37,19 @@
+ #include <platform/Linux/CHIPLinuxStorageIni.h>
+ 
+ #ifndef FATCONFDIR
+-#define FATCONFDIR "/tmp"
++#define FATCONFDIR "/data"
+ #endif
+ 
+ #ifndef SYSCONFDIR
+-#define SYSCONFDIR "/tmp"
++#define SYSCONFDIR "/data"
+ #endif
+ 
+ #ifndef LOCALSTATEDIR
+-#define LOCALSTATEDIR "/tmp"
++#define LOCALSTATEDIR "/data"
+ #endif
+ 
+ #ifndef DEVICEINFODIR
+-#define DEVICEINFODIR "/tmp"
++#define DEVICEINFODIR "/data"
+ #endif
+ 
+ #define CHIP_DEFAULT_FACTORY_PATH                                                                                                  \
+diff --git a/src/platform/Linux/CHIPPlatformConfig.h b/src/platform/Linux/CHIPPlatformConfig.h
+index 4dcdd7d541..8c0260dca1 100644
+--- a/src/platform/Linux/CHIPPlatformConfig.h
++++ b/src/platform/Linux/CHIPPlatformConfig.h
+@@ -62,5 +62,5 @@ using CHIP_CONFIG_PERSISTED_STORAGE_KEY_TYPE = const char *;
+ // ==================== Security Configuration Overrides ====================
+ 
+ #ifndef CHIP_CONFIG_KVS_PATH
+-#define CHIP_CONFIG_KVS_PATH "/tmp/chip_kvs"
++#define CHIP_CONFIG_KVS_PATH "/data/chip_kvs"
+ #endif // CHIP_CONFIG_KVS_PATH
+-- 
+2.36.0
+

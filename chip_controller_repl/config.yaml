@@ -1,0 +1,25 @@
+version: 0.1.1
+slug: chip_controller_repl
+name: CHIP Controller REPL
+description: Connected Home over IP (Matter) Python Controller REPL
+url: https://github.com/home-assistant/addons-development/tree/master/chip_controller_repl
+arch:
+  - aarch64
+  - amd64
+hassio_api: true
+# IPC is only used within the Add-on
+host_ipc: false
+host_network: true
+host_dbus: true
+image: agners/{arch}-addon-chip-controller
+init: false
+options:
+  chip_debug: false
+schema:
+  chip_debug: bool
+stage: experimental
+startup: services
+ingress: true
+panel_title: Matter
+panel_icon: mdi:atom
+panel_admin: true
