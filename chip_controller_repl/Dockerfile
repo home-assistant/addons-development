@@ -73,8 +73,10 @@ ARG CHIP_VERSION=44af81e6e29f2a2505a6cd7f1d0142e9975ffb97
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-COPY 0001-linux-Use-data-as-default-storage-location.patch /usr/src
-COPY 0002-Use-IPython-kernel-as-CHIP-REPL.patch /usr/src
+COPY 0001-Python-REPL-Shutdown-CHIP-stack-properly.patch /usr/src
+COPY 0002-Make-sure-Storage-is-deallocated-before-ChipStack-is.patch /usr/src
+COPY 0003-Remove-Argument-handling-from-chip-repl.py.patch /usr/src
+COPY 0004-Add-debug-argument-to-ChipReplStartup.py.patch /usr/src
 COPY 0001-Avoid-python_runner.py-deadlock.patch /usr/src
 
 WORKDIR /usr/src
@@ -102,12 +104,17 @@ RUN \
        libgirepository1.0-dev \
        libcairo2-dev \
     && git clone --depth 1 -b master \
-       https://github.com/project-chip/connectedhomeip \
-    && cd connectedhomeip \
+       https://github.com/project-chip/connectedhomeip
+
+RUN \
+    cd connectedhomeip \
     && git fetch origin ${CHIP_VERSION} \
     && git checkout ${CHIP_VERSION} \
     && git submodule update --init \
-    && patch -p1 < /usr/src/0001-linux-Use-data-as-default-storage-location.patch \
+    && patch -p1 < /usr/src/0001-Python-REPL-Shutdown-CHIP-stack-properly.patch \
+    && patch -p1 < /usr/src/0002-Make-sure-Storage-is-deallocated-before-ChipStack-is.patch \
+    && patch -p1 < /usr/src/0003-Remove-Argument-handling-from-chip-repl.py.patch \
+    && patch -p1 < /usr/src/0004-Add-debug-argument-to-ChipReplStartup.py.patch \
     && ( \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \

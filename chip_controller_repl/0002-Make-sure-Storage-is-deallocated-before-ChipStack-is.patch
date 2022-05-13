@@ -1,0 +1,29 @@
+From d6edf92a018fd0c72855fab775e0fb418be60110 Mon Sep 17 00:00:00 2001
+Message-Id: <d6edf92a018fd0c72855fab775e0fb418be60110.1652462795.git.stefan@agner.ch>
+In-Reply-To: <73d547fc5d3c1793df8955dc8db95351b59a8d26.1652462795.git.stefan@agner.ch>
+References: <73d547fc5d3c1793df8955dc8db95351b59a8d26.1652462795.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Fri, 13 May 2022 18:58:41 +0200
+Subject: [PATCH] Make sure Storage is deallocated before ChipStack is Shutdown
+
+Otherwise, we later fail to access the builtins.chipStack:
+AttributeError: module 'builtins' has no attribute 'chipStack'
+---
+ src/controller/python/chip/ChipStack.py | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/controller/python/chip/ChipStack.py b/src/controller/python/chip/ChipStack.py
+index 47c5ef43ce..c138e9ae5d 100644
+--- a/src/controller/python/chip/ChipStack.py
++++ b/src/controller/python/chip/ChipStack.py
+@@ -318,6 +318,7 @@ class ChipStack(object):
+             self._ChipStackLib.pychip_Stack_SetLogFunct(logFunct)
+ 
+     def Shutdown(self):
++        self._persistentStorage = None
+         self.Call(lambda: self._ChipStackLib.pychip_Stack_Shutdown())
+         self.networkLock = None
+         self.completeEvent = None
+-- 
+2.36.1
+
