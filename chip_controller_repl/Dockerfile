@@ -75,7 +75,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY 0001-linux-Use-data-as-default-storage-location.patch /usr/src
 COPY 0002-Use-IPython-kernel-as-CHIP-REPL.patch /usr/src
-COPY 0003-Define-required_submodules-in-environment_no_cipd.js.patch /usr/src
 COPY 0001-Avoid-python_runner.py-deadlock.patch /usr/src
 
 WORKDIR /usr/src
