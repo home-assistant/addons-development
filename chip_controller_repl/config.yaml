@@ -1,4 +1,4 @@
-version: 0.1.2
+version: 0.2.0
 slug: chip_controller_repl
 name: CHIP Controller REPL
 description: Connected Home over IP (Matter) Python Controller REPL
@@ -20,6 +20,7 @@ schema:
 stage: experimental
 startup: services
 ingress: true
+ingress_port: 0
 panel_title: Matter
 panel_icon: mdi:atom
 panel_admin: true

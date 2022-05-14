@@ -1,0 +1,52 @@
+From ae0eb5833adc2a18fec3ab0cc35177fc1c8cf258 Mon Sep 17 00:00:00 2001
+Message-Id: <ae0eb5833adc2a18fec3ab0cc35177fc1c8cf258.1652462795.git.stefan@agner.ch>
+In-Reply-To: <73d547fc5d3c1793df8955dc8db95351b59a8d26.1652462795.git.stefan@agner.ch>
+References: <73d547fc5d3c1793df8955dc8db95351b59a8d26.1652462795.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Fri, 13 May 2022 18:34:07 +0200
+Subject: [PATCH] Remove Argument handling from chip-repl.py
+
+---
+ src/controller/python/chip-repl.py | 16 +---------------
+ 1 file changed, 1 insertion(+), 15 deletions(-)
+
+diff --git a/src/controller/python/chip-repl.py b/src/controller/python/chip-repl.py
+index c37ef7ee29..854555d8fc 100755
+--- a/src/controller/python/chip-repl.py
++++ b/src/controller/python/chip-repl.py
+@@ -18,31 +18,17 @@
+ #
+ 
+ import IPython
+-import chip
+-import chip.logging
+-import coloredlogs
+-import logging
+ from traitlets.config import Config
+-from rich import print
+-from rich import pretty
+-from rich import inspect
+ import builtins
+-import argparse
+ import sys
+ 
+ 
+ def main():
+-    parser = argparse.ArgumentParser()
+-    parser.add_argument("-p", "--storagepath", help="Path to persistent storage configuration file (default: /tmp/repl-storage.json)",
+-                        action="store", default="/tmp/repl-storage.json")
+-
+-    args = parser.parse_args()
+-
+     c = Config()
+     c.InteractiveShellApp.exec_lines = [
+         "import pkgutil",
+         "module = pkgutil.get_loader('chip.ChipReplStartup')",
+-        "%run {module.path} --storagepath " + f"{args.storagepath}"
++        "%run {module.path} " + " ".join(sys.argv[1:])
+     ]
+ 
+     sys.argv = [sys.argv[0]]
+-- 
+2.36.1
+
