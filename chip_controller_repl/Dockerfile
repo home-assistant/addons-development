@@ -104,10 +104,8 @@ RUN \
        libgirepository1.0-dev \
        libcairo2-dev \
     && git clone --depth 1 -b master \
-       https://github.com/project-chip/connectedhomeip
-
-RUN \
-    cd connectedhomeip \
+       https://github.com/project-chip/connectedhomeip \
+    && cd connectedhomeip \
     && git fetch origin ${CHIP_VERSION} \
     && git checkout ${CHIP_VERSION} \
     && git submodule update --init \
