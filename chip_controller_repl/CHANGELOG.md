@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+- Bump to CHIP version f59e7e68b5 (2022-05-17 00:42:35 -0400)
+- Remove upstreamed patches
+
 ## 0.2.0
 - Fix crashes on shutdown
 - Enable debug logging if requested

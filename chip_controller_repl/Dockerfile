@@ -68,15 +68,13 @@ RUN \
 FROM builder-base AS builder-chip
 
 ARG BUILD_ARCH=amd64
-ARG CHIP_VERSION=44af81e6e29f2a2505a6cd7f1d0142e9975ffb97
+ARG CHIP_VERSION=f59e7e68b5df7b80dccd17ea4cb9d940857c0dc4
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY 0001-Python-REPL-Shutdown-CHIP-stack-properly.patch /usr/src
 COPY 0002-Make-sure-Storage-is-deallocated-before-ChipStack-is.patch /usr/src
-COPY 0003-Remove-Argument-handling-from-chip-repl.py.patch /usr/src
-COPY 0004-Add-debug-argument-to-ChipReplStartup.py.patch /usr/src
 COPY 0001-Avoid-python_runner.py-deadlock.patch /usr/src
 
 WORKDIR /usr/src
@@ -111,8 +109,6 @@ RUN \
     && git submodule update --init \
     && patch -p1 < /usr/src/0001-Python-REPL-Shutdown-CHIP-stack-properly.patch \
     && patch -p1 < /usr/src/0002-Make-sure-Storage-is-deallocated-before-ChipStack-is.patch \
-    && patch -p1 < /usr/src/0003-Remove-Argument-handling-from-chip-repl.py.patch \
-    && patch -p1 < /usr/src/0004-Add-debug-argument-to-ChipReplStartup.py.patch \
     && ( \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
