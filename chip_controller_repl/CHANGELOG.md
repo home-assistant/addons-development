@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.2
+- Bump to CHIP version 700d92eeb6 (2022-05-27 13:04:24 +0200)
+- Use /data as CHIP storage path for platform storage as well
+- Drop AVAHI dependency
+- Actually support dynamic ingress port
+
 ## 0.2.1
 - Bump to CHIP version f59e7e68b5 (2022-05-17 00:42:35 -0400)
 - Remove upstreamed patches
