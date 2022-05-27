@@ -6,10 +6,12 @@ bashio::log.info "Starting Web Terminal..."
 cd /root || bashio::exit.nok "Can't find root folder!"
 
 declare chip_repl_options
+declare chip_repl_port
 chip_repl_options="-p /data/repl-storage.json"
+chip_repl_port="$(bashio::addon.ingress_port)"
 
 if bashio::config.true 'chip_debug'; then
     chip_repl_options="${chip_repl_options} -d"
 fi
 
-exec ttyd -p 8099 -w /root chip-repl ${chip_repl_options}
+exec ttyd -p "${chip_repl_port}" -w /root chip-repl ${chip_repl_options}

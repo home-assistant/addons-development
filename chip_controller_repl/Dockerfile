@@ -68,13 +68,13 @@ RUN \
 FROM builder-base AS builder-chip
 
 ARG BUILD_ARCH=amd64
-ARG CHIP_VERSION=f59e7e68b5df7b80dccd17ea4cb9d940857c0dc4
+ARG CHIP_VERSION=700d92eeb695be291bbd2088abbff2ce044dd6ee
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-COPY 0001-Python-REPL-Shutdown-CHIP-stack-properly.patch /usr/src
-COPY 0002-Make-sure-Storage-is-deallocated-before-ChipStack-is.patch /usr/src
+COPY 0001-Use-data-as-platform-storage-location.patch /usr/src
+COPY 0002-Only-add-avahi-as-build-dependency-when-platform-mDN.patch /usr/src
 COPY 0001-Avoid-python_runner.py-deadlock.patch /usr/src
 
 WORKDIR /usr/src
@@ -91,7 +91,6 @@ RUN \
        libssl-dev \
        libdbus-1-dev \
        libglib2.0-dev \
-       libavahi-client-dev \
        ninja-build \
        python3-venv \
        python3-dev \
@@ -107,8 +106,8 @@ RUN \
     && git fetch origin ${CHIP_VERSION} \
     && git checkout ${CHIP_VERSION} \
     && git submodule update --init \
-    && patch -p1 < /usr/src/0001-Python-REPL-Shutdown-CHIP-stack-properly.patch \
-    && patch -p1 < /usr/src/0002-Make-sure-Storage-is-deallocated-before-ChipStack-is.patch \
+    && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
+    && patch -p1 < /usr/src/0002-Only-add-avahi-as-build-dependency-when-platform-mDN.patch \
     && ( \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
