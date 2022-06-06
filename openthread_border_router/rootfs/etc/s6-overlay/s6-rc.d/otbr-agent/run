@@ -3,7 +3,7 @@
 # OpenThread BorderRouter start script
 # ==============================================================================
 
-. common
+. /etc/s6-overlay/scripts/otbr-agent-common
 
 declare otbr_agent_options
 declare backbone_if
