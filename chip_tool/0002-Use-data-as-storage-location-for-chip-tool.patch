@@ -1,0 +1,45 @@
+From 2ea09c12ba28717c30b8a8731a737b762d15bda1 Mon Sep 17 00:00:00 2001
+Message-Id: <2ea09c12ba28717c30b8a8731a737b762d15bda1.1654590036.git.stefan@agner.ch>
+In-Reply-To: <6ef6dd5927d34123bbd8fb8bede17a732fadb668.1654590036.git.stefan@agner.ch>
+References: <6ef6dd5927d34123bbd8fb8bede17a732fadb668.1654590036.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Tue, 7 Jun 2022 10:03:09 +0200
+Subject: [PATCH] Use /data as storage location for chip-tool
+
+---
+ .../chip-tool/commands/interactive/InteractiveCommands.cpp    | 2 +-
+ examples/chip-tool/config/PersistentStorage.cpp               | 4 ++--
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/examples/chip-tool/commands/interactive/InteractiveCommands.cpp b/examples/chip-tool/commands/interactive/InteractiveCommands.cpp
+index 1045930556..da5c333f62 100644
+--- a/examples/chip-tool/commands/interactive/InteractiveCommands.cpp
++++ b/examples/chip-tool/commands/interactive/InteractiveCommands.cpp
+@@ -24,7 +24,7 @@
+ char kInteractiveModeName[]                            = "";
+ constexpr const char * kInteractiveModePrompt          = ">>> ";
+ constexpr uint8_t kInteractiveModeArgumentsMaxLength   = 32;
+-constexpr const char * kInteractiveModeHistoryFilePath = "/tmp/chip_tool_history";
++constexpr const char * kInteractiveModeHistoryFilePath = "/data/chip_tool_history";
+ constexpr const char * kInteractiveModeStopCommand     = "quit()";
+ 
+ namespace {
+diff --git a/examples/chip-tool/config/PersistentStorage.cpp b/examples/chip-tool/config/PersistentStorage.cpp
+index f0c3a8312b..3480380bb4 100644
+--- a/examples/chip-tool/config/PersistentStorage.cpp
++++ b/examples/chip-tool/config/PersistentStorage.cpp
+@@ -43,9 +43,9 @@ std::string GetFilename(const char * name)
+ {
+     if (name == nullptr)
+     {
+-        return "/tmp/chip_tool_config.ini";
++        return "/data/chip_tool_config.ini";
+     }
+-    return "/tmp/chip_tool_config." + std::string(name) + ".ini";
++    return "/data/chip_tool_config." + std::string(name) + ".ini";
+ }
+ 
+ namespace {
+-- 
+2.36.1
+

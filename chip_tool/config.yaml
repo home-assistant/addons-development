@@ -1,0 +1,22 @@
+version: 0.1.0
+slug: chip_tool
+name: CHIP Tool
+description: Connected Home over IP (Matter) Tool example application.
+url: https://github.com/home-assistant/addons-development/tree/master/chip_tool
+arch:
+  - aarch64
+  - amd64
+hassio_api: true
+# IPC is only used within the Add-on
+host_ipc: false
+host_network: true
+host_dbus: true
+image: homeassistant/{arch}-addon-chip-tool
+init: false
+stage: experimental
+startup: services
+ingress: true
+ingress_port: 0
+panel_title: CHIP Tool
+panel_icon: mdi:console
+panel_admin: true
