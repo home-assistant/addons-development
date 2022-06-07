@@ -2,13 +2,17 @@
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Use the following steps to install this add-on.
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons, Backup & Supervisor** -> **Add-on Store**.
-2. Click on the top right menu and "Repository"
-3. Add "https://github.com/home-assistant/addons-development" to add the "Home Assistant Add-on Repository for Development" repository.
-4. Find the "CHIP Tool" add-on and click it.
-5. Click on the "INSTALL" button.
+1. Click the Home Assistant My button below to open the add-on page on your
+   Home Assistant instance.
+
+   [![Open this add-on in your Home Assistant instance.][addon-badge]][addon]
+
+1. If it's the first time you install an Add-on from this repository, Home
+   Assitant will ask you to add the 'addons-development' repository. Click
+   "Add" to add the repository.
+1. Click the "Install" button to install the add-on.
 
 ## How to use
 
@@ -31,6 +35,7 @@ You have several options to get them answered:
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 
+[addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=77f1785d_chip_tool&repository_url=https%3A%2F%2Fgithub.com%2Fhome-assistant%2Faddons-development
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
 [reddit]: https://reddit.com/r/homeassistant
