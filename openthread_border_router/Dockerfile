@@ -3,7 +3,7 @@ FROM $BUILD_FROM
 
 ARG BUILD_ARCH
 
-ARG OTBR_VERSION=f8399eb084e24409c49a5525d9591f9ae7b7ebaa
+ARG OTBR_VERSION=9fea68cfbeae472dc628d7c8735b442a5b657ff1
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
