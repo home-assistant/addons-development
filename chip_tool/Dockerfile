@@ -113,11 +113,7 @@ RUN \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
        ) \
-    && source scripts/no_cipd_bootstrap.sh
-
-RUN \
-    cd connectedhomeip \
-    && source scripts/bootstrap.sh \
+    && source scripts/no_cipd_bootstrap.sh \
     && scripts/build/build_examples.py --target linux-x64-chip-tool build \
     && scripts/build/build_examples.py --target linux-x64-all-clusters-no-ble-no-wifi build
 
