@@ -114,8 +114,17 @@ RUN \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
        ) \
     && source scripts/no_cipd_bootstrap.sh \
-    && scripts/build/build_examples.py --target linux-x64-chip-tool build \
-    && scripts/build/build_examples.py --target linux-x64-all-clusters-no-ble-no-wifi build
+    && if [ "${BUILD_ARCH}" = "amd64" ]; \
+       then \
+           EXAMPLE_PREFIX="linux-x64-"; \
+       elif [ "${BUILD_ARCH}" = "aarch64" ]; \
+       then \
+           EXAMPLE_PREFIX="linux-amd64-"; \
+       else \
+           exit 1; \
+       fi \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-tool build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}all-clusters-no-ble-no-wifi build
 
 FROM $BUILD_FROM
 
@@ -141,8 +150,8 @@ RUN ldconfig
 WORKDIR /root
 
 COPY --from=builder-chip /usr/src/connectedhomeip/credentials /root/credentials
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-x64-chip-tool/chip-tool /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-x64-all-clusters-no-ble-no-wifi/address-resolve-tool /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-x64-all-clusters-no-ble-no-wifi/chip-all-clusters-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-chip-tool/chip-tool /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-all-clusters-no-ble-no-wifi/address-resolve-tool /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-all-clusters-no-ble-no-wifi/chip-all-clusters-app /usr/local/bin
 
 COPY rootfs /
