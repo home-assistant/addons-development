@@ -119,7 +119,7 @@ RUN \
            EXAMPLE_PREFIX="linux-x64-"; \
        elif [ "${BUILD_ARCH}" = "aarch64" ]; \
        then \
-           EXAMPLE_PREFIX="linux-amd64-"; \
+           EXAMPLE_PREFIX="linux-arm64-"; \
        else \
            exit 1; \
        fi \
