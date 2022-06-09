@@ -1,8 +1,6 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Check that no other CPC instance is running on this system
+# Start OpenThread BorderRouter web interface
 # ==============================================================================
-if test -d /dev/shm/cpcd; then
-    bashio::log.error "Another CPC daemon running!"
-    exit 1
-fi
+bashio::log.info "Starting otbr-web..."
+exec /usr/sbin/otbr-web -I wpan0 -d6 -p 8080
