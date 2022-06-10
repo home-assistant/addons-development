@@ -9,6 +9,8 @@ ENV \
 
 WORKDIR /usr/src
 
+# Allow to reuse downloaded packages (these are only staged build images)
+# hadolint ignore=DL3009
 RUN \
     set -x \
     && apt-get update \
@@ -56,9 +58,9 @@ RUN \
     set -x \
     && apt-get install -y --no-install-recommends \
        cmake \
-       libmbedtls-dev:${DEBIAN_ARCH} \
-       libmbedtls12:${DEBIAN_ARCH} \
-    && git clone --depth 1 -b ${CPCD_VERSION} \
+       "libmbedtls-dev:${DEBIAN_ARCH}" \
+       "libmbedtls12:${DEBIAN_ARCH}" \
+    && git clone --depth 1 -b "${CPCD_VERSION}" \
        https://github.com/SiliconLabs/cpc-daemon.git \
     && mkdir cpc-daemon/build && cd cpc-daemon/build \
     && cmake ../ \
@@ -110,14 +112,14 @@ RUN \
         fi \
     && slc generate \
        --sdk=../.. \
-       --with=${SLC_ARCH} -p=app/zigbeed/zigbeed.slcp \
+       --with="${SLC_ARCH}" -p=app/zigbeed/zigbeed.slcp \
        --export-destination=app/zigbeed/output \
     && cd app/zigbeed/output \
     && make -f zigbeed.Makefile \
-        AR=${DEBIAN_CROSS_PREFIX}-ar \
-        CC=${DEBIAN_CROSS_PREFIX}-gcc \
-        LD=${DEBIAN_CROSS_PREFIX}-gcc \
-        CXX=${DEBIAN_CROSS_PREFIX}-g++ \
+        AR="${DEBIAN_CROSS_PREFIX}-ar" \
+        CC="${DEBIAN_CROSS_PREFIX}-gcc" \
+        LD="${DEBIAN_CROSS_PREFIX}-gcc" \
+        CXX="${DEBIAN_CROSS_PREFIX}-g++" \
         debug
 
 FROM $BUILD_FROM
@@ -190,9 +192,7 @@ COPY --from=zigbeed-builder \
      /usr/src/gecko_sdk/app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/etc/zigbeed.conf \
      /usr/local/etc
 
-RUN ldconfig
-
-RUN touch /accept_silabs_msla
+RUN ldconfig && touch /accept_silabs_msla
 
 COPY rootfs /
 
