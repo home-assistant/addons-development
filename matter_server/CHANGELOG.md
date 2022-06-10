@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+- Fix Matter Server start location so it can find device certificates
+- Bump Matter Server to git version ac5545b (2022-06-11 00:04:34 +0200)
+
 ## 0.1.0
 
 - initial version

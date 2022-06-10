@@ -20,4 +20,6 @@ fi
 
 export CHIP_WS_SERVER_PORT="${chip_ws_server_port:-5580}"
 
+cd /root
+
 exec matter-server
