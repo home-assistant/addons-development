@@ -64,7 +64,7 @@ FROM builder-base AS builder-matter-server
 
 WORKDIR /usr/src
 
-ARG MATTER_SERVER_VERSION=cfb7ad695f78b7c272dab91355ac860a142083e4
+ARG MATTER_SERVER_VERSION=ac5545bcdfdf02a583ae44ebc0b2ab4c4e3686c5
 
 RUN \
     set -x \
