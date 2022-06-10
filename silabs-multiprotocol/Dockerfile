@@ -65,6 +65,7 @@ RUN \
     && mkdir cpc-daemon/build && cd cpc-daemon/build \
     && cmake ../ \
        -DCMAKE_TOOLCHAIN_FILE=../debian.cmake \
+       -DENABLE_ENCRYPTION=FALSE \
     && make \
     && make install
 
