@@ -2,7 +2,7 @@ ARG BUILD_FROM
 FROM $BUILD_FROM AS builder-chip
 
 ARG \
-    BUILD_ARCH
+    BUILD_ARCH \
     CHIP_VERSION
 
 # Set shell
