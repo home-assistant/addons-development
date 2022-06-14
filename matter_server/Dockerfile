@@ -73,11 +73,9 @@ RUN \
        python3-venv \
        python3-dev \
        python3-pip \
-    && git clone --depth 1 -b main \
+    && git clone --depth 1 -b ${MATTER_SERVER_VERSION} \
        https://github.com/home-assistant-libs/python-matter-server \
     && cd python-matter-server \
-    && git fetch origin ${MATTER_SERVER_VERSION} \
-    && git checkout ${MATTER_SERVER_VERSION} \
     && pip wheel .
 
 FROM $BUILD_FROM
