@@ -113,7 +113,7 @@ COPY --from=builder-matter-server \
 # hadolint ignore=DL3013
 RUN \
     pip3 install --no-cache-dir /tmp/chip-0.0-cp37-abi3-linux_*.whl \
-    && pip3 install --no-cache-dir /tmp/python_matter_server-${MATTER_SERVER_VERSION}-py3-none-any.whl \
+    && pip3 install --no-cache-dir "/tmp/python_matter_server-${MATTER_SERVER_VERSION}-py3-none-any.whl" \
     && rm /tmp/*.whl
 
 COPY rootfs /
