@@ -1,14 +1,17 @@
 ARG BUILD_FROM
 FROM $BUILD_FROM AS builder-chip
 
-ARG BUILD_ARCH=amd64
-ARG CHIP_VERSION
+ARG \
+    BUILD_ARCH
+    CHIP_VERSION
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-COPY 0001-Use-data-as-platform-storage-location.patch /usr/src
-COPY 0001-Avoid-python_runner.py-deadlock.patch /usr/src
+COPY \
+    0001-Use-data-as-platform-storage-location.patch \
+    0001-Avoid-python_runner.py-deadlock.patch \
+    /usr/src/
 
 WORKDIR /usr/src
 
