@@ -68,7 +68,7 @@ RUN \
 FROM builder-base AS builder-chip
 
 ARG BUILD_ARCH=amd64
-ARG CHIP_VERSION=55ab764beabaed8675bd60e6d18e84d545a733e0
+ARG CHIP_VERSION=5d8599d195a93dfe5473f64e4f888c322e5df1d2
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -124,7 +124,11 @@ RUN \
            exit 1; \
        fi \
     && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-tool build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}all-clusters-no-ble-no-wifi build
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}all-clusters-no-ble-no-wifi build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-app build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-casting-app build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}lock build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}thermostat build
 
 FROM $BUILD_FROM
 
@@ -153,5 +157,9 @@ COPY --from=builder-chip /usr/src/connectedhomeip/credentials /root/credentials
 COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-chip-tool/chip-tool /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-all-clusters-no-ble-no-wifi/address-resolve-tool /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-all-clusters-no-ble-no-wifi/chip-all-clusters-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-tv-app/chip-tv-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-tv-casting-app/chip-tv-casting-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-lock/chip-lock-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-thermostat/thermostat-app /usr/local/bin
 
 COPY rootfs /
