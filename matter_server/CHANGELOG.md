@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.0
+
+- Bump to CHIP version 5d8599d195 (2022-06-09 12:57:45 -0400)
+- Bump Matter Server to 0.2.1
+
 ## 0.1.2
 
 - Bump Matter Server to first official release 0.1.0

@@ -2,5 +2,5 @@ build_from:
   aarch64: ghcr.io/home-assistant/aarch64-base-debian:bullseye
   amd64: ghcr.io/home-assistant/amd64-base-debian:bullseye
 args:
-  CHIP_VERSION: 55ab764beabaed8675bd60e6d18e84d545a733e0
-  MATTER_SERVER_VERSION: 0.1.0
+  CHIP_VERSION: 5d8599d195a93dfe5473f64e4f888c322e5df1d2
+  MATTER_SERVER_VERSION: 0.2.1
