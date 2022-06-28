@@ -46,13 +46,13 @@ RUN \
     && cd connectedhomeip \
     && git fetch origin ${CHIP_VERSION} \
     && git checkout ${CHIP_VERSION} \
-    && git submodule update --init \
+    && scripts/checkout_submodules.py --shallow --platform linux \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
     && ( \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
        ) \
-    && source scripts/no_cipd_bootstrap.sh \
+    && source scripts/activate.sh \
     && scripts/build_python.sh -m minimal
 
 FROM $BUILD_FROM
