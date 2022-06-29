@@ -93,10 +93,11 @@ RUN \
     && git clone --depth 1 -b ${GECKO_SDK_VERSION} \
        https://github.com/SiliconLabs/gecko_sdk.git
 
+ARG BUILD_ARCH
+ARG DEBIAN_CROSS_PREFIX
+
 # zigbeed links against libcpc.so
 COPY --from=cpcd-builder /usr/local/ /usr/${DEBIAN_CROSS_PREFIX}/
-
-ARG BUILD_ARCH
 
 RUN \
     set -x \
