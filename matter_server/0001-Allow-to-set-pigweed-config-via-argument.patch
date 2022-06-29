@@ -1,0 +1,50 @@
+From 18ffa2076b120523a228fd210c277c077ad23f1e Mon Sep 17 00:00:00 2001
+Message-Id: <18ffa2076b120523a228fd210c277c077ad23f1e.1656486999.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Wed, 29 Jun 2022 09:14:11 +0200
+Subject: [PATCH] Allow to set pigweed config via argument
+
+This allows to use a custom pigweed config for scripts/activate.sh as
+well.
+---
+ scripts/bootstrap.sh         | 7 +++----
+ scripts/no_cipd_bootstrap.sh | 1 -
+ 2 files changed, 3 insertions(+), 5 deletions(-)
+ delete mode 120000 scripts/no_cipd_bootstrap.sh
+
+diff --git a/scripts/bootstrap.sh b/scripts/bootstrap.sh
+index 36df1fdd8b..2e88a4b3ef 100644
+--- a/scripts/bootstrap.sh
++++ b/scripts/bootstrap.sh
+@@ -26,9 +26,8 @@ _bootstrap_or_activate() {
+ 
+     local _CONFIG_FILE="scripts/environment.json"
+ 
+-    if [ "$_BOOTSTRAP_NAME" = "no_cipd_bootstrap.sh" ]; then
+-        _CONFIG_FILE="scripts/environment_no_cipd.json"
+-        _BOOTSTRAP_NAME="bootstrap.sh"
++    if [ ! -z "$2" ]; then
++        _CONFIG_FILE="$2"
+     fi
+ 
+     if [ "$_BOOTSTRAP_NAME" = "bootstrap.sh" ] ||
+@@ -88,7 +87,7 @@ EOF
+     fi
+ }
+ 
+-_bootstrap_or_activate "$0"
++_bootstrap_or_activate "$0" "$1"
+ unset -f _bootstrap_or_activate
+ 
+ pw_cleanup
+diff --git a/scripts/no_cipd_bootstrap.sh b/scripts/no_cipd_bootstrap.sh
+deleted file mode 120000
+index eba538975a..0000000000
+--- a/scripts/no_cipd_bootstrap.sh
++++ /dev/null
+@@ -1 +0,0 @@
+-bootstrap.sh
+\ No newline at end of file
+-- 
+2.36.1
+

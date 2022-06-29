@@ -10,6 +10,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY \
     0001-Use-data-as-platform-storage-location.patch \
+    0001-Allow-to-set-pigweed-config-via-argument.patch \
     0001-Avoid-python_runner.py-deadlock.patch \
     /usr/src/
 
@@ -48,11 +49,12 @@ RUN \
     && git checkout ${CHIP_VERSION} \
     && scripts/checkout_submodules.py --shallow --platform linux \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
+    && patch -p1 < /usr/src/0001-Allow-to-set-pigweed-config-via-argument.patch \
     && ( \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
        ) \
-    && source scripts/activate.sh \
+    && source scripts/activate.sh scripts/environment_no_cipd.json \
     && scripts/build_python.sh -m minimal
 
 FROM $BUILD_FROM
