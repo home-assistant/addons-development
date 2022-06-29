@@ -1,13 +1,136 @@
 ARG BUILD_FROM
+ARG BUILD_ARCH
+FROM --platform=linux/amd64 debian:bullseye AS cross-builder-base
+
+ENV \
+    LANG="C.UTF-8" \
+    DEBIAN_FRONTEND="noninteractive" \
+    CURL_CA_BUNDLE="/etc/ssl/certs/ca-certificates.crt"
+
+WORKDIR /usr/src
+
+# Allow to reuse downloaded packages (these are only staged build images)
+# hadolint ignore=DL3009
+RUN \
+    set -x \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       bash \
+       curl \
+       ca-certificates \
+       build-essential \
+       git
+
+FROM --platform=linux/amd64 cross-builder-base AS cross-builder-armv7
+
+COPY debian-armv7.cmake /usr/src/debian.cmake
+
+ENV DEBIAN_ARCH=armhf
+ENV DEBIAN_CROSS_PREFIX=arm-linux-gnueabihf
+ENV SLC_ARCH=linux_arch_32
+
+RUN \
+    set -x \
+    && dpkg --add-architecture armhf \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       crossbuild-essential-armhf
+
+FROM --platform=linux/amd64 cross-builder-base AS cross-builder-aarch64
+
+COPY debian-arm64.cmake /usr/src/debian.cmake
+
+ENV DEBIAN_ARCH=arm64
+ENV DEBIAN_CROSS_PREFIX=aarch64-linux-gnu
+ENV SLC_ARCH=linux_arch_64
+
+RUN \
+    set -x \
+    && dpkg --add-architecture arm64 \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       crossbuild-essential-arm64
+
+
+FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS cpcd-builder
+
+ARG CPCD_VERSION=v4.1.0
+
+RUN \
+    set -x \
+    && apt-get install -y --no-install-recommends \
+       cmake \
+       "libmbedtls-dev:${DEBIAN_ARCH}" \
+       "libmbedtls12:${DEBIAN_ARCH}" \
+    && git clone --depth 1 -b "${CPCD_VERSION}" \
+       https://github.com/SiliconLabs/cpc-daemon.git \
+    && mkdir cpc-daemon/build && cd cpc-daemon/build \
+    && cmake ../ \
+       -DCMAKE_TOOLCHAIN_FILE=../debian.cmake \
+       -DENABLE_ENCRYPTION=FALSE \
+    && make \
+    && make install
+
+FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS zigbeed-builder
+
+ARG GECKO_SDK_VERSION=v4.1.0
+
+RUN \
+    set -x \
+    && apt-get install -y --no-install-recommends \
+       python3 \
+       python3-jinja2 \
+       python3-pip \
+       openjdk-11-jre \
+       git-lfs \
+       unzip \
+    && curl -O https://www.silabs.com/documents/login/software/slc_cli_linux.zip \
+    && unzip slc_cli_linux.zip \
+    && cd slc_cli/ && chmod +x slc
+ 
+ENV PATH="/usr/src/slc_cli/:$PATH"
+
+RUN \
+    set -x \
+    && git clone --depth 1 -b ${GECKO_SDK_VERSION} \
+       https://github.com/SiliconLabs/gecko_sdk.git
+
+# zigbeed links against libcpc.so
+COPY --from=cpcd-builder /usr/local/ /usr/${DEBIAN_CROSS_PREFIX}/
+
+RUN \
+    set -x \
+    && cd gecko_sdk/protocol/zigbee \
+    && slc signature trust --sdk=../.. \
+    && slc generate \
+       --sdk=../.. \
+       --with="${SLC_ARCH}" -p=app/zigbeed/zigbeed.slcp \
+       --export-destination=app/zigbeed/output \
+    && cd app/zigbeed/output \
+    && make -f zigbeed.Makefile \
+        AR="${DEBIAN_CROSS_PREFIX}-ar" \
+        CC="${DEBIAN_CROSS_PREFIX}-gcc" \
+        LD="${DEBIAN_CROSS_PREFIX}-gcc" \
+        CXX="${DEBIAN_CROSS_PREFIX}-g++" \
+        debug
+
 FROM $BUILD_FROM
 
-ARG BUILD_ARCH
+RUN \
+    set -x \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       libmbedtls12 \
+       socat \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /usr/src/*
 
-ARG CPCD_VERSION
-ARG GECKO_SDK_VERSION
 
-# Set shell
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+COPY --from=zigbeed-builder \
+     /usr/src/gecko_sdk/util/third_party/ot-br-posix /usr/src/ot-br-posix
+COPY --from=zigbeed-builder \
+     /usr/src/gecko_sdk/util/third_party/openthread /usr/src/openthread
+COPY --from=cpcd-builder /usr/local/ /usr/local/
 
 ENV BORDER_ROUTING=1
 ENV BACKBONE_ROUTER=1
@@ -16,8 +139,6 @@ ENV WEB_GUI=1
 ENV DOCKER 1
 
 COPY 0001-Avoid-writing-to-system-console.patch /usr/src
-COPY 0001-web-set-text-html-Content-Type-for-html-files.patch /usr/src
-COPY 0001-web-Use-relative-paths-in-xhr-requests.patch /usr/src
 
 # Required and installed during build (script/bootstrap), could be removed
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -25,57 +146,24 @@ ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
   libavahi-client-dev libboost-dev libboost-filesystem-dev libboost-system-dev \
   libnetfilter-queue-dev
 
+# Build OTBR natively from Gecko SDK sources
 WORKDIR /usr/src
 RUN \
     set -x \
     && apt-get update \
-    && apt-get install -y --no-install-recommends \
-       build-essential \
-       cmake \
-       git \
-       git-lfs \
-       libmbedtls-dev \
-       libmbedtls12 \
-       socat \
-       iproute2 \
-       lsb-release \
-       sudo \
-    && git clone --depth 1 -b ${CPCD_VERSION} \
-       https://github.com/SiliconLabs/cpc-daemon.git \
-    && mkdir cpc-daemon/build && cd cpc-daemon/build \
-    && cmake ../ \
-    && make \
-    && make install \
-    && cd /usr/src \
-    && GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 -b ${GECKO_SDK_VERSION} \
-       https://github.com/SiliconLabs/gecko_sdk.git \
-    && cd gecko_sdk \
-    && git lfs pull --include="*.png" \
-    && mkdir -p /usr/local/bin/ && mkdir -p /usr/local/etc/ \
-    &&  if [ "${BUILD_ARCH}" = "armv7" ]; \
-        then \
-            cp "app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/bin_arm32v7/zigbeed" /usr/local/bin/; \
-        elif [ "${BUILD_ARCH}" = "aarch64" ]; \
-        then \
-            cp "app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/bin_arm64v8/zigbeed" /usr/local/bin/; \
-        else \
-            exit 1; \
-        fi \
-    && chmod +x /usr/local/bin/zigbeed \
-    && cp "app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/etc/zigbeed.conf" /usr/local/etc/ \
     # Install npm/nodejs for WebUI manually to avoid systemd getting pulled in \
     && apt-get install -y --no-install-recommends \
        nodejs \
        npm \
-    && cd /usr/src \
-    && cd gecko_sdk/util/third_party/ot-br-posix \
+       iproute2 \
+       lsb-release \
+       sudo \
+    && cd ot-br-posix \
     && chmod +x ./script/bootstrap \
     && ./script/bootstrap \
     && ln -s ../../../openthread/ third_party/openthread/repo \
     && chmod +x ./script/* \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
-    && patch -p1 < /usr/src/0001-web-set-text-html-Content-Type-for-html-files.patch \
-    && patch -p1 < /usr/src/0001-web-Use-relative-paths-in-xhr-requests.patch \
     && ./script/setup \
     && apt-get purge -y --auto-remove \
        build-essential \
@@ -86,6 +174,20 @@ RUN \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/src/*
 
-RUN touch /accept_silabs_msla
+COPY --from=zigbeed-builder \
+     /usr/src/gecko_sdk/app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/etc/zigbeed.conf \
+     /usr/local/etc
+COPY --from=zigbeed-builder \
+     /usr/src/gecko_sdk/protocol/zigbee/app/zigbeed/output/build/debug/zigbeed \
+     /usr/local/bin
+COPY --from=zigbeed-builder \
+     /usr/src/gecko_sdk/app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/etc/zigbeed.conf \
+     /usr/local/etc
+
+RUN ldconfig && touch /accept_silabs_msla
 
 COPY rootfs /
+
+# use s6-overlay as init system
+WORKDIR /
+ENTRYPOINT ["/init"]

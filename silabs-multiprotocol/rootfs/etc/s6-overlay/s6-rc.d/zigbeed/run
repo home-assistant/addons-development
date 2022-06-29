@@ -1,0 +1,8 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start EmberZNet Zigbee Daemon
+# ==============================================================================
+mkdir -p /data/zigbeed && cd /data/zigbeed || bashio::exit.nok "Could not change to zigbeed working directory"
+
+bashio::log.info "Starting zigbeed..."
+exec "/usr/bin/stdbuf" -o0 /usr/local/bin/zigbeed
