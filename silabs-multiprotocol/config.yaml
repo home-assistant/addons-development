@@ -17,7 +17,7 @@ image: homeassistant/{arch}-addon-silabs-multiprotocol
 init: false
 options:
   device: null
-  baudrate: 115200
+  baudrate: 230400
   flow_control: true
   cpcd_trace: false
   socat_trace: false
