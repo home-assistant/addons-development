@@ -21,7 +21,7 @@ RUN \
        build-essential \
        git
 
-FROM cross-builder-base AS cross-builder-armv7
+FROM --platform=linux/amd64 cross-builder-base AS cross-builder-armv7
 
 COPY debian-armv7.cmake /usr/src/debian.cmake
 
@@ -35,7 +35,7 @@ RUN \
     && apt-get install -y --no-install-recommends \
        crossbuild-essential-armhf
 
-FROM cross-builder-base AS cross-builder-aarch64
+FROM --platform=linux/amd64 cross-builder-base AS cross-builder-aarch64
 
 COPY debian-arm64.cmake /usr/src/debian.cmake
 
@@ -50,7 +50,7 @@ RUN \
        crossbuild-essential-arm64
 
 
-FROM cross-builder-${BUILD_ARCH} AS cpcd-builder
+FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS cpcd-builder
 
 ARG CPCD_VERSION=v4.1.0
 
@@ -69,7 +69,7 @@ RUN \
     && make \
     && make install
 
-FROM cross-builder-${BUILD_ARCH} AS zigbeed-builder
+FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS zigbeed-builder
 
 ARG GECKO_SDK_VERSION=v4.1.0
 
