@@ -6,6 +6,7 @@
 - Bump OTBR to Silicon Labs forked version of Gecko SDK v4.1.0
   (based on OTBR POSIX version 3a98779dc9 (2022-06-02 09:34:58 -0700))
 - Use s6-overlay v3 style services
+- Drop aarch64 support (all CPC communication blocks on aarch64 since 4.1.0)
 
 ## 0.4.1
 - Support network device (CPC daemon via TCP/IP socket)
