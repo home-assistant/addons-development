@@ -1,0 +1,6 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Start socat TCP forwarder
+# ==============================================================================
+bashio::log.info "Starting socat TCP instance..."
+exec "/usr/bin/socat" -d open:/tmp/ttyZigbeeNCPClient,nonblock,echo=0,raw,ignoreeof TCP-LISTEN:9999,reuseaddr,fork
