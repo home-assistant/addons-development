@@ -25,8 +25,9 @@ FROM --platform=linux/amd64 cross-builder-base AS cross-builder-armv7
 
 COPY debian-armv7.cmake /usr/src/debian.cmake
 
-ARG DEBIAN_ARCH=armhf
-ARG DEBIAN_CROSS_PREFIX=arm-linux-gnueabihf
+ENV DEBIAN_ARCH=armhf
+ENV DEBIAN_CROSS_PREFIX=arm-linux-gnueabihf
+ENV SLC_ARCH=linux_arch_32
 
 RUN \
     set -x \
@@ -39,8 +40,9 @@ FROM --platform=linux/amd64 cross-builder-base AS cross-builder-aarch64
 
 COPY debian-arm64.cmake /usr/src/debian.cmake
 
-ARG DEBIAN_ARCH=arm64
-ARG DEBIAN_CROSS_PREFIX=aarch64-linux-gnu
+ENV DEBIAN_ARCH=arm64
+ENV DEBIAN_CROSS_PREFIX=aarch64-linux-gnu
+ENV SLC_ARCH=linux_arch_64
 
 RUN \
     set -x \
@@ -93,9 +95,6 @@ RUN \
     && git clone --depth 1 -b ${GECKO_SDK_VERSION} \
        https://github.com/SiliconLabs/gecko_sdk.git
 
-ARG BUILD_ARCH
-ARG DEBIAN_CROSS_PREFIX
-
 # zigbeed links against libcpc.so
 COPY --from=cpcd-builder /usr/local/ /usr/${DEBIAN_CROSS_PREFIX}/
 
@@ -103,15 +102,6 @@ RUN \
     set -x \
     && cd gecko_sdk/protocol/zigbee \
     && slc signature trust --sdk=../.. \
-    && if [ "${BUILD_ARCH}" = "armv7" ]; \
-        then \
-            export SLC_ARCH=linux_arch_32; \
-        elif [ "${BUILD_ARCH}" = "aarch64" ]; \
-        then \
-            export SLC_ARCH=linux_arch_64; \
-        else \
-            exit 1; \
-        fi \
     && slc generate \
        --sdk=../.. \
        --with="${SLC_ARCH}" -p=app/zigbeed/zigbeed.slcp \
