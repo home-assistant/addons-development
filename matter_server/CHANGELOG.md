@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.2
+- Bump to CHIP version 5b603f3874 (2022-07-05 21:21:19 -0700)
+- Bump Matter Server to 0.2.3
+- Avoid cloning not required git repositories during build speedup build process
+
+## 0.2.2
+- Bump Matter Server to 0.2.2
+
 ## 0.2.0
 
 - Bump to CHIP version 5d8599d195 (2022-06-09 12:57:45 -0400)
