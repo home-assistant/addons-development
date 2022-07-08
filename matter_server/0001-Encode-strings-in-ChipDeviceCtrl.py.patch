@@ -1,0 +1,107 @@
+From d1edd0df5823d405decd25feca0f8f359e649f06 Mon Sep 17 00:00:00 2001
+Message-Id: <d1edd0df5823d405decd25feca0f8f359e649f06.1657093458.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Tue, 5 Jul 2022 16:10:19 +0200
+Subject: [PATCH] Encode strings in ChipDeviceCtrl.py
+
+---
+ src/controller/python/chip-device-ctrl.py    |  8 +++-----
+ src/controller/python/chip/ChipDeviceCtrl.py | 14 +++++++-------
+ 2 files changed, 10 insertions(+), 12 deletions(-)
+
+diff --git a/src/controller/python/chip-device-ctrl.py b/src/controller/python/chip-device-ctrl.py
+index 4d85016de2..c94514b719 100755
+--- a/src/controller/python/chip-device-ctrl.py
++++ b/src/controller/python/chip-device-ctrl.py
+@@ -552,8 +552,7 @@ class DeviceMgrCmd(Cmd):
+             print("Device is assigned with nodeid = {}".format(nodeid))
+ 
+             if args[0] == "-ip" and len(args) >= 3:
+-                self.devCtrl.EstablishPASESessionIP(args[1].encode(
+-                    "utf-8"), int(args[2]), nodeid)
++                self.devCtrl.EstablishPASESessionIP(args[1], int(args[2]), nodeid)
+             else:
+                 print("Usage:")
+                 self.do_help("paseonly")
+@@ -614,8 +613,7 @@ class DeviceMgrCmd(Cmd):
+             print("Device is assigned with nodeid = {}".format(nodeid))
+ 
+             if args[0] == "-ip" and len(args) >= 3:
+-                self.devCtrl.CommissionIP(args[1].encode(
+-                    "utf-8"), int(args[2]), nodeid)
++                self.devCtrl.CommissionIP(args[1], int(args[2]), nodeid)
+             elif args[0] == "-ble" and len(args) >= 3:
+                 self.devCtrl.ConnectBLE(int(args[1]), int(args[2]), nodeid)
+             elif args[0] in ['-qr', '-code'] and len(args) >= 2:
+@@ -948,7 +946,7 @@ class DeviceMgrCmd(Cmd):
+                 self.do_help("set-pairing-wifi-credential")
+                 return
+             self.devCtrl.SetWiFiCredentials(
+-                args[0].encode("utf-8"), args[1].encode("utf-8"))
++                args[0], args[1])
+         except Exception as ex:
+             print(str(ex))
+             return
+diff --git a/src/controller/python/chip/ChipDeviceCtrl.py b/src/controller/python/chip/ChipDeviceCtrl.py
+index 8b2f546418..70aa7cada7 100644
+--- a/src/controller/python/chip/ChipDeviceCtrl.py
++++ b/src/controller/python/chip/ChipDeviceCtrl.py
+@@ -278,13 +278,13 @@ class ChipDeviceController():
+                 self.devCtrl, nodeid)
+         )
+ 
+-    def EstablishPASESessionIP(self, ipaddr, setupPinCode, nodeid):
++    def EstablishPASESessionIP(self, ipaddr: str, setupPinCode: int, nodeid: int):
+         self.CheckIsActive()
+ 
+         self.state = DCState.RENDEZVOUS_ONGOING
+         return self._ChipStack.CallAsync(
+             lambda: self._dmLib.pychip_DeviceController_EstablishPASESessionIP(
+-                self.devCtrl, ipaddr, setupPinCode, nodeid)
++                self.devCtrl, ipaddr.encode("utf-8"), setupPinCode, nodeid)
+         )
+ 
+     def Commission(self, nodeid):
+@@ -345,7 +345,7 @@ class ChipDeviceController():
+             return False
+         return self._ChipStack.commissioningEventRes == 0
+ 
+-    def CommissionIP(self, ipaddr, setupPinCode, nodeid):
++    def CommissionIP(self, ipaddr: str, setupPinCode: int, nodeid: int):
+         self.CheckIsActive()
+ 
+         # IP connection will run through full commissioning, so we need to wait
+@@ -356,7 +356,7 @@ class ChipDeviceController():
+ 
+         self._ChipStack.CallAsync(
+             lambda: self._dmLib.pychip_DeviceController_ConnectIP(
+-                self.devCtrl, ipaddr, setupPinCode, nodeid)
++                self.devCtrl, ipaddr.encode("utf-8"), setupPinCode, nodeid)
+         )
+         if not self._ChipStack.commissioningCompleteEvent.isSet():
+             # Error 50 is a timeout
+@@ -374,18 +374,18 @@ class ChipDeviceController():
+         self.SetThreadOperationalDataset(threadOperationalDataset)
+         return self.ConnectBLE(discriminator, setupPinCode, nodeId)
+ 
+-    def CommissionWiFi(self, discriminator, setupPinCode, nodeId, ssid, credentials):
++    def CommissionWiFi(self, discriminator, setupPinCode, nodeId, ssid: str, credentials: str):
+         ''' Commissions a WiFi device over BLE
+         '''
+         self.SetWiFiCredentials(ssid, credentials)
+         return self.ConnectBLE(discriminator, setupPinCode, nodeId)
+ 
+-    def SetWiFiCredentials(self, ssid, credentials):
++    def SetWiFiCredentials(self, ssid: str, credentials: str):
+         self.CheckIsActive()
+ 
+         return self._ChipStack.Call(
+             lambda: self._dmLib.pychip_DeviceController_SetWiFiCredentials(
+-                ssid, credentials)
++                ssid.encode("utf-8"), credentials.encode("utf-8"))
+         )
+ 
+     def SetThreadOperationalDataset(self, threadOperationalDataset):
+-- 
+2.37.0
+
