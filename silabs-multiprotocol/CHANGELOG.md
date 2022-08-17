@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.1
+- Use Silicon Labs Gecko SDK 4.1.1
+- Readd aarch64 support
+
 ## 0.5.0
 - Use Silicon Labs Gecko SDK 4.1.0
 - Build zigbeed from source (as binaries are no longer provided)
