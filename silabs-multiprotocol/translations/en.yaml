@@ -14,9 +14,6 @@ configuration:
   cpcd_trace:
     name: Co-Processor Communication tracing
     description: Enable tracing for the Co-Processor Communication daemon.
-  socat_trace:
-    name: EZSP/ASH protocol tracing
-    description: Enable tracing for the EZSP/ASH protocol relay using socat.
   otbr_enable:
     name: Enable OpenThread Border Router
     description: Enable OpenThread BorderRouter and its web interface.

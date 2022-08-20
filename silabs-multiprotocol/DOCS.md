@@ -63,7 +63,6 @@ Add-on configuration:
 | flow_control       | If hardware flow control should be enabled (depends on firmware) |
 | network_device     | Host and port where CPC daemon can find the Silicon Labs radio (takes precedence over device) |
 | cpcd_trace         | Co-Processsor Communication tracing (trace in log)     |
-| socat_trace        | ASH/EZSP communication trace (trace in log)            |
 | otbr_enable        | Enable OpenThread BorderRouter                         |
 | otbr_debug         | Start OpenThread BorderRouter Agent with debug log     |
 

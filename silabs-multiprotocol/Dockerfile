@@ -97,21 +97,26 @@ RUN \
 
 # zigbeed links against libcpc.so
 COPY --from=cpcd-builder /usr/local/ /usr/${DEBIAN_CROSS_PREFIX}/
+COPY 0001-Use-TCP-socket-instead-of-serial-port.patch /usr/src
 
 RUN \
     set -x \
-    && cd gecko_sdk/protocol/zigbee \
-    && slc signature trust --sdk=../.. \
+    && cd gecko_sdk \
+    && slc signature trust --sdk=. \
+    && cd protocol/zigbee \
     && slc generate \
        --sdk=../.. \
        --with="${SLC_ARCH}" -p=app/zigbeed/zigbeed.slcp \
        --export-destination=app/zigbeed/output \
+       --copy-sdk-sources --copy-proj-sources \
     && cd app/zigbeed/output \
+    && patch -p1 < /usr/src/0001-Use-TCP-socket-instead-of-serial-port.patch \
     && make -f zigbeed.Makefile \
         AR="${DEBIAN_CROSS_PREFIX}-ar" \
         CC="${DEBIAN_CROSS_PREFIX}-gcc" \
         LD="${DEBIAN_CROSS_PREFIX}-gcc" \
         CXX="${DEBIAN_CROSS_PREFIX}-g++" \
+        C_FLAGS="-std=gnu99" \
         debug
 
 FROM $BUILD_FROM
