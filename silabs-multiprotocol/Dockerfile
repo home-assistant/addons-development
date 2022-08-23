@@ -180,14 +180,8 @@ RUN \
     && rm -rf /usr/src/*
 
 COPY --from=zigbeed-builder \
-     /usr/src/gecko_sdk/app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/etc/zigbeed.conf \
-     /usr/local/etc
-COPY --from=zigbeed-builder \
      /usr/src/gecko_sdk/protocol/zigbee/app/zigbeed/output/build/debug/zigbeed \
      /usr/local/bin
-COPY --from=zigbeed-builder \
-     /usr/src/gecko_sdk/app/host/multiprotocol/zigbeed/multiprotocol-container/_artifacts/etc/zigbeed.conf \
-     /usr/local/etc
 
 RUN ldconfig && touch /accept_silabs_msla
 
