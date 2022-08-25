@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0
+- Implement native TCP/IP support for zigbeed (requires bellows 0.34.0 or newer)
+- Bind only to add-ons local address
+
 ## 0.5.1
 - Use Silicon Labs Gecko SDK 4.1.1
 - Readd aarch64 support
