@@ -119,6 +119,7 @@ RUN \
     set -x \
     && git clone https://github.com/agners/silabs-cpc-ezspd \
     && cd silabs-cpc-ezspd \
+    && git checkout 680bd9e8f678a54ba9c17b62f1888c2864f97dd5 \
     && make \
         CC="${DEBIAN_CROSS_PREFIX}-gcc"
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+
+- Bump to the latest ezspd version
+
 ## 0.1.0
 
 - initial version

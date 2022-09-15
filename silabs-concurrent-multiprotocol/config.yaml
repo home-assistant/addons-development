@@ -1,4 +1,4 @@
-version: 0.1.0
+version: 0.1.1
 slug: silabs_concurrent_multiprotocol
 name: Silicon Labs Concurrent Multiprotocol
 description: Zigbee NCP and OpenThread multiprotocol add-on
