@@ -4,6 +4,10 @@
 # ==============================================================================
 bashio::log.info "Starting mDNS Responder..."
 
+if bashio::config.false 'otbr_enable'; then
+    exec s6-svc -Od .
+fi
+
 # mdnsd runs as daemon except when using debug mode. We prefer non-daemon, so
 # start in debug by default. It seems nto to generate a vast amount of
 # messages.

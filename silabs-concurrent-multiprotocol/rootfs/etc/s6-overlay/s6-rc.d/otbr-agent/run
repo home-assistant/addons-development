@@ -11,7 +11,12 @@ declare device
 declare baudrate
 declare flow_control
 backbone_if="$(bashio::api.supervisor 'GET' '/network/info' '' '.interfaces[] | select (.primary == true) | .interface')"
+baudrate=$(bashio::config 'baudrate')
 otbr_agent_options="-d6 -v"
+
+if bashio::config.false 'otbr_enable'; then
+    exec s6-svc -Od .
+fi
 
 if bashio::config.true 'otbr_debug'; then
     otbr_agent_options="-d7 -v"
@@ -44,4 +49,4 @@ fi
 bashio::log.info "Starting otbr-agent..."
 exec s6-notifyoncheck -d -s 300 -w 300 -n 0 \
     "/usr/sbin/otbr-agent" -I ${thread_if} -B "${backbone_if}" ${otbr_agent_options} \
-        "spinel+cpc://cpcd_0?iid=2"
+        "spinel+cpc://cpcd_0?iid=2&cpc-bus-speed=${baudrate}"

@@ -1,4 +1,4 @@
-version: 0.1.1
+version: 0.1.2
 slug: silabs_concurrent_multiprotocol
 name: Silicon Labs Concurrent Multiprotocol
 description: Zigbee NCP and OpenThread multiprotocol add-on
@@ -23,6 +23,7 @@ options:
   cpcd_trace: false
   otbr_enable: true
   otbr_debug: false
+  firewall: true
 ports:
   9999/tcp: null
 ports_description:
@@ -35,6 +36,7 @@ schema:
   cpcd_trace: bool
   otbr_enable: bool
   otbr_debug: bool
+  firewall: bool
 stage: experimental
 startup: services
 ingress: true
