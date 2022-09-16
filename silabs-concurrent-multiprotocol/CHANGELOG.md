@@ -3,7 +3,7 @@
 ## 0.1.2
 - Support OTBR Firewall
 - Pass cpcd baudrate to otbr-agent (new cpc-bus-speed= option)
-- Fix starting with OTBR disabled
+- Avoid starting OTBR and mDNS if OTBR is disabled in confiugration
 
 ## 0.1.1
 
