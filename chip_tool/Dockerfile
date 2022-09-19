@@ -98,6 +98,7 @@ RUN \
        python3-pip \
        python3-dbus \
        python3-click \
+       python3-coloredlogs \
        python3-cryptography \
        unzip \
        libgirepository1.0-dev \
