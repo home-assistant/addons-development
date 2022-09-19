@@ -91,7 +91,7 @@ ARG MATTER_SERVER_VERSION
 
 # hadolint ignore=DL3013
 RUN \
-    pip3 install --no-cache-dir /tmp/chip_clusters-0.0-cp37-abi3-linux_*.whl \
+    pip3 install --no-cache-dir /tmp/chip_clusters-0.0-py3-none-any.whl \
     pip3 install --no-cache-dir /tmp/chip_core-0.0-cp37-abi3-linux_*.whl \
     && pip3 install --no-cache-dir python-matter-server=="${MATTER_SERVER_VERSION}" \
     && rm /tmp/*.whl
