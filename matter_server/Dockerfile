@@ -81,7 +81,7 @@ WORKDIR /root
 
 COPY --from=builder-chip /usr/src/connectedhomeip/credentials /root/credentials
 COPY --from=builder-chip \
-     /usr/src/connectedhomeip/out/python_lib/controller/python/chip_clusters-0.0-cp37-abi3-linux_*.whl \
+     /usr/src/connectedhomeip/out/python_lib/controller/python/chip_clusters-0.0-py3-none-any.whl \
      /tmp
 COPY --from=builder-chip \
      /usr/src/connectedhomeip/out/python_lib/controller/python/chip_core-0.0-cp37-abi3-linux_*.whl \
