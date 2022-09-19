@@ -76,6 +76,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 COPY 0001-Use-data-as-platform-storage-location.patch /usr/src
 COPY 0002-Use-data-as-storage-location-for-chip-tool.patch /usr/src
 COPY 0001-Avoid-python_runner.py-deadlock.patch /usr/src
+COPY 0001-Avoid-polluting-Pigweed-environment-namespace.patch /usr/src
 
 WORKDIR /usr/src
 
@@ -111,6 +112,7 @@ RUN \
     && git submodule update --init \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
     && patch -p1 < /usr/src/0002-Use-data-as-storage-location-for-chip-tool.patch \
+    && patch -p1 < /usr/src/0001-Avoid-polluting-Pigweed-environment-namespace.patch \
     && ( \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
