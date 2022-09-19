@@ -10,7 +10,6 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY \
     0001-Use-data-as-platform-storage-location.patch \
-    0001-Encode-strings-in-ChipDeviceCtrl.py.patch \
     0001-Avoid-python_runner.py-deadlock.patch \
     /usr/src/
 
@@ -49,7 +48,6 @@ RUN \
     && git checkout ${CHIP_VERSION} \
     && scripts/checkout_submodules.py --shallow --platform linux \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
-    && patch -p1 < /usr/src/0001-Encode-strings-in-ChipDeviceCtrl.py.patch \
     && ( \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
