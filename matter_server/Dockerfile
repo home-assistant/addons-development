@@ -81,14 +81,18 @@ WORKDIR /root
 
 COPY --from=builder-chip /usr/src/connectedhomeip/credentials /root/credentials
 COPY --from=builder-chip \
-     /usr/src/connectedhomeip/out/python_lib/controller/python/chip-0.0-cp37-abi3-linux_*.whl \
+     /usr/src/connectedhomeip/out/python_lib/controller/python/chip_clusters-0.0-cp37-abi3-linux_*.whl \
+     /tmp
+COPY --from=builder-chip \
+     /usr/src/connectedhomeip/out/python_lib/controller/python/chip_core-0.0-cp37-abi3-linux_*.whl \
      /tmp
 
 ARG MATTER_SERVER_VERSION
 
 # hadolint ignore=DL3013
 RUN \
-    pip3 install --no-cache-dir /tmp/chip-0.0-cp37-abi3-linux_*.whl \
+    pip3 install --no-cache-dir /tmp/chip_clusters-0.0-cp37-abi3-linux_*.whl \
+    pip3 install --no-cache-dir /tmp/chip_core-0.0-cp37-abi3-linux_*.whl \
     && pip3 install --no-cache-dir python-matter-server=="${MATTER_SERVER_VERSION}" \
     && rm /tmp/*.whl
 
