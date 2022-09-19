@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.3
+- Fix Firewall shutdown
+
 ## 0.2.2
 - Bump to OTBR POSIX version 9fea68cfbe (2022-06-03 11:53:19 -0700)
 - Use s6-overlay v3 style services
