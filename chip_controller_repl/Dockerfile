@@ -110,7 +110,7 @@ RUN \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
        ) \
-    && source scripts/no_cipd_bootstrap.sh \
+    && PW_CONFIG_FILE=scripts/environment_no_cipd.json source scripts/bootstrap.sh \
     && scripts/build_python.sh -m minimal
 
 FROM $BUILD_FROM
