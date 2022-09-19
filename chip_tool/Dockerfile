@@ -115,7 +115,8 @@ RUN \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
        ) \
-    && PW_CONFIG_FILE=scripts/environment_no_cipd.json source scripts/bootstrap.sh \
+    && export PW_CONFIG_FILE=scripts/environment_no_cipd.json \
+    && source scripts/bootstrap.sh \
     && if [ "${BUILD_ARCH}" = "amd64" ]; \
        then \
            EXAMPLE_PREFIX="linux-x64-"; \
