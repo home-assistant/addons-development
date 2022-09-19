@@ -74,7 +74,6 @@ ARG CHIP_VERSION=989ad8ec4d8004065c6c7cb090de23484f12b54f
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY 0001-Use-data-as-platform-storage-location.patch /usr/src
-COPY 0002-Only-add-avahi-as-build-dependency-when-platform-mDN.patch /usr/src
 COPY 0001-Avoid-python_runner.py-deadlock.patch /usr/src
 
 WORKDIR /usr/src
@@ -107,7 +106,6 @@ RUN \
     && git checkout ${CHIP_VERSION} \
     && git submodule update --init \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
-    && patch -p1 < /usr/src/0002-Only-add-avahi-as-build-dependency-when-platform-mDN.patch \
     && ( \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
