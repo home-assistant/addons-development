@@ -10,8 +10,8 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY \
     0001-Use-data-as-platform-storage-location.patch \
-    0001-Encode-strings-in-ChipDeviceCtrl.py.patch \
     0001-Avoid-python_runner.py-deadlock.patch \
+    0001-Revert-Python-dependencies.patch \
     /usr/src/
 
 WORKDIR /usr/src
@@ -49,7 +49,7 @@ RUN \
     && git checkout ${CHIP_VERSION} \
     && scripts/checkout_submodules.py --shallow --platform linux \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
-    && patch -p1 < /usr/src/0001-Encode-strings-in-ChipDeviceCtrl.py.patch \
+    && patch -p1 < /usr/src/0001-Revert-Python-dependencies.patch \
     && ( \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
@@ -83,14 +83,18 @@ WORKDIR /root
 
 COPY --from=builder-chip /usr/src/connectedhomeip/credentials /root/credentials
 COPY --from=builder-chip \
-     /usr/src/connectedhomeip/out/python_lib/controller/python/chip-0.0-cp37-abi3-linux_*.whl \
+     /usr/src/connectedhomeip/out/python_lib/controller/python/chip_clusters-0.0-py3-none-any.whl \
+     /tmp
+COPY --from=builder-chip \
+     /usr/src/connectedhomeip/out/python_lib/controller/python/chip_core-0.0-cp37-abi3-linux_*.whl \
      /tmp
 
 ARG MATTER_SERVER_VERSION
 
 # hadolint ignore=DL3013
 RUN \
-    pip3 install --no-cache-dir /tmp/chip-0.0-cp37-abi3-linux_*.whl \
+    pip3 install --no-cache-dir /tmp/chip_clusters-0.0-py3-none-any.whl \
+    && pip3 install --no-cache-dir /tmp/chip_core-0.0-cp37-abi3-linux_*.whl \
     && pip3 install --no-cache-dir python-matter-server=="${MATTER_SERVER_VERSION}" \
     && rm /tmp/*.whl
 
