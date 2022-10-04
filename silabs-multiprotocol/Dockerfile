@@ -54,7 +54,7 @@ RUN \
 
 FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS cpcd-builder
 
-ARG CPCD_VERSION=v4.1.1
+ARG CPCD_VERSION=v4.1.2
 
 RUN \
     set -x \
@@ -73,7 +73,7 @@ RUN \
 
 FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS zigbeed-builder
 
-ARG GECKO_SDK_VERSION=v4.1.1
+ARG GECKO_SDK_VERSION=v4.1.2
 
 RUN \
     set -x \
