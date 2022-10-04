@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.3
+- Use Silicon Labs Gecko SDK 4.1.2
+
 ## 0.1.2
 - Support OTBR Firewall
 - Pass cpcd baudrate to otbr-agent (new cpc-bus-speed= option)
