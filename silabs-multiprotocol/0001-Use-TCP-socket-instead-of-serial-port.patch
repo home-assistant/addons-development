@@ -1,5 +1,5 @@
-From f7a074a513d50d2673c204eee02fb56cf7c0fac2 Mon Sep 17 00:00:00 2001
-Message-Id: <f7a074a513d50d2673c204eee02fb56cf7c0fac2.1661251452.git.stefan@agner.ch>
+From b7566160cb358780ceb88205c3e4e57fd6adef22 Mon Sep 17 00:00:00 2001
+Message-Id: <b7566160cb358780ceb88205c3e4e57fd6adef22.1664901682.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Sat, 20 Aug 2022 10:10:08 +0200
 Subject: [PATCH] Use TCP socket instead of serial port
@@ -9,13 +9,13 @@ the listening socket to the new instance in case a controller reset is
 being requested. This makes sure the TCP connection stays up even when
 zigbeed restarts.
 ---
- app.c                                         |  62 +++++++--
- .../zigbee/app/zigbeed/serial_adapter.c       | 131 ++++++++++++------
+ app.c                                         |  61 ++++++-
+ .../zigbee/app/zigbeed/serial_adapter.c       | 152 ++++++++++--------
  main.c                                        |   3 +
- 3 files changed, 143 insertions(+), 53 deletions(-)
+ 3 files changed, 142 insertions(+), 74 deletions(-)
 
 diff --git a/app.c b/app.c
-index a907ee1..ca0878a 100644
+index ed681c0..213cf1a 100644
 --- a/app.c
 +++ b/app.c
 @@ -27,6 +27,7 @@
@@ -26,11 +26,7 @@ index a907ee1..ca0878a 100644
  #include <stdint.h>
  #include <stdbool.h>
  
-@@ -77,10 +78,12 @@ typedef struct PosixConfig{
- extern jmp_buf gResetJump;
- 
- #define SERIAL_PORT_NAME_MAX_LEN 40
--extern char serialPort[SERIAL_PORT_NAME_MAX_LEN];
+@@ -81,6 +82,9 @@ extern jmp_buf gResetJump;
  #define RADIO_URL_MAX_LEN 150
  char radioUrl[RADIO_URL_MAX_LEN];
  
@@ -40,7 +36,7 @@ index a907ee1..ca0878a 100644
  /**
   * This enumeration defines the argument return values.
   *
-@@ -88,16 +91,18 @@ char radioUrl[RADIO_URL_MAX_LEN];
+@@ -88,16 +92,18 @@ char radioUrl[RADIO_URL_MAX_LEN];
  enum {
    OT_POSIX_OPT_RADIO_URL      = 'r',
    OT_POSIX_OPT_DEBUG_LEVEL    = 'd',
@@ -62,7 +58,7 @@ index a907ee1..ca0878a 100644
    { "help", no_argument, NULL, OT_POSIX_OPT_HELP },
    { "verbose", no_argument, NULL, OT_POSIX_OPT_VERBOSE },
    { 0, 0, 0, 0 }
-@@ -111,7 +116,8 @@ static void PrintUsage(const char *aProgramName, FILE *aStream, int aExitCode)
+@@ -111,7 +117,8 @@ static void PrintUsage(const char *aProgramName, FILE *aStream, int aExitCode)
            "Options:\n"
            "    -r  --radio-url <RadioURL>    URL to the radio device. Must include iid=n with n=1,2, or 3.\n"
            "    -d  --debug-level <level>     Debug level for Spinel syslog logging.\n"
@@ -72,7 +68,7 @@ index a907ee1..ca0878a 100644
            "    -h  --help                    Display this usage information.\n"
            "    -v  --verbose                 Also log Spinel to stderr.\n",
            aProgramName);
-@@ -201,6 +207,39 @@ static ssize_t ParseEtcConf(char *confFilePath, int aArgVectorSize, char *aArgVe
+@@ -201,6 +208,39 @@ static ssize_t ParseEtcConf(char *confFilePath, int aArgVectorSize, char *aArgVe
    return argCount;
  }
  
@@ -112,7 +108,7 @@ index a907ee1..ca0878a 100644
  static void ParseArg(int aArgCount, char *aArgVector[], PosixConfig *aConfig)
  {
    optind = 1;
-@@ -222,13 +261,18 @@ static void ParseArg(int aArgCount, char *aArgVector[], PosixConfig *aConfig)
+@@ -222,13 +262,18 @@ static void ParseArg(int aArgCount, char *aArgVector[], PosixConfig *aConfig)
        case OT_POSIX_OPT_HELP:
          PrintUsage(aArgVector[0], stdout, OT_EXIT_SUCCESS);
          break;
@@ -135,10 +131,10 @@ index a907ee1..ca0878a 100644
        case OT_POSIX_OPT_RADIO_URL:
          if (strlen(optarg) > RADIO_URL_MAX_LEN) {
            fprintf(stderr, "Error: Radio URL too long\n");
-diff --git a/gecko_sdk_4.1.1/protocol/zigbee/app/zigbeed/serial_adapter.c b/gecko_sdk_4.1.1/protocol/zigbee/app/zigbeed/serial_adapter.c
-index f64ff63..06c6e50 100644
---- a/gecko_sdk_4.1.1/protocol/zigbee/app/zigbeed/serial_adapter.c
-+++ b/gecko_sdk_4.1.1/protocol/zigbee/app/zigbeed/serial_adapter.c
+diff --git a/gecko_sdk_4.1.2/protocol/zigbee/app/zigbeed/serial_adapter.c b/gecko_sdk_4.1.2/protocol/zigbee/app/zigbeed/serial_adapter.c
+index f486305..06c6e50 100644
+--- a/gecko_sdk_4.1.2/protocol/zigbee/app/zigbeed/serial_adapter.c
++++ b/gecko_sdk_4.1.2/protocol/zigbee/app/zigbeed/serial_adapter.c
 @@ -17,13 +17,16 @@
   *
   ******************************************************************************/
@@ -159,29 +155,33 @@ index f64ff63..06c6e50 100644
  #include <unistd.h>
  
  #include "ember-types.h"
-@@ -37,14 +40,17 @@
+@@ -37,19 +40,17 @@
  #define MAX_OUT_BLOCK_LEN     512   // maximum bytes to output at one time
  #define MAX_IN_BLOCK_LEN      512   // maximum bytes to input at one time
  
 -#define DEFAULT_SERIAL_PORT "/tmp/ttyZigbeed"
  #define DEFAULT_OUT_BLOCK_LEN 1
  #define DEFAULT_IN_BLOCK_LEN 256
--#define SERIAL_PORT_NAME_MAX_LEN 40
  
 -char serialPort[SERIAL_PORT_NAME_MAX_LEN] = DEFAULT_SERIAL_PORT;
  
--static int serialFd = NULL_FILE_DESCRIPTOR;   // file descriptor for serial port
+-#ifdef ZIGBEE_PRO_COMPLIANCE_ON_HOST
+-#include "sl_cli_threaded_host.h"
+-extern bool sli_cli_is_input_handled(void);
+-extern int sli_cli_get_pipe_read_fd(void);
+-#endif // ZIGBEE_PRO_COMPLIANCE_ON_HOST
 +struct in6_addr ezspListenAddress = IN6ADDR_ANY_INIT;
 +uint16_t ezspPort = 9999;
 +
 +extern jmp_buf gResetJump;
 +
 +static int socketFd = NULL_FILE_DESCRIPTOR;
-+
+ 
+-static int serialFd = NULL_FILE_DESCRIPTOR;   // file descriptor for serial port
  static uint8_t outBuffer[MAX_OUT_BLOCK_LEN];  // array to buffer output
  static uint8_t *outBufRd;                     // outBuffer read pointer
  static uint8_t *outBufWr;                     // outBuffer write pointer
-@@ -54,25 +60,15 @@ static uint8_t *inBufRd;                      // inBuffer read pointer
+@@ -59,25 +60,15 @@ static uint8_t *inBufRd;                      // inBuffer read pointer
  static uint8_t *inBufWr;                      // inBuffer write pointer
  static uint16_t inBlockLen;                   // bytes to read ahead
  
@@ -208,7 +208,7 @@ index f64ff63..06c6e50 100644
      if (outBufRd == outBufWr) {
        outBufRd = outBufWr = outBuffer;
      }
-@@ -81,13 +77,20 @@ static void writeFlush(void)
+@@ -86,13 +77,20 @@ static void writeFlush(void)
  
  static EmberStatus readAvailable(uint16_t *count)
  {
@@ -231,7 +231,7 @@ index f64ff63..06c6e50 100644
    }
    *count = inBufWr - inBufRd;
    if (inBufRd == inBufWr) {
-@@ -108,7 +111,12 @@ EmberStatus emberSerialInit(uint8_t port,
+@@ -113,7 +111,12 @@ EmberStatus emberSerialInit(uint8_t port,
  #ifdef IO_LOG
    logFile = fopen(IO_LOG, "w");
  #endif
@@ -245,7 +245,7 @@ index f64ff63..06c6e50 100644
    outBufRd = outBuffer;
    outBufWr = outBuffer;
    outBlockLen = DEFAULT_OUT_BLOCK_LEN;
-@@ -122,40 +130,75 @@ EmberStatus emberSerialInit(uint8_t port,
+@@ -127,40 +130,75 @@ EmberStatus emberSerialInit(uint8_t port,
      inBlockLen = MAX_IN_BLOCK_LEN;
    }
  
@@ -286,14 +286,14 @@ index f64ff63..06c6e50 100644
 +  address.sin6_family = AF_INET6;
 +  address.sin6_addr = ezspListenAddress;
 +  address.sin6_port = htons(ezspPort);
-+
+ 
+-  tios.c_iflag &= ~(BRKINT | INLCR | IGNCR | ICRNL | INPCK
+-                    | ISTRIP | IMAXBEL | IXON | IXOFF | IXANY);
 +  if (bind(serverFd, (struct sockaddr*)&address, sizeof(address)) < 0) {
 +    fprintf(stderr, "Failed to bind server socket to port %d: %s\r\n", ezspPort, strerror(errno));
 +    return EMBER_ERR_FATAL;
 +  }
- 
--  tios.c_iflag &= ~(BRKINT | INLCR | IGNCR | ICRNL | INPCK
--                    | ISTRIP | IMAXBEL | IXON | IXOFF | IXANY);
++
 +  fprintf(stderr, "Listening on port %d for connection...\r\n", ezspPort);
 +  if (listen(serverFd, 3) < 0) {
 +    fprintf(stderr, "Failed to listen on server socket: %s\r\n", strerror(errno));
@@ -341,9 +341,19 @@ index f64ff63..06c6e50 100644
  EmberStatus emberSerialWriteByte(uint8_t port, uint8_t dataByte)
  {
    *outBufWr++ = dataByte;
-@@ -207,13 +250,13 @@ void sli_serial_adapter_tick_callback(void)
+@@ -211,36 +249,18 @@ void sli_serial_adapter_tick_callback(void)
+   FD_ZERO(&mainloop.mWriteFdSet);
    FD_ZERO(&mainloop.mErrorFdSet);
  
+-#ifdef ZIGBEE_PRO_COMPLIANCE_ON_HOST
+-  // pro-compliance on host has CLI interface
+-  // need to set pipeReadFd into the mainloop file descriptor.
+-  int pipeReadFd = sli_cli_get_pipe_read_fd();
+-  FD_SET(pipeReadFd, &mainloop.mReadFdSet);
+-  FD_SET(pipeReadFd, &mainloop.mErrorFdSet);
+-  serialFd = (serialFd > pipeReadFd ? serialFd : pipeReadFd);
+-#endif // ZIGBEE_PRO_COMPLIANCE_ON_HOST
+-
    // Update mainloop initial FD and its timeout value
 -  mainloop.mMaxFd           = serialFd;
 +  mainloop.mMaxFd           = socketFd;
@@ -358,6 +368,19 @@ index f64ff63..06c6e50 100644
    otSysMainloopUpdate(NULL, &mainloop);
  
    if (otSysMainloopPoll(&mainloop) >= 0) {
+     otSysMainloopProcess(NULL, &mainloop);
+-#ifdef ZIGBEE_PRO_COMPLIANCE_ON_HOST
+-    // If the command is handled by the CLI component, read the data
+-    // to empty the pipe so that it is ready for the next command.
+-    if (sli_cli_is_input_handled()) {
+-      char buff[SL_CLI_THREADED_HOST_PIPE_DATA_LENGTH];
+-      assert(SL_CLI_THREADED_HOST_PIPE_DATA_LENGTH
+-             == read(sli_cli_get_pipe_read_fd(), buff, SL_CLI_THREADED_HOST_PIPE_DATA_LENGTH));
+-    }
+-#endif // ZIGBEE_PRO_COMPLIANCE_ON_HOST
+   } else if (errno != EINTR) {
+     //printf("%d\n", errno);
+     assert(false);
 diff --git a/main.c b/main.c
 index 8ca0924..31a0352 100644
 --- a/main.c
@@ -380,5 +403,5 @@ index 8ca0924..31a0352 100644
      execvp(argv[0], argv);
    }
 -- 
-2.37.2
+2.37.3
 
