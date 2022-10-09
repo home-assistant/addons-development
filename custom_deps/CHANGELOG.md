@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.2
+ - Update Python to 3.10
+
 ## 1.3.1
 
 - Add `--disable-pip-version-check` to the pip install command
