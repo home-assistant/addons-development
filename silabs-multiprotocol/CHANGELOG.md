@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.6.2
+- Use Silicon Labs Gecko SDK 4.1.3
+
 ## 0.6.1
 - Use Silicon Labs Gecko SDK 4.1.2
 
