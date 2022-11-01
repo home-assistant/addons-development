@@ -131,10 +131,10 @@ index ed681c0..213cf1a 100644
        case OT_POSIX_OPT_RADIO_URL:
          if (strlen(optarg) > RADIO_URL_MAX_LEN) {
            fprintf(stderr, "Error: Radio URL too long\n");
-diff --git a/gecko_sdk_4.1.2/protocol/zigbee/app/zigbeed/serial_adapter.c b/gecko_sdk_4.1.2/protocol/zigbee/app/zigbeed/serial_adapter.c
+diff --git a/gecko_sdk_4.1.3/protocol/zigbee/app/zigbeed/serial_adapter.c b/gecko_sdk_4.1.3/protocol/zigbee/app/zigbeed/serial_adapter.c
 index f486305..06c6e50 100644
---- a/gecko_sdk_4.1.2/protocol/zigbee/app/zigbeed/serial_adapter.c
-+++ b/gecko_sdk_4.1.2/protocol/zigbee/app/zigbeed/serial_adapter.c
+--- a/gecko_sdk_4.1.3/protocol/zigbee/app/zigbeed/serial_adapter.c
++++ b/gecko_sdk_4.1.3/protocol/zigbee/app/zigbeed/serial_adapter.c
 @@ -17,13 +17,16 @@
   *
   ******************************************************************************/
