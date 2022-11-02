@@ -5,8 +5,17 @@
 
 # If socket is used, wait until socat instance is ready
 if bashio::config.has_value 'network_device'; then
-    s6-svwait -U /var/run/s6/services/socat-cpcd-tcp
+    s6-svwait -U /run/service/socat-cpcd-tcp
 fi
+
+# Wait for the universal firmware flasher to be done
+if bashio::config.true 'autoflash_firmware'; then
+    s6-svc -wU -wD -u /run/service/universal-silabs-flasher
+    # Why is this necesary?
+    sleep 1
+    s6-svwait -D /run/service/universal-silabs-flasher
+fi
+
 bashio::log.info "Starting cpcd..."
 exec s6-notifyoncheck -d -s 300 -w 300 -n 0 \
     "/usr/bin/stdbuf" -o0 /usr/local/bin/cpcd

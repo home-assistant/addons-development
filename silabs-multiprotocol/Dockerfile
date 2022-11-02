@@ -73,7 +73,7 @@ RUN \
 
 FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS zigbeed-builder
 
-ARG GECKO_SDK_VERSION=v4.1.2
+ARG GECKO_SDK_VERSION=v4.1.3
 
 RUN \
     set -x \
@@ -161,6 +161,8 @@ RUN \
        nodejs \
        npm \
        iproute2 \
+       python3 \
+       python3-pip \
        lsb-release \
        sudo \
     && cd ot-br-posix \
@@ -170,6 +172,7 @@ RUN \
     && chmod +x ./script/* \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
     && ./script/setup \
+    && pip install universal-silabs-flasher==0.0.3 \
     && apt-get purge -y --auto-remove \
        build-essential \
        git \

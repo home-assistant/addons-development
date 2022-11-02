@@ -8,7 +8,7 @@ declare network_device
 network_device=$(bashio::config 'network_device')
 
 if ! bashio::config.has_value 'network_device'; then
-    s6-svc -d /var/run/s6/services/socat-cpcd-tcp
+    s6-svc -d /run/service/socat-cpcd-tcp
 fi
 
 bashio::log.info "Starting socat TCP client for CPC daemon..."
