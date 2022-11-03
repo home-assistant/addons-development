@@ -172,7 +172,7 @@ RUN \
     && chmod +x ./script/* \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
     && ./script/setup \
-    && pip install universal-silabs-flasher==0.0.3 \
+    && pip install universal-silabs-flasher==0.0.4 \
     && apt-get purge -y --auto-remove \
        build-essential \
        git \
