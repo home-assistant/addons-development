@@ -61,15 +61,11 @@ Add-on configuration:
 | device (mandatory) | Serial sevice where the Silicon Labs radio is attached |
 | baudrate           | Serial port baudrate (depends on firmware)   |
 | flow_control       | If hardware flow control should be enabled (depends on firmware) |
+| autoflash_firmware | Automatically install/update firmware (Home Assistant SkyConnect/Yellow) |
 | network_device     | Host and port where CPC daemon can find the Silicon Labs radio (takes precedence over device) |
 | cpcd_trace         | Co-Processsor Communication tracing (trace in log)     |
 | otbr_enable        | Enable OpenThread BorderRouter                         |
 | otbr_debug         | Start OpenThread BorderRouter Agent with debug log     |
-
-## Known issues and limitations
-
-- No aarch64 support at this time
-- Some devices seem to fail to join the network
 
 ## Architecture
 
