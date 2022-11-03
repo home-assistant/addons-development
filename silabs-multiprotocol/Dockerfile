@@ -164,7 +164,11 @@ RUN \
        iproute2 \
        patch \
        python3 \
+       python3-dev \
        python3-pip \
+       python3-aiohttp \
+       python3-cryptography \
+       python3-yarl \
        lsb-release \
        sudo \
     && cd ot-br-posix \
@@ -179,6 +183,8 @@ RUN \
     && apt-get purge -y --auto-remove \
        build-essential \
        patch \
+       python3-pip \
+       python3-dev \
        git \
        git-lfs \
        libmbedtls-dev \
