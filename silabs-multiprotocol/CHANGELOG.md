@@ -1,7 +1,7 @@
 # Changelog
 
 ## 0.7.0
-- Support firmware flashing for Home Assistant SkyConnect
+- Support firmware flashing for Home Assistant SkyConnect/Yellow
 - Allow quick reconnects by ZHA (required during config flow)
 
 ## 0.6.2
