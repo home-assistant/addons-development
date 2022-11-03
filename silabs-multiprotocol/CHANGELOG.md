@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.7.0
+- Support firmware flashing for Home Assistant SkyConnect/Yellow
+- Allow quick reconnects by ZHA (required during config flow)
+
 ## 0.6.2
 - Use Silicon Labs Gecko SDK 4.1.3
 

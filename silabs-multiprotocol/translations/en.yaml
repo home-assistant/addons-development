@@ -11,6 +11,9 @@ configuration:
   network_device:
     name: Network Device
     description: Host and Port when connecting to a device via sockets (takes precedence over above configuration).
+  autoflash_firmware:
+    name: Automatically flash firmware
+    description: Automatically flash Multi-PAN firmware on Home Assistant SkyConnect (WARNING: flashing the original EmberZNet is a manual process currently)
   cpcd_trace:
     name: Co-Processor Communication tracing
     description: Enable tracing for the Co-Processor Communication daemon.

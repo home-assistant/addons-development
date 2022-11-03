@@ -52,6 +52,17 @@ radio is used.
 Follow the guides at [openthread.io](https://openthread.io), e.g. the [OpenThread
 Commissioner](https://openthread.io/guides/commissioner) guide.
 
+### Automatic firmware upgrade
+
+If the `autoflash_firmware` configuration is set, the add-on will automatically
+install or update to the RCP Multi-PAN firmware if a Home Assistant SkyConnect
+or Home Assistant Yellow is detected.
+
+**NOTE:** Switching back to a Zigbee only (EmberZNet) firmware requires manual
+steps currently. You can find a guide on the Nabu Casa Silicon Labs firmware
+repository Wiki on flashing [Silicon Labs radio firmware
+manually](https://github.com/NabuCasa/silabs-firmware/wiki/Flash-Silicon-Labs-radio-firmware-manually).
+
 ## Configuration
 
 Add-on configuration:
@@ -61,15 +72,11 @@ Add-on configuration:
 | device (mandatory) | Serial sevice where the Silicon Labs radio is attached |
 | baudrate           | Serial port baudrate (depends on firmware)   |
 | flow_control       | If hardware flow control should be enabled (depends on firmware) |
+| autoflash_firmware | Automatically install/update firmware (Home Assistant SkyConnect/Yellow) |
 | network_device     | Host and port where CPC daemon can find the Silicon Labs radio (takes precedence over device) |
 | cpcd_trace         | Co-Processsor Communication tracing (trace in log)     |
 | otbr_enable        | Enable OpenThread BorderRouter                         |
 | otbr_debug         | Start OpenThread BorderRouter Agent with debug log     |
-
-## Known issues and limitations
-
-- No aarch64 support at this time
-- Some devices seem to fail to join the network
 
 ## Architecture
 

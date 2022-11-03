@@ -73,7 +73,7 @@ RUN \
 
 FROM --platform=linux/amd64 cross-builder-${BUILD_ARCH} AS zigbeed-builder
 
-ARG GECKO_SDK_VERSION=v4.1.2
+ARG GECKO_SDK_VERSION=v4.1.3
 
 RUN \
     set -x \
@@ -144,6 +144,7 @@ ENV WEB_GUI=1
 ENV DOCKER 1
 
 COPY 0001-Avoid-writing-to-system-console.patch /usr/src
+COPY replace-the-source-of-mDNSResponder.patch /usr/src
 
 # Required and installed during build (script/bootstrap), could be removed
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -161,17 +162,29 @@ RUN \
        nodejs \
        npm \
        iproute2 \
+       patch \
+       python3 \
+       python3-dev \
+       python3-pip \
+       python3-aiohttp \
+       python3-cryptography \
+       python3-yarl \
        lsb-release \
        sudo \
     && cd ot-br-posix \
+    && patch -p1  < /usr/src/replace-the-source-of-mDNSResponder.patch \
     && chmod +x ./script/bootstrap \
     && ./script/bootstrap \
     && ln -s ../../../openthread/ third_party/openthread/repo \
     && chmod +x ./script/* \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
     && ./script/setup \
+    && pip install universal-silabs-flasher==0.0.4 \
     && apt-get purge -y --auto-remove \
        build-essential \
+       patch \
+       python3-pip \
+       python3-dev \
        git \
        git-lfs \
        libmbedtls-dev \

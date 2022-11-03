@@ -1,4 +1,4 @@
-version: 0.6.2
+version: 0.7.0
 slug: silabs_multiprotocol
 name: Silicon Labs Multiprotocol
 description: Zigbee and OpenThread multiprotocol add-on
@@ -31,6 +31,7 @@ schema:
   baudrate: list(57600|115200|230400|460800|921600)?
   flow_control: bool?
   network_device: str?
+  autoflash_firmware: bool
   cpcd_trace: bool
   otbr_enable: bool
   otbr_debug: bool
