@@ -52,6 +52,17 @@ radio is used.
 Follow the guides at [openthread.io](https://openthread.io), e.g. the [OpenThread
 Commissioner](https://openthread.io/guides/commissioner) guide.
 
+### Automatic firmware upgrade
+
+If the `autoflash_firmware` configuration is set, the add-on will automatically
+install or update to the RCP Multi-PAN firmware if a Home Assistant SkyConnect
+or Home Assistant Yellow is detected.
+
+**NOTE:** Switching back to a Zigbee only (EmberZNet) firmware requires manual
+steps currently. You can find a guide on the Nabu Casa Silicon Labs firmware
+repository Wiki on flashing [Silicon Labs radio firmware
+manually](https://github.com/NabuCasa/silabs-firmware/wiki/Flash-Silicon-Labs-radio-firmware-manually).
+
 ## Configuration
 
 Add-on configuration:
