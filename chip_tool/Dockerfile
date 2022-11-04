@@ -68,7 +68,7 @@ RUN \
 FROM builder-base AS builder-chip
 
 ARG BUILD_ARCH=amd64
-ARG CHIP_VERSION=989ad8ec4d8004065c6c7cb090de23484f12b54f
+ARG CHIP_VERSION=a17c005209fbde737edb97b0f51ea63472c166aa
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]

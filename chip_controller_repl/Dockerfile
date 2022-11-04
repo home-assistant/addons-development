@@ -68,7 +68,7 @@ RUN \
 FROM builder-base AS builder-chip
 
 ARG BUILD_ARCH=amd64
-ARG CHIP_VERSION=989ad8ec4d8004065c6c7cb090de23484f12b54f
+ARG CHIP_VERSION=a17c005209fbde737edb97b0f51ea63472c166aa
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -76,6 +76,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 COPY 0001-Use-data-as-platform-storage-location.patch /usr/src
 COPY 0001-Avoid-python_runner.py-deadlock.patch /usr/src
 COPY 0001-Avoid-polluting-Pigweed-environment-namespace.patch /usr/src
+COPY 0001-Revert-Python-dependencies.patch /usr/src
 
 WORKDIR /usr/src
 
@@ -108,6 +109,7 @@ RUN \
     && git submodule update --init \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
     && patch -p1 < /usr/src/0001-Avoid-polluting-Pigweed-environment-namespace.patch \
+    && patch -p1 < /usr/src/0001-Revert-Python-dependencies.patch \
     && ( \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
@@ -147,13 +149,15 @@ WORKDIR /root
 
 COPY --from=builder-chip /usr/src/connectedhomeip/credentials /root/credentials
 COPY --from=builder-chip \
-     /usr/src/connectedhomeip/out/python_lib/controller/python/chip-0.0-cp37-abi3-linux_*.whl \
+     /usr/src/connectedhomeip/out/python_lib/controller/python/chip_*.whl \
      /tmp
 
 # hadolint ignore=DL3013
 RUN \
-    pip3 install --no-cache-dir /tmp/chip-0.0-cp37-abi3-linux_*.whl \
+    pip3 install --no-cache-dir /tmp/chip_clusters-0.0-py3-none-any.whl \
+    && pip3 install --no-cache-dir /tmp/chip_core-0.0-cp37-abi3-linux_*.whl \
+    && pip3 install --no-cache-dir /tmp/chip_repl-0.0-py3-none-any.whl \
     && pip3 install --no-cache-dir jupyter-console \
-    && rm /tmp/chip-0.0-cp37-abi3-linux_*.whl
+    && rm /tmp/*.whl
 
 COPY rootfs /
