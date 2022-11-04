@@ -1,7 +1,7 @@
 # Changelog
 
 ## 0.2.3
-- Bump to CHIP version 989ad8ec4d (2022-09-16 16:52:32 -0400)
+- Bump to CHIP version a17c005209 (2022-11-03 11:06:39 -0400)
 
 ## 0.2.2
 - Bump to CHIP version 700d92eeb6 (2022-05-27 13:04:24 +0200)
