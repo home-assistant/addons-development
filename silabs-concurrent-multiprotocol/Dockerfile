@@ -148,6 +148,7 @@ ENV WEB_GUI=1
 ENV DOCKER 1
 
 COPY 0001-Avoid-writing-to-system-console.patch /usr/src
+COPY replace-the-source-of-mDNSResponder.patch /usr/src
 
 # Required and installed during build (script/bootstrap), could be removed
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -168,6 +169,7 @@ RUN \
        lsb-release \
        sudo \
     && cd ot-br-posix \
+    && patch -p1  < /usr/src/replace-the-source-of-mDNSResponder.patch \
     && chmod +x ./script/bootstrap \
     && ./script/bootstrap \
     && ln -s ../../../openthread/ third_party/openthread/repo \
