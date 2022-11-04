@@ -166,6 +166,7 @@ RUN \
        nodejs \
        npm \
        iproute2 \
+       patch \
        lsb-release \
        sudo \
     && cd ot-br-posix \
