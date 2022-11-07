@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.5
+- Fix network devices (properly wait for socat to start)
+
 ## 0.1.4
 - Use Silicon Labs Gecko SDK 4.1.3
 
