@@ -1,5 +1,0 @@
-#!/bin/bash
-
-# Check if openthread socket exists
-test -S /run/openthread-wpan0.sock
-exit
