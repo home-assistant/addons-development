@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.4
+- Bump to OTBR POSIX version 0e15296792 (2022-11-07 12:33:00 +0100)
+
 ## 0.2.3
 - Fix Firewall shutdown
 
