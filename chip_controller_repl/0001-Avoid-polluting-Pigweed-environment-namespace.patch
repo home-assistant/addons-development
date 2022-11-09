@@ -1,0 +1,25 @@
+From dd200b84d038aba7af5350a69ede444f297e8373 Mon Sep 17 00:00:00 2001
+Message-Id: <dd200b84d038aba7af5350a69ede444f297e8373.1663624586.git.stefan@agner.ch>
+From: Stefan Agner <stefan@agner.ch>
+Date: Mon, 19 Sep 2022 23:56:05 +0200
+Subject: [PATCH] Avoid polluting Pigweed environment namespace
+
+---
+ scripts/bootstrap.sh | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/scripts/bootstrap.sh b/scripts/bootstrap.sh
+index af1b567f0..f3476d0a0 100644
+--- a/scripts/bootstrap.sh
++++ b/scripts/bootstrap.sh
+@@ -28,6 +28,7 @@ _bootstrap_or_activate() {
+ 
+     if [ ! -z "$PW_CONFIG_FILE" ]; then
+         _CONFIG_FILE="$PW_CONFIG_FILE"
++	unset PW_CONFIG_FILE
+     fi
+ 
+     if [ "$_BOOTSTRAP_NAME" = "bootstrap.sh" ] ||
+-- 
+2.37.3
+

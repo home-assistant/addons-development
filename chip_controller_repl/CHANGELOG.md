@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.3
+- Bump to CHIP version a17c005209 (2022-11-03 11:06:39 -0400)
+
 ## 0.2.2
 - Bump to CHIP version 700d92eeb6 (2022-05-27 13:04:24 +0200)
 - Use /data as CHIP storage path for platform storage as well

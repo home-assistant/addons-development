@@ -68,7 +68,7 @@ RUN \
 FROM builder-base AS builder-chip
 
 ARG BUILD_ARCH=amd64
-ARG CHIP_VERSION=5d8599d195a93dfe5473f64e4f888c322e5df1d2
+ARG CHIP_VERSION=a17c005209fbde737edb97b0f51ea63472c166aa
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -76,6 +76,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 COPY 0001-Use-data-as-platform-storage-location.patch /usr/src
 COPY 0002-Use-data-as-storage-location-for-chip-tool.patch /usr/src
 COPY 0001-Avoid-python_runner.py-deadlock.patch /usr/src
+COPY 0001-Avoid-polluting-Pigweed-environment-namespace.patch /usr/src
 
 WORKDIR /usr/src
 
@@ -97,6 +98,8 @@ RUN \
        python3-dev \
        python3-pip \
        python3-dbus \
+       python3-click \
+       python3-coloredlogs \
        python3-cryptography \
        unzip \
        libgirepository1.0-dev \
@@ -109,11 +112,13 @@ RUN \
     && git submodule update --init \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
     && patch -p1 < /usr/src/0002-Use-data-as-storage-location-for-chip-tool.patch \
+    && patch -p1 < /usr/src/0001-Avoid-polluting-Pigweed-environment-namespace.patch \
     && ( \
            cd third_party/pigweed/repo/ \
            && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
        ) \
-    && source scripts/no_cipd_bootstrap.sh \
+    && export PW_CONFIG_FILE=scripts/environment_no_cipd.json \
+    && source scripts/bootstrap.sh \
     && if [ "${BUILD_ARCH}" = "amd64" ]; \
        then \
            EXAMPLE_PREFIX="linux-x64-"; \
