@@ -65,60 +65,9 @@ RUN \
     && make \
     && make DESTDIR=./install install
 
-FROM builder-base AS builder-chip
-
-ARG BUILD_ARCH=amd64
-ARG CHIP_VERSION=a17c005209fbde737edb97b0f51ea63472c166aa
-
-# Set shell
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
-
-COPY 0001-Use-data-as-platform-storage-location.patch /usr/src
-COPY 0001-Avoid-python_runner.py-deadlock.patch /usr/src
-COPY 0001-Avoid-polluting-Pigweed-environment-namespace.patch /usr/src
-COPY 0001-Revert-Python-dependencies.patch /usr/src
-
-WORKDIR /usr/src
-
-# Install and build CHIP Python Controller
-# hadolint ignore=SC1091
-RUN \
-    set -x \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-       protobuf-compiler \
-       libprotobuf-dev \
-       gn \
-       libssl-dev \
-       libdbus-1-dev \
-       libglib2.0-dev \
-       ninja-build \
-       python3-venv \
-       python3-dev \
-       python3-pip \
-       python3-dbus \
-       python3-cryptography \
-       unzip \
-       libgirepository1.0-dev \
-       libcairo2-dev \
-    && git clone --depth 1 -b master \
-       https://github.com/project-chip/connectedhomeip \
-    && cd connectedhomeip \
-    && git fetch origin ${CHIP_VERSION} \
-    && git checkout ${CHIP_VERSION} \
-    && git submodule update --init \
-    && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
-    && patch -p1 < /usr/src/0001-Avoid-polluting-Pigweed-environment-namespace.patch \
-    && patch -p1 < /usr/src/0001-Revert-Python-dependencies.patch \
-    && ( \
-           cd third_party/pigweed/repo/ \
-           && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
-       ) \
-    && export PW_CONFIG_FILE=scripts/environment_no_cipd.json \
-    && source scripts/bootstrap.sh \
-    && scripts/build_python.sh -m minimal
-
 FROM $BUILD_FROM
+
+ARG HOME_ASSISTANT_CHIP_VERSION
 
 RUN \
     set -x \
@@ -137,6 +86,13 @@ RUN \
        unzip \
        libcairo2 \
        gdb \
+       git \
+    && git clone --depth 1 -b v1.0-branch \
+       https://github.com/project-chip/connectedhomeip \
+    && cp -r connectedhomeip/credentials /root/credentials \
+    && rm -rf connectedhomeip \
+    && apt-get purge -y --auto-remove \
+       git \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/src/*
 
@@ -147,17 +103,12 @@ RUN ldconfig
 
 WORKDIR /root
 
-COPY --from=builder-chip /usr/src/connectedhomeip/credentials /root/credentials
-COPY --from=builder-chip \
-     /usr/src/connectedhomeip/out/python_lib/controller/python/chip_*.whl \
-     /tmp
-
 # hadolint ignore=DL3013
 RUN \
-    pip3 install --no-cache-dir /tmp/chip_clusters-0.0-py3-none-any.whl \
-    && pip3 install --no-cache-dir /tmp/chip_core-0.0-cp37-abi3-linux_*.whl \
-    && pip3 install --no-cache-dir /tmp/chip_repl-0.0-py3-none-any.whl \
-    && pip3 install --no-cache-dir jupyter-console \
-    && rm /tmp/*.whl
+    pip3 install \
+       home-assistant-chip-clusters==${HOME_ASSISTANT_CHIP_VERSION} \
+       home-assistant-chip-core==${HOME_ASSISTANT_CHIP_VERSION} \
+       home-assistant-chip-repl==${HOME_ASSISTANT_CHIP_VERSION} \
+    && pip3 install --no-cache-dir jupyter-console
 
 COPY rootfs /
