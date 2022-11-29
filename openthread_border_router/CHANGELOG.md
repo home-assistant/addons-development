@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.6
+
+- Accept IPv6 forwarding explicitly (required for HAOS 9.x)
+- Add egress firewall rules for forwarding if firewall is enabled
+
 ## 0.2.5
 
 - Bump to OTBR POSIX version 110eb2507c (2022-11-24 14:36:14 -0800)

@@ -27,6 +27,15 @@ ipset_destroy_if_exist otbr-ingress-deny-src-swap
 ipset_destroy_if_exist otbr-ingress-allow-dst
 ipset_destroy_if_exist otbr-ingress-allow-dst-swap
 
+while ip6tables -C FORWARD -i $thread_if -j $otbr_forward_egress_chain 2> /dev/null; do
+	ip6tables -D FORWARD -i $thread_if -j $otbr_forward_egress_chain
+done
+
+if ip6tables -L $otbr_forward_egress_chain 2> /dev/null; then
+	ip6tables -w -F $otbr_forward_egress_chain
+	ip6tables -w -X $otbr_forward_egress_chain
+fi
+
 if test "$1" -eq 256 ; then
   e=$((128 + $2))
 else
