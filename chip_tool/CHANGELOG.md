@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3
+
+- Build and deploy chip-bridge-app, chip-lighting-app and chip-cert as well
+
 ## 0.1.2
 
 - Bump to CHIP version a17c005209 (2022-11-03 11:06:39 -0400)

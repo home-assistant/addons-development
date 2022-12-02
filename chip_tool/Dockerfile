@@ -129,11 +129,14 @@ RUN \
            exit 1; \
        fi \
     && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-tool build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-cert build \
     && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}all-clusters-no-ble-no-wifi build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-app build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-casting-app build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}bridge build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}light build \
     && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}lock build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}thermostat build
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}thermostat build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-app build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-casting-app build
 
 FROM $BUILD_FROM
 
@@ -160,11 +163,14 @@ WORKDIR /root
 
 COPY --from=builder-chip /usr/src/connectedhomeip/credentials /root/credentials
 COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-chip-tool/chip-tool /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-chip-cert/chip-cert /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-all-clusters-no-ble-no-wifi/address-resolve-tool /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-all-clusters-no-ble-no-wifi/chip-all-clusters-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-tv-app/chip-tv-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-tv-casting-app/chip-tv-casting-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-bridge/chip-bridge-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-light/chip-lighting-app /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-lock/chip-lock-app /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-thermostat/thermostat-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-tv-app/chip-tv-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-tv-casting-app/chip-tv-casting-app /usr/local/bin
 
 COPY rootfs /
