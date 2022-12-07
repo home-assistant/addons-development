@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.3
+ - Fix: Addon don´t start
+ - Fix: Addon don´t access config
+ - Fix: Addon don´t install pip packages in /config/deps
+
 ## 1.3.2
  - Update Python to 3.10
 
