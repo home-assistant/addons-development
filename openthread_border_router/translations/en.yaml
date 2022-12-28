@@ -8,9 +8,10 @@ configuration:
   flow_control:
     name: Hardware flow control
     description: Enable hardware flow control for serial port.
-  otbr_debug:
-    name: OpenThread agent debugging
-    description: Enable OpenThread agent debug output (otbr-agent).
+  otbr_log_level:
+    name: OpenThread Border Router agent log level
+    description: >-
+      Set logging level of the OpenThread Border Router agent (otbr-agent).
   firewall:
     name: OTBR firewall
     description: Use OpenThread Border Router firewall to block unnecessary traffic.

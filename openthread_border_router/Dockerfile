@@ -3,7 +3,7 @@ FROM $BUILD_FROM
 
 ARG BUILD_ARCH
 
-ARG OTBR_VERSION=110eb2507caa2fbc9b10935d37f78f6280de1086
+ARG OTBR_VERSION=079bbce34ad7868e2879a8e70550c6ae638d6bac
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -18,6 +18,8 @@ ENV REST_API 1
 ENV DOCKER 1
 
 COPY 0001-Avoid-writing-to-system-console.patch /usr/src
+COPY 0001-rest-implement-REST-API-to-get-dataset.patch /usr/src
+COPY 0002-rest-support-state-change.patch /usr/src
 
 # Required and installed (script/bootstrap) can be removed after build
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -48,6 +50,8 @@ RUN \
     && git checkout ${OTBR_VERSION} \
     && git submodule update --init \
     && ./script/bootstrap \
+    && patch -p1 < /usr/src/0001-rest-implement-REST-API-to-get-dataset.patch \
+    && patch -p1 < /usr/src/0002-rest-support-state-change.patch \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
     && ./script/setup \
     && apt-get purge -y --auto-remove \
