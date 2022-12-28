@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.0
+
+- Bump to OTBR POSIX version 079bbce34a (2022-12-22 19:00:41 -0800)
+- Add REST API with full active and pending dataset as well as state support
+- Avoid start error in case multiple primary interfaces are returned
+- Add fine grained OTBR log level control
+- Fix service stop (finish) scripts
+
 ## 0.2.6
 
 - Accept IPv6 forwarding explicitly (required for HAOS 9.x)

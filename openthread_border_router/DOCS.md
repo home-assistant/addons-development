@@ -48,7 +48,7 @@ Add-on configuration:
 | device (mandatory) | Serial port where the OpenThread RCP Radio is attached |
 | baudrate           | Serial port baudrate (depends on firmware)   |
 | flow_control       | If hardware flow control should be enabled (depends on firmware) |
-| otbr_debug         | Start OpenThread BorderRouter Agent with debug log     |
+| otbr_log_level     | Set the log level of the OpenThread BorderRouter Agent     |
 | firewall           | Enable OpenThread Border Router firewall to block unnecessary traffic |
 
 ## Support
