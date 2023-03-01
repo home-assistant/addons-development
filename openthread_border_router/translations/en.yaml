@@ -1,10 +1,12 @@
+---
 configuration:
   device:
     name: Device
     description: The serial port where the OpenThread RCP radio is attached.
   baudrate:
     name: Baudrate
-    description: The serial port baudrate used to communicate with the Silicon Labs radio.
+    description: >-
+      The serial port baudrate used to communicate with the Silicon Labs radio.
   flow_control:
     name: Hardware flow control
     description: Enable hardware flow control for serial port.
@@ -14,4 +16,8 @@ configuration:
       Set logging level of the OpenThread Border Router agent (otbr-agent).
   firewall:
     name: OTBR firewall
-    description: Use OpenThread Border Router firewall to block unnecessary traffic.
+    description: >-
+      Use OpenThread Border Router firewall to block unnecessary traffic.
+network:
+  8080/tcp: OpenThread Web port
+  8081/tcp: OpenThread REST API port

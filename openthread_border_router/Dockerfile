@@ -3,7 +3,7 @@ FROM $BUILD_FROM
 
 ARG BUILD_ARCH
 
-ARG OTBR_VERSION=079bbce34ad7868e2879a8e70550c6ae638d6bac
+ARG OTBR_VERSION=d83fee189a5d55e10a8d1494f1600c23f4f2df80
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -20,6 +20,7 @@ ENV DOCKER 1
 COPY 0001-Avoid-writing-to-system-console.patch /usr/src
 COPY 0001-rest-implement-REST-API-to-get-dataset.patch /usr/src
 COPY 0002-rest-support-state-change.patch /usr/src
+COPY 0003-rest-explicitly-set-Connection-header-to-close.patch /usr/src
 
 # Required and installed (script/bootstrap) can be removed after build
 ENV OTBR_BUILD_DEPS build-essential ninja-build cmake wget ca-certificates \
@@ -40,6 +41,7 @@ RUN \
        git \
        iproute2 \
        lsb-release \
+       netcat \
        sudo \
        nodejs \
        npm \
@@ -52,8 +54,33 @@ RUN \
     && ./script/bootstrap \
     && patch -p1 < /usr/src/0001-rest-implement-REST-API-to-get-dataset.patch \
     && patch -p1 < /usr/src/0002-rest-support-state-change.patch \
+    && patch -p1 < /usr/src/0003-rest-explicitly-set-Connection-header-to-close.patch \
     && patch -p1 < /usr/src/0001-Avoid-writing-to-system-console.patch \
-    && ./script/setup \
+    # Mimic rt_tables_install \
+    && echo "88 openthread" >> /etc/iproute2/rt_tables \
+    # Mimic otbr_install \
+    && (./script/cmake-build \
+        -DBUILD_TESTING=OFF \
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DOTBR_FEATURE_FLAGS=ON \
+        -DOTBR_DNSSD_DISCOVERY_PROXY=ON \
+        -DOTBR_SRP_ADVERTISING_PROXY=ON \
+        -DOTBR_INFRA_IF_NAME=eth0 \
+        -DOTBR_MDNS=mDNSResponder \
+        -DOTBR_VERSION= \
+        -DOT_PACKAGE_VERSION= \
+        -DOTBR_DBUS=OFF \
+        -DOT_POSIX_CONFIG_RCP_BUS=UART \
+        -DOT_LINK_RAW=1 \
+        -DOTBR_VENDOR_NAME="Home Assistant" \
+        -DOTBR_PRODUCT_NAME="OpenThread Border Router" \
+        -DOTBR_WEB=ON \
+        -DOTBR_BORDER_ROUTING=ON \
+        -DOTBR_REST=ON \
+        -DOTBR_BACKBONE_ROUTER=ON \
+        && cd build/otbr/ \
+        && ninja \
+        && ninja install) \
     && apt-get purge -y --auto-remove \
        git \
        ${OTBR_BUILD_DEPS} \
