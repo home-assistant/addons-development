@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.0.0
+
+- Bump to OTBR POSIX version d83fee189a (2023-02-28 08:48:56 -0800)
+- Remove Web UI via ingress (expose ports to use the Web UI, see documentation)
+- Change vendor name to "Home Assistant" and product name to Silicon Labs
+  Multiprotocol" (used in OTBR mDNS/DNS-SD announcments)
+- Set default baudrate 115200 correctly
+- Let the OTBR REST API listen on local interface only by default
+- Fix REST API to correctly set the Connection HTTP header
+- Fix REST API to return an HTTP compliant status line
+- Add OTBR discovery support
+
 ## 0.3.0
 
 - Bump to OTBR POSIX version 079bbce34a (2022-12-22 19:00:41 -0800)

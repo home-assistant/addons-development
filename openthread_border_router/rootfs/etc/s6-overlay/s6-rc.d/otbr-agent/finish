@@ -4,6 +4,7 @@
 #==============================================================================
 bashio::log.info "otbr-agent ended with exit code ${1} (signal ${2})..."
 
+
 . /etc/s6-overlay/scripts/otbr-agent-common
 
 ipset_destroy_if_exist()

@@ -1,5 +1,5 @@
-From 15efb5c0770b705c6ef83b00afe64b3eb80b78df Mon Sep 17 00:00:00 2001
-Message-Id: <15efb5c0770b705c6ef83b00afe64b3eb80b78df.1672239253.git.stefan@agner.ch>
+From 35714823562dc6d7df8b8e81747aa19e27b9d5f7 Mon Sep 17 00:00:00 2001
+Message-Id: <35714823562dc6d7df8b8e81747aa19e27b9d5f7.1677692382.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Fri, 23 Dec 2022 10:39:34 +0100
 Subject: [PATCH] [rest] implement REST API to get dataset
@@ -1082,7 +1082,7 @@ index 63380f0080..5b73b06736 100644
  
  } // namespace rest
 diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
-index a6a86337bc..be1565881b 100644
+index 61b486d082..24c4771acf 100644
 --- a/src/rest/resource.cpp
 +++ b/src/rest/resource.cpp
 @@ -45,7 +45,8 @@
@@ -1405,7 +1405,7 @@ index 057cafc3de..2afab72933 100644
      void DeleteOutDatedDiagnostic(void);
      void UpdateDiag(std::string aKey, std::vector<otNetworkDiagTlv> &aDiag);
 diff --git a/src/rest/response.cpp b/src/rest/response.cpp
-index 2cdfc80ea5..17ae97e384 100644
+index bcf63a6c31..540a0840e0 100644
 --- a/src/rest/response.cpp
 +++ b/src/rest/response.cpp
 @@ -30,12 +30,11 @@
@@ -1423,7 +1423,7 @@ index 2cdfc80ea5..17ae97e384 100644
  namespace otbr {
  namespace rest {
 @@ -48,7 +47,7 @@ Response::Response(void)
-     mProtocol = "HTTP/1.1 ";
+     mProtocol = "HTTP/1.1";
  
      // Pre-defined headers
 -    mHeaders["Content-Type"]                 = OT_REST_RESPONSE_CONTENT_TYPE_JSON;
@@ -1493,7 +1493,7 @@ index addc7d2cbb..e1e048237d 100644
  };
  
 diff --git a/src/utils/hex.cpp b/src/utils/hex.cpp
-index 5e82a0b819..397c70d464 100644
+index 04aa2c02ad..215e4796d4 100644
 --- a/src/utils/hex.cpp
 +++ b/src/utils/hex.cpp
 @@ -96,34 +96,48 @@ size_t Bytes2Hex(const uint8_t *aBytes, const uint16_t aBytesLength, char *aHex)
@@ -1510,9 +1510,9 @@ index 5e82a0b819..397c70d464 100644
  
      for (int i = 0; i < aBytesLength; i++)
      {
--        sprintf(byteHex, "%02X", cur[i]);
+-        snprintf(byteHex, sizeof(byteHex), "%02X", cur[i]);
 -        hexString += byteHex;
-+        sprintf(byteHex, "%02X", aBytes[i]);
++        snprintf(byteHex, sizeof(byteHex), "%02X", aBytes[i]);
 +        strcat(aHex, byteHex);
      }
 -    strcpy(aHex, hexString.c_str());
@@ -1547,7 +1547,7 @@ index 5e82a0b819..397c70d464 100644
      for (uint8_t i = 0; i < sizeof(uint64_t); i++)
      {
          uint8_t byte = longValue & 0xff;
-         sprintf(byteHex, "%02X", byte);
+         snprintf(byteHex, sizeof(byteHex), "%02X", byte);
 -        hexString += byteHex;
 +        strcat(aHex, byteHex);
          longValue = longValue >> 8;
@@ -1620,5 +1620,5 @@ index 0aa4b23946..49ba37d561 100644
  
  } // namespace Utils
 -- 
-2.39.0
+2.39.1
 

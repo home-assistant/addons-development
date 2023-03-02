@@ -1,7 +1,7 @@
-From 5f94ed4f5e23d168ea4b7351ba66578c137a0e6d Mon Sep 17 00:00:00 2001
-Message-Id: <5f94ed4f5e23d168ea4b7351ba66578c137a0e6d.1672239253.git.stefan@agner.ch>
-In-Reply-To: <15efb5c0770b705c6ef83b00afe64b3eb80b78df.1672239253.git.stefan@agner.ch>
-References: <15efb5c0770b705c6ef83b00afe64b3eb80b78df.1672239253.git.stefan@agner.ch>
+From 34bc7bbc16d46642b07e3964bf8e706f82433f29 Mon Sep 17 00:00:00 2001
+Message-Id: <34bc7bbc16d46642b07e3964bf8e706f82433f29.1677692382.git.stefan@agner.ch>
+In-Reply-To: <35714823562dc6d7df8b8e81747aa19e27b9d5f7.1677692382.git.stefan@agner.ch>
+References: <35714823562dc6d7df8b8e81747aa19e27b9d5f7.1677692382.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Wed, 28 Dec 2022 11:46:25 +0100
 Subject: [PATCH] [rest] support state change
@@ -40,7 +40,7 @@ index e4b23ca297..36c30245fd 100644
      get:
        tags:
 diff --git a/src/rest/resource.cpp b/src/rest/resource.cpp
-index be1565881b..c5dc5f01d2 100644
+index 24c4771acf..2edf4398b2 100644
 --- a/src/rest/resource.cpp
 +++ b/src/rest/resource.cpp
 @@ -312,17 +312,65 @@ void Resource::GetDataState(Response &aResponse) const
@@ -125,5 +125,5 @@ index 2afab72933..3a0c9a3c85 100644
      void GetDataLeaderData(Response &aResponse) const;
      void GetDataNumOfRoute(Response &aResponse) const;
 -- 
-2.39.0
+2.39.1
 

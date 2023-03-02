@@ -30,14 +30,23 @@ Once the firmware is loaded follow the following steps:
 
 ### OpenThread Border Router
 
-This add-on makes your Home Assistant installation an OpenThread BorderRouter
-(OTBR). There is no integration in Home Assistant Core at this point.
+This add-on makes your Home Assistant installation an OpenThread Border Router
+(OTBR). The border router can be used to comission Matter devices which connect
+through Thread. Home Assistant Core will automatically detect this add-on and
+create a new integration named "Open Thread Border Router". With Home Assistant
+Core 2023.3 and newer the OTBR will get configured automatically. The Thread
+integration allows to inspect the network configuration.
 
-The add-on comes with the OTBR web fronted provided by the OpenThread reference
-implementation.
+### Web interface (advanced)
 
-Follow the guides at [openthread.io](https://openthread.io), e.g. the [OpenThread
-Commissioner](https://openthread.io/guides/commissioner) guide.
+There is also a web interface provided by the OTBR. However, the web
+interface has caveats (e.g. forming a network does not generate an off-mesh
+routable IPv6 prefix which causes changing IPv6 addressing on first add-on
+restart). It is still possible to enable the web interface for debugging
+purpose. Make sure to expose both the Web UI port and REST API port (the
+latter needs to be on port 8081) on the host interface. To do so, click on
+"Show disabled ports" and enter a port (e.g. 8080) in the OpenThread Web UI
+and 8081 in the OpenThread REST API port field).
 
 ## Configuration
 
