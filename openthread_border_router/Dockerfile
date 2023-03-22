@@ -40,6 +40,8 @@ RUN \
     && apt-get install -y --no-install-recommends \
        git \
        iproute2 \
+       python3 \
+       python3-pip \
        lsb-release \
        netcat \
        sudo \
