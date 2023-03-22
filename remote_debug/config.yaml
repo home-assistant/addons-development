@@ -2,7 +2,7 @@ name: Remote ptvsd debugger
 version: 1.1.0
 slug: remote_debug
 description: Remote Debug proxy for Supervisor/ptvsd
-url: https://developers.home-assistant.io/docs/en/hassio_debug.html
+url: https://developers.home-assistant.io/docs/supervisor/debugging
 arch:
 - armhf
 - armv7
