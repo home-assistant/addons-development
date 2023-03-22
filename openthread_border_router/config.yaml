@@ -1,5 +1,5 @@
 ---
-version: 1.0.0
+version: 1.1.0
 slug: openthread_border_router
 name: OpenThread Border Router
 description: OpenThread Border Router add-on
@@ -22,8 +22,9 @@ image: homeassistant/{arch}-addon-otbr
 init: false
 options:
   device: null
-  baudrate: "115200"
-  flow_control: false
+  baudrate: "460800"
+  flow_control: true
+  autoflash_firmware: true
   otbr_log_level: notice
   firewall: true
 ports:
