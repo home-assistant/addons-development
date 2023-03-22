@@ -5,7 +5,6 @@
 
 declare autoflash_firmware
 declare device
-declare baudrate
 declare firmware
 declare usb_device_path
 declare usb_manufacturer
@@ -18,7 +17,6 @@ function exit_no_firmware {
 }
 
 device=$(bashio::config 'device')
-baudrate=$(bashio::config 'baudrate')
 
 if bashio::config.false 'autoflash_firmware'; then
     bashio::log.info "Flashing firmware is disabled"
@@ -55,7 +53,6 @@ else
     gpio_reset_flag=""
 fi
 
-bashio::log.info "Starting universal-silabs-flasher with ${device} (baudrate ${baudrate})"
-exec universal-silabs-flasher --device ${device} --baudrate ${baudrate} \
-     --bootloader-baudrate 115200 \
+bashio::log.info "Starting universal-silabs-flasher with ${device}"
+exec universal-silabs-flasher --device ${device} \
      flash ${gpio_reset_flag} --allow-cross-flashing --firmware "/root/${firmware}"
