@@ -37,6 +37,7 @@ schema:
   device: device(subsystem=tty)
   baudrate: list(57600|115200|230400|460800|921600)
   flow_control: bool
+  autoflash_firmware: bool
   otbr_log_level: list(debug|info|notice|warning|error|critical|alert|emergency)
   firewall: bool
 stage: experimental
