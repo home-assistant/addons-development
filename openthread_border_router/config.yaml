@@ -5,7 +5,6 @@ name: OpenThread Border Router
 description: OpenThread Border Router add-on
 url: https://github.com/home-assistant/addons-development/tree/master/openthread_border_router
 arch:
-  - armv7
   - aarch64
   - amd64
 hassio_api: true
