@@ -10,6 +10,11 @@ configuration:
   flow_control:
     name: Hardware flow control
     description: Enable hardware flow control for serial port.
+  autoflash_firmware:
+    name: Automatically flash firmware
+    description: >-
+      Automatically flash OpenThread RCP firmware on Home Assistant Yellow and
+      SkyConnect.
   otbr_log_level:
     name: OpenThread Border Router agent log level
     description: >-

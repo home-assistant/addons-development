@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0
+
+- Automatically flash firmware for Home Assistant SkyConnect and Yellow
+- Update serial port defaults to match latest firmware builds
+
 ## 1.0.0
 
 - Bump to OTBR POSIX version d83fee189a (2023-02-28 08:48:56 -0800)

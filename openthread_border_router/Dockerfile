@@ -40,6 +40,8 @@ RUN \
     && apt-get install -y --no-install-recommends \
        git \
        iproute2 \
+       python3 \
+       python3-pip \
        lsb-release \
        netcat \
        sudo \
@@ -81,6 +83,7 @@ RUN \
         && cd build/otbr/ \
         && ninja \
         && ninja install) \
+    && pip install universal-silabs-flasher==0.0.10 \
     && apt-get purge -y --auto-remove \
        git \
        ${OTBR_BUILD_DEPS} \
