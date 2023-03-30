@@ -3,8 +3,8 @@
 OpenThread Border Router add-on. The add-on uses the upstream OpenThread
 Border Router implementation and wraps it as an add-on for Home Assistant.
 
-**NOTE:** This requires a supported 802.15.4 capable radio with OpenThread
-RCP firmware.
+**NOTE:** This add-on moved to the main repository. Please uninstall this
+add-on and install the same from the main repository.
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
