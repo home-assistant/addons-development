@@ -23,9 +23,11 @@ RUN \
        build-essential \
        python3-dev \
        python3-pip \
+       dbus \
        libdbus-1-dev \
        libglib2.0-dev \
-    && pip3 wheel dbus-python
+    && pip3 wheel dbus-python==1.2.18 \
+    && pip3 wheel psutil==5.9.5
 
 FROM builder-base AS builder-ttyd
 
@@ -94,6 +96,7 @@ RUN \
        python3-construct \
        unzip \
        libcairo2 \
+       dbus \
        libdbus-1-3 \
        libglib2.0-0 \
        gdb \
@@ -115,11 +118,13 @@ RUN ldconfig
 WORKDIR /root
 
 COPY --from=builder-python-dbus-wheel /usr/src/dbus_python-1.2.18-cp39-cp39-linux_*.whl /root
+COPY --from=builder-python-dbus-wheel /usr/src/psutil-5.9.5-cp39-abi3-linux_*.whl /root
 
 # hadolint ignore=DL3013
 RUN \
     pip3 install \
        dbus_python-1.2.18-cp39-cp39-linux_*.whl \
+       psutil-5.9.5-cp39-abi3-linux_*.whl \
     && pip3 install \
        home-assistant-chip-clusters==${HOME_ASSISTANT_CHIP_VERSION} \
        home-assistant-chip-core==${HOME_ASSISTANT_CHIP_VERSION} \
