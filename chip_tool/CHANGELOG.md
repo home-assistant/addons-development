@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0
+
+- Bump to CHIP version/Matter SDK v1.1.0.1
+
 ## 0.1.3
 
 - Build and deploy chip-bridge-app, chip-lighting-app and chip-cert as well
