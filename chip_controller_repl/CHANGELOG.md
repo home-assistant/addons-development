@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+- Use pre-built Home Assistant specific Python Wheels (2023.5.2)
+- Update ttyd to 1.7.3
+- Update libwebsockets to 4.3.2
+
 ## 0.3.0
 
 - Use pre-built Home Assistant specific Python Wheels (2022.11.1)

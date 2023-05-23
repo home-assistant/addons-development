@@ -2,6 +2,6 @@ build_from:
   aarch64: ghcr.io/home-assistant/aarch64-base-debian:bullseye
   amd64: ghcr.io/home-assistant/amd64-base-debian:bullseye
 args:
-  LIBWEBSOCKETS_VERSION: 4.3.1
-  TTYD_VERSION: 2b4dbacc10f0db7fceb092ea42ea12cd9301f4aa
-  HOME_ASSISTANT_CHIP_VERSION: 2022.11.1
+  LIBWEBSOCKETS_VERSION: 4.3.2
+  TTYD_VERSION: 1.7.3
+  HOME_ASSISTANT_CHIP_VERSION: 2023.5.2
