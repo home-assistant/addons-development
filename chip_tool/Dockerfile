@@ -117,15 +117,15 @@ RUN \
        else \
            exit 1; \
        fi \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-tool build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-cert build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}all-clusters-no-ble-no-wifi build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}bridge build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}light build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}lock build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}thermostat build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-app build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-casting-app build
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-tool --pregen-dir ./zzz_pregenerated build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-cert --pregen-dir ./zzz_pregenerated build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}all-clusters-no-ble-no-wifi --pregen-dir ./zzz_pregenerated build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}bridge --pregen-dir ./zzz_pregenerated build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}light --pregen-dir ./zzz_pregenerated build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}lock --pregen-dir ./zzz_pregenerated build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}thermostat --pregen-dir ./zzz_pregenerated build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-app --pregen-dir ./zzz_pregenerated build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-casting-app --pregen-dir ./zzz_pregenerated build
 
 FROM $BUILD_FROM
 
