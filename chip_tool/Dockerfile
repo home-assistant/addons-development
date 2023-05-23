@@ -17,8 +17,6 @@ FROM builder-base AS builder-ttyd
 ARG LIBWEBSOCKETS_VERSION
 ARG TTYD_VERSION
 
-COPY cmake-remove-duplicate-LwsCheckRequirements.patch /usr/src
-
 WORKDIR /usr/src
 
 RUN \
@@ -33,7 +31,6 @@ RUN \
     && git clone --branch "v${LIBWEBSOCKETS_VERSION}" --depth=1 \
         https://github.com/warmcat/libwebsockets \
     && cd libwebsockets \
-    && patch -p 1 < /usr/src/cmake-remove-duplicate-LwsCheckRequirements.patch \
     && mkdir -p build \
     && cd build \
     && cmake .. \
@@ -42,7 +39,7 @@ RUN \
         -DCMAKE_VERBOSE_MAKEFILE=TRUE \
         -DLWS_IPV6=ON \
         -DLWS_STATIC_PIC=ON \
-        -DLWS_UNIX_SOCK=OFF \
+        -DLWS_UNIX_SOCK=ON \
         -DLWS_WITH_LIBUV=ON \
         -DLWS_WITH_SHARED=ON \
         -DLWS_WITHOUT_TESTAPPS=ON \
@@ -68,15 +65,13 @@ RUN \
 FROM builder-base AS builder-chip
 
 ARG BUILD_ARCH=amd64
-ARG CHIP_VERSION=a17c005209fbde737edb97b0f51ea63472c166aa
+ARG CHIP_VERSION
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 COPY 0001-Use-data-as-platform-storage-location.patch /usr/src
 COPY 0002-Use-data-as-storage-location-for-chip-tool.patch /usr/src
-COPY 0001-Avoid-python_runner.py-deadlock.patch /usr/src
-COPY 0001-Avoid-polluting-Pigweed-environment-namespace.patch /usr/src
 
 WORKDIR /usr/src
 
@@ -104,7 +99,7 @@ RUN \
        unzip \
        libgirepository1.0-dev \
        libcairo2-dev \
-    && git clone --depth 1 -b master \
+    && git clone --depth 1 --no-single-branch -b master \
        https://github.com/project-chip/connectedhomeip \
     && cd connectedhomeip \
     && git fetch origin ${CHIP_VERSION} \
@@ -112,12 +107,6 @@ RUN \
     && git submodule update --init \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
     && patch -p1 < /usr/src/0002-Use-data-as-storage-location-for-chip-tool.patch \
-    && patch -p1 < /usr/src/0001-Avoid-polluting-Pigweed-environment-namespace.patch \
-    && ( \
-           cd third_party/pigweed/repo/ \
-           && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
-       ) \
-    && export PW_CONFIG_FILE=scripts/environment_no_cipd.json \
     && source scripts/bootstrap.sh \
     && if [ "${BUILD_ARCH}" = "amd64" ]; \
        then \
