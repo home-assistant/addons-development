@@ -3,6 +3,8 @@
 ## 0.2.0
 
 - Bump to CHIP version/Matter SDK v1.1.0.1
+- Update ttyd to 1.7.3
+- Update libwebsockets to 4.3.2
 
 ## 0.1.3
 
