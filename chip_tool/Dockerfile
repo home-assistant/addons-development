@@ -17,8 +17,6 @@ FROM builder-base AS builder-ttyd
 ARG LIBWEBSOCKETS_VERSION
 ARG TTYD_VERSION
 
-COPY cmake-remove-duplicate-LwsCheckRequirements.patch /usr/src
-
 WORKDIR /usr/src
 
 RUN \
@@ -33,7 +31,6 @@ RUN \
     && git clone --branch "v${LIBWEBSOCKETS_VERSION}" --depth=1 \
         https://github.com/warmcat/libwebsockets \
     && cd libwebsockets \
-    && patch -p 1 < /usr/src/cmake-remove-duplicate-LwsCheckRequirements.patch \
     && mkdir -p build \
     && cd build \
     && cmake .. \
@@ -42,7 +39,7 @@ RUN \
         -DCMAKE_VERBOSE_MAKEFILE=TRUE \
         -DLWS_IPV6=ON \
         -DLWS_STATIC_PIC=ON \
-        -DLWS_UNIX_SOCK=OFF \
+        -DLWS_UNIX_SOCK=ON \
         -DLWS_WITH_LIBUV=ON \
         -DLWS_WITH_SHARED=ON \
         -DLWS_WITHOUT_TESTAPPS=ON \
@@ -65,20 +62,67 @@ RUN \
     && make \
     && make DESTDIR=./install install
 
-FROM builder-base AS builder-chip
+# Use amd64 stage to generate ZAP files (zap-cli is only available for amd64)
+FROM --platform=linux/amd64 debian:bullseye AS builder-amd64-base
 
-ARG BUILD_ARCH=amd64
-ARG CHIP_VERSION=a17c005209fbde737edb97b0f51ea63472c166aa
+ARG CHIP_VERSION
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-COPY 0001-Use-data-as-platform-storage-location.patch /usr/src
-COPY 0002-Use-data-as-storage-location-for-chip-tool.patch /usr/src
-COPY 0001-Avoid-python_runner.py-deadlock.patch /usr/src
-COPY 0001-Avoid-polluting-Pigweed-environment-namespace.patch /usr/src
+WORKDIR /usr/src
+
+RUN \
+    set -x \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       git \
+       ca-certificates \
+       python3 \
+    && git clone --depth 1 --no-single-branch -b master \
+       https://github.com/project-chip/connectedhomeip \
+    && cd connectedhomeip \
+    && git fetch origin ${CHIP_VERSION} \
+    && git checkout ${CHIP_VERSION} \
+    && scripts/checkout_submodules.py --shallow --platform linux
+
+RUN \
+    set -x \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       git \
+       ca-certificates \
+       python3 \
+       python3-venv \
+       python3-dev \
+       python3-click \
+       python3-coloredlogs \
+       python3-pip \
+       libgirepository1.0-dev \
+       libuv1-dev \
+       libprotobuf-dev \
+       libdbus-1-dev \
+       libglib2.0-dev \
+       libreadline-dev \
+    && cd connectedhomeip \
+    && ./scripts/build/gn_bootstrap.sh \
+    && ./scripts/run_in_build_env.sh "./scripts/codepregen.py ./zzz_pregenerated"
+
+
+FROM builder-base AS builder-chip
+
+ARG BUILD_ARCH
+
+# Set shell
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 WORKDIR /usr/src
+
+COPY 0001-Use-data-as-platform-storage-location.patch /usr/src
+COPY 0002-Use-data-as-storage-location-for-chip-tool.patch /usr/src
+
+# Copy sources with pregenerated ZAP code
+COPY --from=builder-amd64-base /usr/src/connectedhomeip /usr/src/connectedhomeip
 
 # Install and build CHIP Python Controller
 # hadolint ignore=SC1091
@@ -93,6 +137,7 @@ RUN \
        libdbus-1-dev \
        libglib2.0-dev \
        libreadline-dev \
+       libgirepository1.0-dev \
        ninja-build \
        python3-venv \
        python3-dev \
@@ -102,22 +147,11 @@ RUN \
        python3-coloredlogs \
        python3-cryptography \
        unzip \
-       libgirepository1.0-dev \
-       libcairo2-dev \
-    && git clone --depth 1 -b master \
-       https://github.com/project-chip/connectedhomeip \
+       ccache \
+    && pwd && ls -la \
     && cd connectedhomeip \
-    && git fetch origin ${CHIP_VERSION} \
-    && git checkout ${CHIP_VERSION} \
-    && git submodule update --init \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
     && patch -p1 < /usr/src/0002-Use-data-as-storage-location-for-chip-tool.patch \
-    && patch -p1 < /usr/src/0001-Avoid-polluting-Pigweed-environment-namespace.patch \
-    && ( \
-           cd third_party/pigweed/repo/ \
-           && patch -p1 < /usr/src/0001-Avoid-python_runner.py-deadlock.patch \
-       ) \
-    && export PW_CONFIG_FILE=scripts/environment_no_cipd.json \
     && source scripts/bootstrap.sh \
     && if [ "${BUILD_ARCH}" = "amd64" ]; \
        then \
@@ -128,15 +162,42 @@ RUN \
        else \
            exit 1; \
        fi \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-tool build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-cert build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}all-clusters-no-ble-no-wifi build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}bridge build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}light build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}lock build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}thermostat build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-app build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-casting-app build
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-tool \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-cert \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}all-clusters-no-ble-no-wifi \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}bridge \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}light \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}lock \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}thermostat \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-app \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-casting-app \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build
 
 FROM $BUILD_FROM
 

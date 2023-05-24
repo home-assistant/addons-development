@@ -1,45 +1,42 @@
-From 2ea09c12ba28717c30b8a8731a737b762d15bda1 Mon Sep 17 00:00:00 2001
-Message-Id: <2ea09c12ba28717c30b8a8731a737b762d15bda1.1654590036.git.stefan@agner.ch>
-In-Reply-To: <6ef6dd5927d34123bbd8fb8bede17a732fadb668.1654590036.git.stefan@agner.ch>
-References: <6ef6dd5927d34123bbd8fb8bede17a732fadb668.1654590036.git.stefan@agner.ch>
+From a9e9af97952de6fbdeaff3a8789bbd6bb231cc26 Mon Sep 17 00:00:00 2001
+Message-Id: <a9e9af97952de6fbdeaff3a8789bbd6bb231cc26.1684842052.git.stefan@agner.ch>
+In-Reply-To: <7d141526f0e62ddb49a6536fdffd25bb6ee638a9.1684842052.git.stefan@agner.ch>
+References: <7d141526f0e62ddb49a6536fdffd25bb6ee638a9.1684842052.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Tue, 7 Jun 2022 10:03:09 +0200
 Subject: [PATCH] Use /data as storage location for chip-tool
 
 ---
- .../chip-tool/commands/interactive/InteractiveCommands.cpp    | 2 +-
- examples/chip-tool/config/PersistentStorage.cpp               | 4 ++--
- 2 files changed, 3 insertions(+), 3 deletions(-)
+ examples/chip-tool/commands/interactive/InteractiveCommands.cpp | 2 +-
+ src/controller/ExamplePersistentStorage.cpp                     | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/examples/chip-tool/commands/interactive/InteractiveCommands.cpp b/examples/chip-tool/commands/interactive/InteractiveCommands.cpp
-index 1045930556..da5c333f62 100644
+index fc895d4eb6..43f64728bf 100644
 --- a/examples/chip-tool/commands/interactive/InteractiveCommands.cpp
 +++ b/examples/chip-tool/commands/interactive/InteractiveCommands.cpp
-@@ -24,7 +24,7 @@
- char kInteractiveModeName[]                            = "";
+@@ -23,7 +23,7 @@
+ #include <editline.h>
+ 
  constexpr const char * kInteractiveModePrompt          = ">>> ";
- constexpr uint8_t kInteractiveModeArgumentsMaxLength   = 32;
 -constexpr const char * kInteractiveModeHistoryFilePath = "/tmp/chip_tool_history";
 +constexpr const char * kInteractiveModeHistoryFilePath = "/data/chip_tool_history";
  constexpr const char * kInteractiveModeStopCommand     = "quit()";
+ constexpr const char * kCategoryError                  = "Error";
+ constexpr const char * kCategoryProgress               = "Info";
+diff --git a/src/controller/ExamplePersistentStorage.cpp b/src/controller/ExamplePersistentStorage.cpp
+index e4b8188780..344937a990 100644
+--- a/src/controller/ExamplePersistentStorage.cpp
++++ b/src/controller/ExamplePersistentStorage.cpp
+@@ -41,7 +41,7 @@ constexpr LogCategory kDefaultLoggingLevel  = kLogCategory_Automation;
  
- namespace {
-diff --git a/examples/chip-tool/config/PersistentStorage.cpp b/examples/chip-tool/config/PersistentStorage.cpp
-index f0c3a8312b..3480380bb4 100644
---- a/examples/chip-tool/config/PersistentStorage.cpp
-+++ b/examples/chip-tool/config/PersistentStorage.cpp
-@@ -43,9 +43,9 @@ std::string GetFilename(const char * name)
+ std::string GetFilename(const char * name)
  {
-     if (name == nullptr)
-     {
--        return "/tmp/chip_tool_config.ini";
-+        return "/data/chip_tool_config.ini";
-     }
--    return "/tmp/chip_tool_config." + std::string(name) + ".ini";
-+    return "/data/chip_tool_config." + std::string(name) + ".ini";
- }
+-    const char * tmpdir = getenv("TMPDIR");
++    const char * tmpdir = "/data";
  
- namespace {
+     if (tmpdir == nullptr)
+     {
 -- 
-2.36.1
+2.40.1
 
