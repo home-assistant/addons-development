@@ -147,6 +147,7 @@ RUN \
        python3-coloredlogs \
        python3-cryptography \
        unzip \
+       ccache \
     && pwd && ls -la \
     && cd connectedhomeip \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
@@ -161,15 +162,42 @@ RUN \
        else \
            exit 1; \
        fi \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-tool --pregen-dir ./zzz_pregenerated build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-cert --pregen-dir ./zzz_pregenerated build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}all-clusters-no-ble-no-wifi --pregen-dir ./zzz_pregenerated build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}bridge --pregen-dir ./zzz_pregenerated build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}light --pregen-dir ./zzz_pregenerated build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}lock --pregen-dir ./zzz_pregenerated build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}thermostat --pregen-dir ./zzz_pregenerated build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-app --pregen-dir ./zzz_pregenerated build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-casting-app --pregen-dir ./zzz_pregenerated build
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-tool \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-cert \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}all-clusters-no-ble-no-wifi \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}bridge \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}light \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}lock \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}thermostat \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-app \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-casting-app \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build
 
 FROM $BUILD_FROM
 
