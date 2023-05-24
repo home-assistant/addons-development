@@ -27,7 +27,8 @@ RUN \
        libdbus-1-dev \
        libglib2.0-dev \
     && pip3 wheel dbus-python==1.2.18 \
-    && pip3 wheel psutil==5.9.5
+    && pip3 wheel psutil==5.9.5 \
+    && ls -la
 
 FROM builder-base AS builder-ttyd
 
