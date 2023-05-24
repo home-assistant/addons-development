@@ -1,4 +1,4 @@
-version: 0.3.0
+version: 0.4.0
 slug: chip_controller_repl
 name: CHIP Controller REPL
 description: Connected Home over IP (Matter) Python Controller REPL
