@@ -14,6 +14,7 @@ RUN \
 
 WORKDIR /usr/src
 
+
 FROM builder-base AS builder-python-dbus-wheel
 
 RUN \
@@ -27,8 +28,8 @@ RUN \
        libdbus-1-dev \
        libglib2.0-dev \
     && pip3 wheel dbus-python==1.2.18 \
-    && pip3 wheel psutil==5.9.5 \
-    && ls -la
+    && pip3 wheel psutil==5.9.5
+
 
 FROM builder-base AS builder-ttyd
 
@@ -78,6 +79,7 @@ RUN \
     && make \
     && make DESTDIR=./install install
 
+
 FROM $BUILD_FROM
 
 ARG HOME_ASSISTANT_CHIP_VERSION
@@ -118,14 +120,14 @@ RUN ldconfig
 
 WORKDIR /root
 
-COPY --from=builder-python-dbus-wheel /usr/src/dbus_python-1.2.18-cp39-cp39-linux_*.whl /root
-COPY --from=builder-python-dbus-wheel /usr/src/psutil-5.9.5-cp39-abi3-linux_*.whl /root
+COPY --from=builder-python-dbus-wheel /usr/src/dbus_python-1.2.18-*.whl /root
+COPY --from=builder-python-dbus-wheel /usr/src/psutil-5.9.5-*.whl /root
 
 # hadolint ignore=DL3013
 RUN \
     pip3 install \
-       dbus_python-1.2.18-cp39-cp39-linux_*.whl \
-       psutil-5.9.5-cp39-abi3-linux_*.whl \
+       dbus_python-1.2.18-*.whl \
+       psutil-5.9.5-*.whl \
     && pip3 install \
        home-assistant-chip-clusters==${HOME_ASSISTANT_CHIP_VERSION} \
        home-assistant-chip-core==${HOME_ASSISTANT_CHIP_VERSION} \
