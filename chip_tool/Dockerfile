@@ -138,6 +138,8 @@ RUN \
        libglib2.0-dev \
        libreadline-dev \
        libgirepository1.0-dev \
+       libnl-3-dev \
+       libnl-route-3-dev \
        ninja-build \
        python3-venv \
        python3-dev \
@@ -162,7 +164,7 @@ RUN \
        else \
            exit 1; \
        fi \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-tool \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-tool-libnl \
                                        --pregen-dir ./zzz_pregenerated \
                                        --pw-command-launcher=ccache \
                                        build \
@@ -211,6 +213,8 @@ RUN \
        libjson-c5 \
        libdbus-1-3 \
        libglib2.0 \
+       libnl-3-200 \
+       libnl-route-3-200 \
        tmux \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/src/*
@@ -223,7 +227,7 @@ RUN ldconfig
 WORKDIR /root
 
 COPY --from=builder-chip /usr/src/connectedhomeip/credentials /root/credentials
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-chip-tool/chip-tool /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-chip-tool-libnl/chip-tool /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-chip-cert/chip-cert /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-all-clusters-no-ble-no-wifi/address-resolve-tool /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-all-clusters-no-ble-no-wifi/chip-all-clusters-app /usr/local/bin

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+- Use libnl for address selection in minimal mDNS
+
 ## 0.2.0
 
 - Bump to CHIP version/Matter SDK v1.1.0.1
