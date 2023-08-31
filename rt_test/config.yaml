@@ -11,7 +11,7 @@ arch:
   - amd64
   - i386
 hassio_api: true
-image: ttl.sh/{arch}-addon-rt-test
+image: homeassistant/{arch}-addon-rt-test
 init: false
 realtime: true
 stage: experimental
