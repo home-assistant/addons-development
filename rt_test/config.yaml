@@ -1,0 +1,23 @@
+---
+version: 0.1.0
+slug: rt_test
+name: Real-Time latency test
+description: Testing Home Assistant latency using MQTT.
+url: https://github.com/home-assistant/addons-development/tree/master/rt_test
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+hassio_api: true
+image: homeassistant/{arch}-addon-rt-test
+init: false
+realtime: true
+stage: experimental
+startup: application
+ingress: true
+ingress_port: 0
+panel_title: Real-Time Test
+panel_icon: mdi:console
+panel_admin: true
