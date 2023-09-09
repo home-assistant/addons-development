@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.4
+ - Update Python to 3.11
+
 ## 1.3.3
  - Fix: Addon don´t start
  - Fix: Addon don´t access config
