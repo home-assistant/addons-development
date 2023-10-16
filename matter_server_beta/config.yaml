@@ -1,0 +1,28 @@
+---
+version: 5.0.0
+slug: matter_server_beta
+name: Matter Server (beta)
+description: Matter WebSocket Server for Home Assistant Matter support (beta).
+url: >-
+  https://github.com/home-assistant/addons-development/tree/master/matter_server_beta
+arch:
+  - aarch64
+  - amd64
+discovery:
+  - matter
+hassio_api: true
+homeassistant: 2023.5.4
+# IPC is only used within the Add-on
+host_ipc: false
+host_network: true
+host_dbus: true
+image: homeassistant/{arch}-addon-matter-server-beta
+init: false
+options:
+  log_level: info
+schema:
+  log_level: list(debug|info|warning|error|critical)
+ports:
+  5580/tcp: null
+stage: stable
+startup: services
