@@ -17,12 +17,13 @@ Use the following steps to install this add-on.
 
 ## How to use
 
+Note: This add-on conflicts with the regular Matter Server add-on! Make sure
+to stop the Matter Server (non-beta) add-on before starting this add-on!
+
 Start the Matter Server add-on to make the WebSocket available to Home
 Assistant Core. Install the [Matter integration][matter_integration]
 in Home Assistant Core.
 
-Make sure you stop the Matter Server (non-beta) add-on before starting this
-add-on.
 
 ## Configuration
 

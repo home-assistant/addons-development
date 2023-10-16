@@ -5,6 +5,9 @@
 
 ## About
 
+Note: This add-on conflicts with the regular Matter Server add-on! Make sure
+to stop the Matter Server (non-beta) add-on before starting this add-on!
+
 Matter Python WebSocket Server for Home Assistant Core. Matter (formerly
 known as Connected Home over IP or CHIP) is an IPv6 based smart home
 standard. This add-on provides a Matter Controller which allows you to
