@@ -12,8 +12,8 @@ RUN \
     && cd /usr/src \
     && git clone --depth=1 -b master https://github.com/irrwisch1/cp210x-cfg \
     && cd cp210x-cfg \
-    && git fetch origin ${CP210X_CFG_COMMIT} \
-    && git checkout ${CP210X_CFG_COMMIT} \
+    && git fetch origin "${CP210X_CFG_COMMIT}" \
+    && git checkout "${CP210X_CFG_COMMIT}" \
     && make \
     && chmod 755 ./cp210x-cfg
 
