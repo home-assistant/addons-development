@@ -4,3 +4,5 @@ build_from:
   aarch64: ghcr.io/home-assistant/aarch64-base-debian:bookworm
   armv7: ghcr.io/home-assistant/armv7-base-debian:bookworm
   armhf: ghcr.io/home-assistant/armhf-base-debian:bookworm
+args:
+  CP210X_CFG_COMMIT: b417a28b3367a65990ad501c6cb98da2c32b7ea4
