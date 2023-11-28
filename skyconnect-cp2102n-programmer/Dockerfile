@@ -2,6 +2,8 @@ ARG BUILD_FROM
 ARG CP210X_CFG_COMMIT=b417a28b3367a65990ad501c6cb98da2c32b7ea4
 
 FROM $BUILD_FROM AS builder
+
+# hadolint ignore=SC2086
 RUN \
     set -x \
     && apt-get update \
