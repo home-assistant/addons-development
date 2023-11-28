@@ -1,0 +1,11 @@
+configuration:
+  device:
+    name: Device
+    description: The serial port of the SkyConnect.
+  advanced:
+    manufacturer:
+      name: Manufacturer string
+      description: New manufacturer string.
+    product:
+      name: Product string
+      description: New product string.
