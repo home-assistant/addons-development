@@ -19,6 +19,6 @@ fi
 
 cp210x-cfg -N "$(bashio::config 'advanced.product')" -C "$(bashio::config 'advanced.manufacturer')" -d "$device_busnum.$device_devnum"
 
-bashio::log.green '----------------------------------------------------------------'
-bashio::log.green 'Flashing successful. Unplug your SkyConnect and plug it back in!'
-bashio::log.green '----------------------------------------------------------------'
+bashio::log.green '-------------------------------------------------------------------'
+bashio::log.green 'Programming successful. Unplug your SkyConnect and plug it back in!'
+bashio::log.green '-------------------------------------------------------------------'

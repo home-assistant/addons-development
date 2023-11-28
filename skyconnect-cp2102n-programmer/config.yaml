@@ -2,7 +2,7 @@
 version: 1.0.0
 name: SkyConnect CP2102N Programmer
 slug: skyconnect-cp2102n-programmer
-description: Flash the manufacturer and vendor strings to a SkyConnect's CP2102N chip
+description: Program the manufacturer and vendor strings to a SkyConnect's CP2102N chip
 url: "https://github.com/home-assistant/addons-development/tree/master/skyconnect-cp2102n-programmer"
 image: homeassistant/{arch}-addon-skyconnect-cp2102n-programmer
 arch:
