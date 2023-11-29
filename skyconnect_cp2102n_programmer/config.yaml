@@ -1,0 +1,29 @@
+---
+version: 1.0.0
+name: SkyConnect CP2102N Programmer
+slug: skyconnect_cp2102n_programmer
+description: Program the manufacturer and vendor strings to a SkyConnect's CP2102N chip
+url: "https://github.com/home-assistant/addons-development/tree/master/skyconnect_cp2102n_programmer"
+image: homeassistant/{arch}-addon-skyconnect_cp2102n_programmer
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+stage: experimental
+startup: once
+boot: manual
+hassio_api: true
+init: false
+usb: true
+options:
+  device: null
+  advanced:
+    manufacturer: "Nabu Casa"
+    product: "SkyConnect v1.0"
+schema:
+  device: device(subsystem=tty)
+  advanced:
+    manufacturer: str
+    product: str
