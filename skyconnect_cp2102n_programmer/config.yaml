@@ -1,5 +1,5 @@
 ---
-version: 1.0.0
+version: 1.0.1
 name: SkyConnect CP2102N Programmer
 slug: skyconnect_cp2102n_programmer
 description: Program the manufacturer and vendor strings to a SkyConnect's CP2102N chip
