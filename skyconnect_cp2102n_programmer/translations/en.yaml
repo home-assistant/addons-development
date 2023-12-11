@@ -1,8 +1,9 @@
 configuration:
   device:
     name: Device
-    description: The serial port of the SkyConnect.
+    description: The serial port of the defective SkyConnect. It will looks something like `/dev/serial/by-id/usb-Silicon_Labs_CP2102N_USB_to_UART_Bridge_Controller_53415240b1c121ca79436f9eabf31650-if00-port0`.
   advanced:
+    name: Advanced options
     manufacturer:
       name: Manufacturer string
       description: New manufacturer string.

@@ -6,6 +6,16 @@ declare device_usb_path
 declare device_attrs
 declare device_busnum
 declare device_devnum
+declare exit_status
+
+function cleanup() {
+    exit_status=$?
+    bashio::log.info "skyconnect-cp2102n-programmer script exited with code ${exit_status}"
+    echo "${exit_status}" > /run/s6-linux-init-container-results/exitcode
+
+    /run/s6/basedir/bin/halt
+}
+trap cleanup EXIT
 
 device=$(bashio::config 'device')
 device_usb_path=$(udevadm info -q path -n "$device")
