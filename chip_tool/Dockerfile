@@ -166,11 +166,6 @@ RUN \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
     && patch -p1 < /usr/src/0002-Use-data-as-storage-location-for-chip-tool.patch \
     && patch -p1 < /usr/src/0003-Bump-prompt-toolkit-requirement-to-fix-ptpython-vers.patch \
-    && source scripts/bootstrap.sh
-
-RUN \
-    set -x \
-    && cd connectedhomeip \
     && source scripts/bootstrap.sh \
     && scripts/build/build_examples.py \
         --target ${EXAMPLE_PREFIX}chip-tool${EXAMPLE_POSTFIX} \
