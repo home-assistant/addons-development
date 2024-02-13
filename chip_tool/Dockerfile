@@ -1,5 +1,16 @@
 ARG BUILD_FROM
-FROM $BUILD_FROM AS builder-base
+ARG BUILD_ARCH
+
+FROM $BUILD_FROM AS deployment-amd64
+ENV EXAMPLE_PREFIX="linux-x64-"
+
+ARG BUILD_FROM
+FROM $BUILD_FROM AS deployment-aarch64
+ENV EXAMPLE_PREFIX="linux-arm64-"
+
+FROM deployment-${BUILD_ARCH} AS base
+
+FROM base AS builder-base
 
 # hadolint ignore=DL3009
 RUN \
@@ -111,7 +122,7 @@ RUN \
 
 FROM builder-base AS builder-chip
 
-ARG BUILD_ARCH
+ENV EXAMPLE_POSTFIX="-libnl-no-ble"
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -156,55 +167,79 @@ RUN \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
     && patch -p1 < /usr/src/0002-Use-data-as-storage-location-for-chip-tool.patch \
     && patch -p1 < /usr/src/0003-Bump-prompt-toolkit-requirement-to-fix-ptpython-vers.patch \
+    && source scripts/bootstrap.sh
+
+RUN \
+    set -x \
     && cd connectedhomeip \
     && source scripts/bootstrap.sh \
-    && if [ "${BUILD_ARCH}" = "amd64" ]; \
-       then \
-           EXAMPLE_PREFIX="linux-x64-"; \
-       elif [ "${BUILD_ARCH}" = "aarch64" ]; \
-       then \
-           EXAMPLE_PREFIX="linux-arm64-"; \
-       else \
-           exit 1; \
-       fi \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-tool-libnl \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-tool${EXAMPLE_POSTFIX} \
                                        --pregen-dir ./zzz_pregenerated \
                                        --pw-command-launcher=ccache \
                                        build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-cert \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-cert${EXAMPLE_POSTFIX} \
                                        --pregen-dir ./zzz_pregenerated \
                                        --pw-command-launcher=ccache \
                                        build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}all-clusters-no-ble-no-wifi \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}air-purifier${EXAMPLE_POSTFIX} \
                                        --pregen-dir ./zzz_pregenerated \
                                        --pw-command-launcher=ccache \
                                        build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}bridge \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}all-clusters${EXAMPLE_POSTFIX} \
                                        --pregen-dir ./zzz_pregenerated \
                                        --pw-command-launcher=ccache \
                                        build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}light \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}bridge${EXAMPLE_POSTFIX} \
                                        --pregen-dir ./zzz_pregenerated \
                                        --pw-command-launcher=ccache \
                                        build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}lock \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}contact-sensor${EXAMPLE_POSTFIX} \
                                        --pregen-dir ./zzz_pregenerated \
                                        --pw-command-launcher=ccache \
                                        build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}thermostat \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}dishwasher${EXAMPLE_POSTFIX} \
                                        --pregen-dir ./zzz_pregenerated \
                                        --pw-command-launcher=ccache \
                                        build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-app \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}light${EXAMPLE_POSTFIX} \
                                        --pregen-dir ./zzz_pregenerated \
                                        --pw-command-launcher=ccache \
                                        build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-casting-app \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}lock${EXAMPLE_POSTFIX} \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}refrigerator${EXAMPLE_POSTFIX} \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}rvc${EXAMPLE_POSTFIX} \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}ota-provider${EXAMPLE_POSTFIX} \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}ota-requestor${EXAMPLE_POSTFIX} \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}thermostat${EXAMPLE_POSTFIX} \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-app${EXAMPLE_POSTFIX} \
+                                       --pregen-dir ./zzz_pregenerated \
+                                       --pw-command-launcher=ccache \
+                                       build \
+    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-casting-app${EXAMPLE_POSTFIX} \
                                        --pregen-dir ./zzz_pregenerated \
                                        --pw-command-launcher=ccache \
                                        build
 
-FROM $BUILD_FROM
+
+FROM base
 
 RUN \
     set -x \
@@ -230,15 +265,22 @@ RUN ldconfig
 WORKDIR /root
 
 COPY --from=builder-chip /usr/src/connectedhomeip/credentials /root/credentials
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-chip-tool-libnl/chip-tool /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-chip-cert/chip-cert /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-all-clusters-no-ble-no-wifi/address-resolve-tool /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-all-clusters-no-ble-no-wifi/chip-all-clusters-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-bridge/chip-bridge-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-light/chip-lighting-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-lock/chip-lock-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-thermostat/thermostat-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-tv-app/chip-tv-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/linux-*-tv-casting-app/chip-tv-casting-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}chip-tool${EXAMPLE_POSTFIX}/chip-tool /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}chip-cert${EXAMPLE_POSTFIX}/chip-cert /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}air-purifier${EXAMPLE_POSTFIX}/chip-air-purifier-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}all-clusters${EXAMPLE_POSTFIX}/address-resolve-tool /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}all-clusters${EXAMPLE_POSTFIX}/chip-all-clusters-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}bridge${EXAMPLE_POSTFIX}/chip-bridge-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}contact-sensor${EXAMPLE_POSTFIX}/contact-sensor-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}dishwasher${EXAMPLE_POSTFIX}/chip-dishwasher-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}light${EXAMPLE_POSTFIX}/chip-lighting-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}lock${EXAMPLE_POSTFIX}/chip-lock-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}refrigerator${EXAMPLE_POSTFIX}/thermostat-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}rvc${EXAMPLE_POSTFIX}/thermostat-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}ota-provider${EXAMPLE_POSTFIX}/thermostat-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}ota-requestor${EXAMPLE_POSTFIX}/thermostat-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}thermostat${EXAMPLE_POSTFIX}/thermostat-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}tv-app${EXAMPLE_POSTFIX}/chip-tv-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}tv-casting-app${EXAMPLE_POSTFIX}/chip-tv-casting-app /usr/local/bin
 
 COPY rootfs /
