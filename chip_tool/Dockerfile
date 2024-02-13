@@ -164,6 +164,7 @@ RUN \
     && patch -p1 < /usr/src/0003-Bump-prompt-toolkit-requirement-to-fix-ptpython-vers.patch \
     && source scripts/bootstrap.sh \
     && scripts/build/build_examples.py \
+        --target "${EXAMPLE_PREFIX}address-resolve-tool${EXAMPLE_POSTFIX}" \
         --target "${EXAMPLE_PREFIX}chip-tool${EXAMPLE_POSTFIX}" \
         --target "${EXAMPLE_PREFIX}chip-cert${EXAMPLE_POSTFIX}" \
         --target "${EXAMPLE_PREFIX}air-purifier${EXAMPLE_POSTFIX}" \
@@ -219,17 +220,17 @@ RUN ldconfig
 WORKDIR /root
 
 COPY --from=builder-chip /usr/src/connectedhomeip/credentials /root/credentials
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}address-resolve-tool${EXAMPLE_POSTFIX}/address-resolve-tool /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}chip-tool${EXAMPLE_POSTFIX}/chip-tool /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}chip-cert${EXAMPLE_POSTFIX}/chip-cert /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}air-purifier${EXAMPLE_POSTFIX}/chip-air-purifier-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}all-clusters${EXAMPLE_POSTFIX}/address-resolve-tool /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}all-clusters${EXAMPLE_POSTFIX}/chip-all-clusters-app /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}bridge${EXAMPLE_POSTFIX}/chip-bridge-app /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}contact-sensor${EXAMPLE_POSTFIX}/contact-sensor-app /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}dishwasher${EXAMPLE_POSTFIX}/chip-dishwasher-app /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}light${EXAMPLE_POSTFIX}/chip-lighting-app /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}lock${EXAMPLE_POSTFIX}/chip-lock-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}refrigerator${EXAMPLE_POSTFIX}/thermostat-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}refrigerator${EXAMPLE_POSTFIX}/chip-refrigerator-app /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}rvc${EXAMPLE_POSTFIX}/chip-rvc-app /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}ota-provider${EXAMPLE_POSTFIX}/chip-ota-provider-app /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}ota-requestor${EXAMPLE_POSTFIX}/chip-ota-requestor-app /usr/local/bin
