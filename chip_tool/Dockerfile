@@ -9,6 +9,7 @@ FROM $BUILD_FROM AS deployment-aarch64
 ENV EXAMPLE_PREFIX="linux-arm64-"
 
 FROM deployment-${BUILD_ARCH} AS base
+ENV EXAMPLE_POSTFIX="-libnl-no-ble"
 
 FROM base AS builder-base
 
@@ -122,8 +123,6 @@ RUN \
 
 FROM builder-base AS builder-chip
 
-ENV EXAMPLE_POSTFIX="-libnl-no-ble"
-
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -173,70 +172,26 @@ RUN \
     set -x \
     && cd connectedhomeip \
     && source scripts/bootstrap.sh \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-tool${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}chip-cert${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}air-purifier${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}all-clusters${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}bridge${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}contact-sensor${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}dishwasher${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}light${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}lock${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}refrigerator${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}rvc${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}ota-provider${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}ota-requestor${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}thermostat${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-app${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build \
-    && scripts/build/build_examples.py --target ${EXAMPLE_PREFIX}tv-casting-app${EXAMPLE_POSTFIX} \
-                                       --pregen-dir ./zzz_pregenerated \
-                                       --pw-command-launcher=ccache \
-                                       build
+    && scripts/build/build_examples.py \
+        --target ${EXAMPLE_PREFIX}chip-tool${EXAMPLE_POSTFIX} \
+        --target ${EXAMPLE_PREFIX}chip-cert${EXAMPLE_POSTFIX} \
+        --target ${EXAMPLE_PREFIX}air-purifier${EXAMPLE_POSTFIX} \
+        --target ${EXAMPLE_PREFIX}all-clusters${EXAMPLE_POSTFIX} \
+        --target ${EXAMPLE_PREFIX}bridge${EXAMPLE_POSTFIX} \
+        --target ${EXAMPLE_PREFIX}contact-sensor${EXAMPLE_POSTFIX} \
+        --target ${EXAMPLE_PREFIX}dishwasher${EXAMPLE_POSTFIX} \
+        --target ${EXAMPLE_PREFIX}light${EXAMPLE_POSTFIX} \
+        --target ${EXAMPLE_PREFIX}lock${EXAMPLE_POSTFIX} \
+        --target ${EXAMPLE_PREFIX}refrigerator${EXAMPLE_POSTFIX} \
+        --target ${EXAMPLE_PREFIX}rvc${EXAMPLE_POSTFIX} \
+        --target ${EXAMPLE_PREFIX}ota-provider${EXAMPLE_POSTFIX} \
+        --target ${EXAMPLE_PREFIX}ota-requestor${EXAMPLE_POSTFIX} \
+        --target ${EXAMPLE_PREFIX}thermostat${EXAMPLE_POSTFIX} \
+        --target ${EXAMPLE_PREFIX}tv-app${EXAMPLE_POSTFIX} \
+        --target ${EXAMPLE_PREFIX}tv-casting-app${EXAMPLE_POSTFIX} \
+        --pregen-dir ./zzz_pregenerated \
+        --pw-command-launcher=ccache \
+        build
 
 
 FROM base
@@ -277,8 +232,8 @@ COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}light${EX
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}lock${EXAMPLE_POSTFIX}/chip-lock-app /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}refrigerator${EXAMPLE_POSTFIX}/thermostat-app /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}rvc${EXAMPLE_POSTFIX}/thermostat-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}ota-provider${EXAMPLE_POSTFIX}/thermostat-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}ota-requestor${EXAMPLE_POSTFIX}/thermostat-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}ota-provider${EXAMPLE_POSTFIX}/chip-ota-provider-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}ota-requestor${EXAMPLE_POSTFIX}/chip-ota-requestor-app /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}thermostat${EXAMPLE_POSTFIX}/thermostat-app /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}tv-app${EXAMPLE_POSTFIX}/chip-tv-app /usr/local/bin
 COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}tv-casting-app${EXAMPLE_POSTFIX}/chip-tv-casting-app /usr/local/bin
