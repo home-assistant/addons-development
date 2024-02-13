@@ -98,6 +98,7 @@ RUN \
     && git checkout ${CHIP_VERSION} \
     && scripts/checkout_submodules.py --shallow --platform linux
 
+# hadolint ignore=SC1091
 RUN \
     set -x \
     && apt-get update \
