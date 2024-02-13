@@ -148,17 +148,12 @@ RUN \
        libdbus-1-dev \
        libglib2.0-dev \
        libreadline-dev \
-       libgirepository1.0-dev \
        libnl-3-dev \
        libnl-route-3-dev \
        ninja-build \
        python3-venv \
-       python3-dev \
-       python3-pip \
-       python3-dbus \
        python3-click \
        python3-coloredlogs \
-       python3-cryptography \
        unzip \
        ccache \
     && pwd && ls -la \
