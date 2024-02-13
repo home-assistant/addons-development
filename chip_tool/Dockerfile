@@ -168,22 +168,22 @@ RUN \
     && patch -p1 < /usr/src/0003-Bump-prompt-toolkit-requirement-to-fix-ptpython-vers.patch \
     && source scripts/bootstrap.sh \
     && scripts/build/build_examples.py \
-        --target ${EXAMPLE_PREFIX}chip-tool${EXAMPLE_POSTFIX} \
-        --target ${EXAMPLE_PREFIX}chip-cert${EXAMPLE_POSTFIX} \
-        --target ${EXAMPLE_PREFIX}air-purifier${EXAMPLE_POSTFIX} \
-        --target ${EXAMPLE_PREFIX}all-clusters${EXAMPLE_POSTFIX} \
-        --target ${EXAMPLE_PREFIX}bridge${EXAMPLE_POSTFIX} \
-        --target ${EXAMPLE_PREFIX}contact-sensor${EXAMPLE_POSTFIX} \
-        --target ${EXAMPLE_PREFIX}dishwasher${EXAMPLE_POSTFIX} \
-        --target ${EXAMPLE_PREFIX}light${EXAMPLE_POSTFIX} \
-        --target ${EXAMPLE_PREFIX}lock${EXAMPLE_POSTFIX} \
-        --target ${EXAMPLE_PREFIX}refrigerator${EXAMPLE_POSTFIX} \
-        --target ${EXAMPLE_PREFIX}rvc${EXAMPLE_POSTFIX} \
-        --target ${EXAMPLE_PREFIX}ota-provider${EXAMPLE_POSTFIX} \
-        --target ${EXAMPLE_PREFIX}ota-requestor${EXAMPLE_POSTFIX} \
-        --target ${EXAMPLE_PREFIX}thermostat${EXAMPLE_POSTFIX} \
-        --target ${EXAMPLE_PREFIX}tv-app${EXAMPLE_POSTFIX} \
-        --target ${EXAMPLE_PREFIX}tv-casting-app${EXAMPLE_POSTFIX} \
+        --target "${EXAMPLE_PREFIX}chip-tool${EXAMPLE_POSTFIX}" \
+        --target "${EXAMPLE_PREFIX}chip-cert${EXAMPLE_POSTFIX}" \
+        --target "${EXAMPLE_PREFIX}air-purifier${EXAMPLE_POSTFIX}" \
+        --target "${EXAMPLE_PREFIX}all-clusters${EXAMPLE_POSTFIX}" \
+        --target "${EXAMPLE_PREFIX}bridge${EXAMPLE_POSTFIX}" \
+        --target "${EXAMPLE_PREFIX}contact-sensor${EXAMPLE_POSTFIX}" \
+        --target "${EXAMPLE_PREFIX}dishwasher${EXAMPLE_POSTFIX}" \
+        --target "${EXAMPLE_PREFIX}light${EXAMPLE_POSTFIX}" \
+        --target "${EXAMPLE_PREFIX}lock${EXAMPLE_POSTFIX}" \
+        --target "${EXAMPLE_PREFIX}refrigerator${EXAMPLE_POSTFIX}" \
+        --target "${EXAMPLE_PREFIX}rvc${EXAMPLE_POSTFIX}" \
+        --target "${EXAMPLE_PREFIX}ota-provider${EXAMPLE_POSTFIX}" \
+        --target "${EXAMPLE_PREFIX}ota-requestor${EXAMPLE_POSTFIX}" \
+        --target "${EXAMPLE_PREFIX}thermostat${EXAMPLE_POSTFIX}" \
+        --target "${EXAMPLE_PREFIX}tv-app${EXAMPLE_POSTFIX}" \
+        --target "${EXAMPLE_PREFIX}tv-casting-app${EXAMPLE_POSTFIX}" \
         --pregen-dir ./zzz_pregenerated \
         --pw-command-launcher=ccache \
         build
