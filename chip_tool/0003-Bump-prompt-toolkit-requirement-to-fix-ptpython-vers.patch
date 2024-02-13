@@ -1,0 +1,27 @@
+From 1536ca20c5917578ca40ce509400e97b52751788 Mon Sep 17 00:00:00 2001
+Message-ID: <1536ca20c5917578ca40ce509400e97b52751788.1703082429.git.stefan@agner.ch>
+From: Andrei Litvin <andy314@gmail.com>
+Date: Wed, 13 Dec 2023 13:27:16 -0500
+Subject: [PATCH] Bump prompt-toolkit requirement to fix ptpython version
+ update (#30987)
+
+---
+ scripts/setup/constraints.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/setup/constraints.txt b/scripts/setup/constraints.txt
+index b0e9aed4ae..ad80df20c4 100644
+--- a/scripts/setup/constraints.txt
++++ b/scripts/setup/constraints.txt
+@@ -163,7 +163,7 @@ portpicker==1.5.2
+     # via
+     #   -r requirements.all.txt
+     #   mobly
+-prompt-toolkit==3.0.38
++prompt-toolkit==3.0.43
+     # via ipython
+ protobuf==4.24.4
+     # via
+-- 
+2.43.0
+
