@@ -105,7 +105,7 @@ RUN \
        libglib2.0-dev \
        libreadline-dev \
     && cd connectedhomeip \
-    && ./scripts/build/gn_bootstrap.sh \
+    && source scripts/bootstrap.sh \
     && ./scripts/run_in_build_env.sh "./scripts/codepregen.py ./zzz_pregenerated"
 
 
@@ -120,6 +120,7 @@ WORKDIR /usr/src
 
 COPY 0001-Use-data-as-platform-storage-location.patch /usr/src
 COPY 0002-Use-data-as-storage-location-for-chip-tool.patch /usr/src
+COPY 0003-Bump-prompt-toolkit-requirement-to-fix-ptpython-vers.patch /usr/src
 
 # Copy sources with pregenerated ZAP code
 COPY --from=builder-amd64-base /usr/src/connectedhomeip /usr/src/connectedhomeip
@@ -154,6 +155,8 @@ RUN \
     && cd connectedhomeip \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
     && patch -p1 < /usr/src/0002-Use-data-as-storage-location-for-chip-tool.patch \
+    && patch -p1 < /usr/src/0003-Bump-prompt-toolkit-requirement-to-fix-ptpython-vers.patch \
+    && cd connectedhomeip \
     && source scripts/bootstrap.sh \
     && if [ "${BUILD_ARCH}" = "amd64" ]; \
        then \

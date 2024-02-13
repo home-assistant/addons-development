@@ -1,7 +1,5 @@
-From a9e9af97952de6fbdeaff3a8789bbd6bb231cc26 Mon Sep 17 00:00:00 2001
-Message-Id: <a9e9af97952de6fbdeaff3a8789bbd6bb231cc26.1684842052.git.stefan@agner.ch>
-In-Reply-To: <7d141526f0e62ddb49a6536fdffd25bb6ee638a9.1684842052.git.stefan@agner.ch>
-References: <7d141526f0e62ddb49a6536fdffd25bb6ee638a9.1684842052.git.stefan@agner.ch>
+From 7dca5ec2eb5210552059612e206a0e6809bde7d2 Mon Sep 17 00:00:00 2001
+Message-ID: <7dca5ec2eb5210552059612e206a0e6809bde7d2.1707752462.git.stefan@agner.ch>
 From: Stefan Agner <stefan@agner.ch>
 Date: Tue, 7 Jun 2022 10:03:09 +0200
 Subject: [PATCH] Use /data as storage location for chip-tool
@@ -12,7 +10,7 @@ Subject: [PATCH] Use /data as storage location for chip-tool
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/examples/chip-tool/commands/interactive/InteractiveCommands.cpp b/examples/chip-tool/commands/interactive/InteractiveCommands.cpp
-index fc895d4eb6..43f64728bf 100644
+index 6dae09ce39..f924af0fe4 100644
 --- a/examples/chip-tool/commands/interactive/InteractiveCommands.cpp
 +++ b/examples/chip-tool/commands/interactive/InteractiveCommands.cpp
 @@ -23,7 +23,7 @@
@@ -25,18 +23,18 @@ index fc895d4eb6..43f64728bf 100644
  constexpr const char * kCategoryError                  = "Error";
  constexpr const char * kCategoryProgress               = "Info";
 diff --git a/src/controller/ExamplePersistentStorage.cpp b/src/controller/ExamplePersistentStorage.cpp
-index e4b8188780..344937a990 100644
+index 77e5454925..d47987c2ac 100644
 --- a/src/controller/ExamplePersistentStorage.cpp
 +++ b/src/controller/ExamplePersistentStorage.cpp
-@@ -41,7 +41,7 @@ constexpr LogCategory kDefaultLoggingLevel  = kLogCategory_Automation;
+@@ -45,7 +45,7 @@ const char * GetUsedDirectory(const char * directory)
  
- std::string GetFilename(const char * name)
- {
--    const char * tmpdir = getenv("TMPDIR");
-+    const char * tmpdir = "/data";
- 
-     if (tmpdir == nullptr)
+     if (dir == nullptr)
      {
+-        dir = getenv("TMPDIR");
++        dir = "/data";
+     }
+ 
+     if (dir == nullptr)
 -- 
-2.40.1
+2.43.0
 
