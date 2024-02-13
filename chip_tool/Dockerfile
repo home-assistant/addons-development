@@ -171,6 +171,12 @@ RUN \
         --target "${EXAMPLE_PREFIX}contact-sensor${EXAMPLE_POSTFIX}" \
         --target "${EXAMPLE_PREFIX}dishwasher${EXAMPLE_POSTFIX}" \
         --target "${EXAMPLE_PREFIX}light${EXAMPLE_POSTFIX}" \
+        --pregen-dir ./zzz_pregenerated \
+        --pw-command-launcher=ccache \
+        build \
+    && rm -r out/*/lib \
+    && rm -r out/*/obj \
+    && scripts/build/build_examples.py \
         --target "${EXAMPLE_PREFIX}lock${EXAMPLE_POSTFIX}" \
         --target "${EXAMPLE_PREFIX}refrigerator${EXAMPLE_POSTFIX}" \
         --target "${EXAMPLE_PREFIX}rvc${EXAMPLE_POSTFIX}" \
@@ -181,7 +187,9 @@ RUN \
         --target "${EXAMPLE_PREFIX}tv-casting-app${EXAMPLE_POSTFIX}" \
         --pregen-dir ./zzz_pregenerated \
         --pw-command-launcher=ccache \
-        build
+        build \
+    && rm -r out/*/lib \
+    && rm -r out/*/obj
 
 
 FROM base
