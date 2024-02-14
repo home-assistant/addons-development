@@ -155,6 +155,7 @@ RUN \
        python3-venv \
        python3-click \
        python3-coloredlogs \
+       python3-psutil \
        unzip \
        ccache \
     && pwd && ls -la \
