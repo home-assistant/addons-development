@@ -152,10 +152,10 @@ RUN \
        libnl-3-dev \
        libnl-route-3-dev \
        ninja-build \
+       python3-dev \
        python3-venv \
        python3-click \
        python3-coloredlogs \
-       python3-psutil \
        unzip \
        ccache \
     && pwd && ls -la \
