@@ -188,8 +188,8 @@ RUN \
                 --pregen-dir ./zzz_pregenerated \
                 --pw-command-launcher=ccache \
                 build; \
-            rm -r out/${EXAMPLE_PREFIX}${example}${EXAMPLE_POSTFIX}/lib; \
-            rm -r out/${EXAMPLE_PREFIX}${example}${EXAMPLE_POSTFIX}/obj; \
+            rm -r "out/${EXAMPLE_PREFIX}${example}${EXAMPLE_POSTFIX}/lib"; \
+            rm -r "out/${EXAMPLE_PREFIX}${example}${EXAMPLE_POSTFIX}/obj"; \
         done
 
 FROM base
