@@ -107,18 +107,11 @@ RUN \
        ca-certificates \
        python3 \
        python3-venv \
-       python3-dev \
        python3-click \
        python3-coloredlogs \
        python3-pip \
-       libgirepository1.0-dev \
-       libuv1-dev \
-       libprotobuf-dev \
-       libdbus-1-dev \
-       libglib2.0-dev \
-       libreadline-dev \
     && cd connectedhomeip \
-    && source scripts/bootstrap.sh \
+    && source scripts/bootstrap.sh -p build \
     && ./scripts/run_in_build_env.sh "./scripts/codepregen.py ./zzz_pregenerated"
 
 
@@ -161,7 +154,7 @@ RUN \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
     && patch -p1 < /usr/src/0002-Use-data-as-storage-location-for-chip-tool.patch \
     && patch -p1 < /usr/src/0003-Bump-prompt-toolkit-requirement-to-fix-ptpython-vers.patch \
-    && source scripts/bootstrap.sh \
+    && source scripts/bootstrap.sh -p build \
     && for example in \
         address-resolve-tool \
         chip-tool \
