@@ -110,6 +110,7 @@ RUN \
        python3-click \
        python3-coloredlogs \
        python3-pip \
+       libglib2.0-dev \
     && cd connectedhomeip \
     && source scripts/bootstrap.sh -p build \
     && ./scripts/run_in_build_env.sh "./scripts/codepregen.py ./zzz_pregenerated"
