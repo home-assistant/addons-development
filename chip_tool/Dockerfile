@@ -186,6 +186,8 @@ RUN \
                 build; \
             rm -r "out/${EXAMPLE_PREFIX}${example}${EXAMPLE_POSTFIX}/lib"; \
             rm -r "out/${EXAMPLE_PREFIX}${example}${EXAMPLE_POSTFIX}/obj"; \
+            df -h; \
+            du -sh out/*; \
         done
 
 FROM base
