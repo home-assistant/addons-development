@@ -150,6 +150,7 @@ RUN \
        python3-click \
        python3-coloredlogs \
        unzip \
+       ccache \
     && cd connectedhomeip \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
     && patch -p1 < /usr/src/0002-Use-data-as-storage-location-for-chip-tool.patch \
@@ -177,6 +178,7 @@ RUN \
             scripts/build/build_examples.py \
                 --target "${EXAMPLE_PREFIX}${example}${EXAMPLE_POSTFIX}" \
                 --pregen-dir ./zzz_pregenerated \
+                --pw-command-launcher=ccache \
                 build; \
             find out/ -type f -executable -exec cp {} bin/ \;; \
             rm -r out/; \
