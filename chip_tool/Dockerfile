@@ -157,13 +157,10 @@ RUN \
        python3-click \
        python3-coloredlogs \
        unzip \
-       ccache \
-    && pwd && ls -la \
     && cd connectedhomeip \
     && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
     && patch -p1 < /usr/src/0002-Use-data-as-storage-location-for-chip-tool.patch \
     && patch -p1 < /usr/src/0003-Bump-prompt-toolkit-requirement-to-fix-ptpython-vers.patch \
-    && source scripts/bootstrap.sh \
     && source scripts/bootstrap.sh \
     && for example in \
         address-resolve-tool \
@@ -186,7 +183,6 @@ RUN \
             scripts/build/build_examples.py \
                 --target "${EXAMPLE_PREFIX}${example}${EXAMPLE_POSTFIX}" \
                 --pregen-dir ./zzz_pregenerated \
-                --pw-command-launcher=ccache \
                 build; \
             rm -r "out/${EXAMPLE_PREFIX}${example}${EXAMPLE_POSTFIX}/lib"; \
             rm -r "out/${EXAMPLE_PREFIX}${example}${EXAMPLE_POSTFIX}/obj"; \
