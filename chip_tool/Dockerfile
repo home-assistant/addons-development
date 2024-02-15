@@ -1,17 +1,7 @@
 ARG BUILD_FROM
 ARG BUILD_ARCH
 
-FROM $BUILD_FROM AS deployment-amd64
-ENV EXAMPLE_PREFIX="linux-x64-"
-
-ARG BUILD_FROM
-FROM $BUILD_FROM AS deployment-aarch64
-ENV EXAMPLE_PREFIX="linux-arm64-"
-
-FROM deployment-${BUILD_ARCH} AS base
-ENV EXAMPLE_POSTFIX="-libnl-no-ble"
-
-FROM base AS builder-base
+FROM $BUILD_FROM AS builder-base
 
 # hadolint ignore=DL3009
 RUN \
@@ -116,7 +106,15 @@ RUN \
     && ./scripts/run_in_build_env.sh "./scripts/codepregen.py ./zzz_pregenerated"
 
 
-FROM builder-base AS builder-chip
+FROM builder-base AS builder-base-chip-amd64
+ENV EXAMPLE_PREFIX="linux-x64-"
+
+FROM builder-base AS builder-base-chip-aarch64
+ENV EXAMPLE_PREFIX="linux-arm64-"
+
+FROM builder-base-chip-${BUILD_ARCH} AS builder-chip
+
+ENV EXAMPLE_POSTFIX="-libnl-no-ble"
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -130,7 +128,8 @@ COPY 0003-Bump-prompt-toolkit-requirement-to-fix-ptpython-vers.patch /usr/src
 # Copy sources with pregenerated ZAP code
 COPY --from=builder-amd64-base /usr/src/connectedhomeip /usr/src/connectedhomeip
 
-# Install and build CHIP Python Controller
+# Install and build CHIP examples
+# List of examples can be found in scripts/build/testdata/all_targets_linux_x64.txt
 # hadolint ignore=SC1091
 RUN \
     set -x \
@@ -156,6 +155,7 @@ RUN \
     && patch -p1 < /usr/src/0002-Use-data-as-storage-location-for-chip-tool.patch \
     && patch -p1 < /usr/src/0003-Bump-prompt-toolkit-requirement-to-fix-ptpython-vers.patch \
     && source scripts/bootstrap.sh -p build \
+    && mkdir bin/ \
     && for example in \
         address-resolve-tool \
         chip-tool \
@@ -178,13 +178,12 @@ RUN \
                 --target "${EXAMPLE_PREFIX}${example}${EXAMPLE_POSTFIX}" \
                 --pregen-dir ./zzz_pregenerated \
                 build; \
-            rm -r "out/${EXAMPLE_PREFIX}${example}${EXAMPLE_POSTFIX}/lib"; \
-            rm -r "out/${EXAMPLE_PREFIX}${example}${EXAMPLE_POSTFIX}/obj"; \
+            find out/ -type f -executable -exec cp {} bin/ \;; \
+            rm -r out/; \
             df -h; \
-            du -sh out/*; \
         done
 
-FROM base
+FROM $BUILD_FROM
 
 RUN \
     set -x \
@@ -210,22 +209,6 @@ RUN ldconfig
 WORKDIR /root
 
 COPY --from=builder-chip /usr/src/connectedhomeip/credentials /root/credentials
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}address-resolve-tool${EXAMPLE_POSTFIX}/address-resolve-tool /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}chip-tool${EXAMPLE_POSTFIX}/chip-tool /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}chip-cert${EXAMPLE_POSTFIX}/chip-cert /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}air-purifier${EXAMPLE_POSTFIX}/chip-air-purifier-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}all-clusters${EXAMPLE_POSTFIX}/chip-all-clusters-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}bridge${EXAMPLE_POSTFIX}/chip-bridge-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}contact-sensor${EXAMPLE_POSTFIX}/contact-sensor-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}dishwasher${EXAMPLE_POSTFIX}/chip-dishwasher-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}light${EXAMPLE_POSTFIX}/chip-lighting-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}lock${EXAMPLE_POSTFIX}/chip-lock-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}refrigerator${EXAMPLE_POSTFIX}/chip-refrigerator-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}rvc${EXAMPLE_POSTFIX}/chip-rvc-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}ota-provider${EXAMPLE_POSTFIX}/chip-ota-provider-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}ota-requestor${EXAMPLE_POSTFIX}/chip-ota-requestor-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}thermostat${EXAMPLE_POSTFIX}/thermostat-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}tv-app${EXAMPLE_POSTFIX}/chip-tv-app /usr/local/bin
-COPY --from=builder-chip /usr/src/connectedhomeip/out/${EXAMPLE_PREFIX}tv-casting-app${EXAMPLE_POSTFIX}/chip-tv-casting-app /usr/local/bin
+COPY --from=builder-chip /usr/src/connectedhomeip/bin/* /usr/local/bin
 
 COPY rootfs /
