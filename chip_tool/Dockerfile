@@ -170,11 +170,7 @@ RUN \
         lock \
         refrigerator \
         rvc \
-        ota-provider \
-        ota-requestor \
-        thermostat \
-        tv-app \
-        tv-casting-app; do \
+        thermostat ; do \
             scripts/build/build_examples.py \
                 --target "${EXAMPLE_PREFIX}${example}${EXAMPLE_POSTFIX}" \
                 --pregen-dir ./zzz_pregenerated \
