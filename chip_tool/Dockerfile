@@ -158,13 +158,10 @@ RUN \
     && source scripts/bootstrap.sh -p build \
     && mkdir bin/ \
     && for example in \
-        address-resolve-tool \
         chip-tool \
         chip-cert \
         air-purifier \
-        all-clusters \
         bridge \
-        contact-sensor \
         dishwasher \
         light \
         lock \
