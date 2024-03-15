@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.3.0
+
+- Bump to CHIP version/Matter SDK v1.2.0.1
+- Synchronize example app compile time options (with libnl and no Bluetooth)
+- Enable more examples, specifically:
+  - chip-air-purifier-app - Air purifier
+  - contact-sensor-app - Contact sensor
+  - chip-dishwasher-app - Dishwasher
+  - chip-refrigerator-app - Refrigerator
+  - chip-rvc-app - Robot vacuum cleaner
+  - chip-ota-provider-app - Over-the-air update provider
+  - chip-ota-requestor-app - Over-the-air update requestor
+
 ## 0.2.1
 
 - Use libnl for address selection in minimal mDNS
