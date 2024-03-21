@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/with-contenv /bin/bash
 
 echo "Your API key is: $HASSIO_TOKEN"
 
