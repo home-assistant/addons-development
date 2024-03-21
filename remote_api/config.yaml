@@ -20,3 +20,4 @@ ports:
 options: {}
 schema: false
 image: homeassistant/{arch}-addon-dev-remote_api
+init: false
