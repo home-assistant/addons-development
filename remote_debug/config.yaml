@@ -1,5 +1,5 @@
 name: Remote ptvsd debugger
-version: 1.1.0
+version: 1.2.0
 slug: remote_debug
 description: Remote Debug proxy for Supervisor/ptvsd
 url: https://developers.home-assistant.io/docs/supervisor/debugging
@@ -18,3 +18,4 @@ ports:
 options: {}
 schema: false
 image: homeassistant/{arch}-addon-dev-remote_debug
+init: false
