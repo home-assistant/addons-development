@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Store Matter fabric data in a persistant location
+# Store Matter fabric data in a persistent location
 export TMPDIR="/data"
 
 cat <<"EOF"
