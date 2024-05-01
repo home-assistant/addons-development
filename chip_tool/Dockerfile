@@ -85,100 +85,15 @@ RUN \
        https://github.com/project-chip/connectedhomeip \
     && cd connectedhomeip \
     && git fetch origin ${CHIP_VERSION} \
-    && git checkout ${CHIP_VERSION} \
-    && scripts/checkout_submodules.py --shallow --platform linux
+    && git checkout ${CHIP_VERSION}
 
-# hadolint ignore=SC1091
-RUN \
-    set -x \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-       git \
-       ca-certificates \
-       python3 \
-       python3-venv \
-       python3-click \
-       python3-coloredlogs \
-       python3-pip \
-       libglib2.0-dev \
-    && cd connectedhomeip \
-    && source scripts/bootstrap.sh -p build \
-    && ./scripts/run_in_build_env.sh "./scripts/codepregen.py ./zzz_pregenerated"
-
-
-FROM builder-base AS builder-base-chip-amd64
-ENV EXAMPLE_PREFIX="linux-x64-"
-
-FROM builder-base AS builder-base-chip-aarch64
-ENV EXAMPLE_PREFIX="linux-arm64-"
-
-FROM builder-base-chip-${BUILD_ARCH} AS builder-chip
-
-ENV EXAMPLE_POSTFIX="-libnl-no-ble"
+FROM $BUILD_FROM
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-WORKDIR /usr/src
-
-COPY 0001-Use-data-as-platform-storage-location.patch /usr/src
-COPY 0002-Use-data-as-storage-location-for-chip-tool.patch /usr/src
-COPY 0003-Bump-prompt-toolkit-requirement-to-fix-ptpython-vers.patch /usr/src
-
-# Copy sources with pregenerated ZAP code
-COPY --from=builder-amd64-base /usr/src/connectedhomeip /usr/src/connectedhomeip
-
-# Install and build CHIP examples
-# List of examples can be found in scripts/build/testdata/all_targets_linux_x64.txt
-# hadolint ignore=SC1091
-RUN \
-    set -x \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends \
-       protobuf-compiler \
-       libprotobuf-dev \
-       gn \
-       libssl-dev \
-       libdbus-1-dev \
-       libglib2.0-dev \
-       libreadline-dev \
-       libnl-3-dev \
-       libnl-route-3-dev \
-       ninja-build \
-       python3-dev \
-       python3-venv \
-       python3-click \
-       python3-coloredlogs \
-       unzip \
-       ccache \
-    && cd connectedhomeip \
-    && patch -p1 < /usr/src/0001-Use-data-as-platform-storage-location.patch \
-    && patch -p1 < /usr/src/0002-Use-data-as-storage-location-for-chip-tool.patch \
-    && patch -p1 < /usr/src/0003-Bump-prompt-toolkit-requirement-to-fix-ptpython-vers.patch \
-    && source scripts/bootstrap.sh -p build \
-    && mkdir bin/ \
-    && for example in \
-        chip-tool \
-        chip-cert \
-        air-purifier \
-        bridge \
-        dishwasher \
-        light \
-        lock \
-        refrigerator \
-        rvc \
-        thermostat ; do \
-            scripts/build/build_examples.py \
-                --target "${EXAMPLE_PREFIX}${example}${EXAMPLE_POSTFIX}" \
-                --pregen-dir ./zzz_pregenerated \
-                --pw-command-launcher=ccache \
-                build; \
-            find out/ -type f -executable -exec cp {} bin/ \;; \
-            rm -r out/; \
-            df -h; \
-        done
-
-FROM $BUILD_FROM
+ARG BUILD_ARCH
+ARG CHIP_VERSION
 
 RUN \
     set -x \
@@ -193,17 +108,38 @@ RUN \
        libnl-3-200 \
        libnl-route-3-200 \
        tmux \
+       curl \
+       jq \
     && rm -rf /var/lib/apt/lists/* \
     && rm -rf /usr/src/*
 
 COPY --from=builder-ttyd /usr/src/libwebsockets/build/install /
 COPY --from=builder-ttyd /usr/src/ttyd/build/install /
 
+RUN \
+    set -x \
+    && export REPO_OWNER="agners" \
+    && export REPO_NAME="matter-linux-example-apps" \
+    && if [ "${BUILD_ARCH}" = "amd64" ]; then \
+            export EXAMPLE_ARCH="x86-64"; \
+       elif [ "${BUILD_ARCH}" = "aarch64" ]; then \
+            export EXAMPLE_ARCH="aarch64"; \
+       else \
+            exit 1; \
+       fi \
+    && export API_URL="https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/tags/${CHIP_VERSION}" \
+    && curl -s $API_URL | \
+       jq -r --arg suffix "-${EXAMPLE_ARCH}" '.assets[] | select(.name | endswith($suffix)) | .browser_download_url, (.name | rtrimstr($suffix))' | \
+       while read -r url; read -r name; do \
+         echo "Downloading $url..."; \
+         curl -Lo "/usr/local/bin/$name" "$url"; \
+         chmod +x "/usr/local/bin/$name"; \
+       done
+
 RUN ldconfig
 
 WORKDIR /root
 
-COPY --from=builder-chip /usr/src/connectedhomeip/credentials /root/credentials
-COPY --from=builder-chip /usr/src/connectedhomeip/bin/* /usr/local/bin
+COPY --from=builder-amd64-base /usr/src/connectedhomeip/credentials /root/credentials
 
 COPY rootfs /
