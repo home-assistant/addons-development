@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1
+
+- Download pre-built examples instead of building using Docker
+
 ## 0.3.0
 
 - Bump to CHIP version/Matter SDK v1.2.0.1
