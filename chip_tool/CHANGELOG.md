@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0
+
+- Bump to CHIP version/Matter SDK v1.3.0.0
+- This adds more examples, specifically:
+  - air-quality-sensor - Air quality sensor
+  - energy-management - Energy Management (specifically EVSE - Electric vehicle supply equipment)
+  - microwave-oven - Microwave Oven
+
 ## 0.3.1
 
 - Download pre-built examples instead of building using Docker
