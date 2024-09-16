@@ -1,0 +1,19 @@
+name: Z-Wave JS Mock Server
+version: 1.0.0
+slug: zwave_mock_server
+description: Simple Z-Wave JS Mock Server for testing purposes - Instantiates a Z-Wave JS Server using mock/dump files for testing purposes.
+url: https://github.com/home-assistant/addons/tree/master/zwave_mock_server
+arch:
+  - amd64
+  - aarch64
+map:
+  - addon_config:rw
+init: false
+advanced: false
+stage: experimental
+tmpfs: true
+ports:
+  3000/tcp: 3001
+discovery:
+  - zwave_js
+hassio_api: true
