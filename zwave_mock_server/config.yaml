@@ -13,7 +13,7 @@ advanced: false
 stage: experimental
 tmpfs: true
 ports:
-  3000/tcp: 3001
+  3000/tcp: null
 discovery:
   - zwave_js
 hassio_api: true
