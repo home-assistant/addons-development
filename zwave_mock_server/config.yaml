@@ -17,3 +17,4 @@ ports:
 discovery:
   - zwave_js
 hassio_api: true
+image: homeassistant/{arch}-addon-zwave-mock-server
