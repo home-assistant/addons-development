@@ -12,7 +12,7 @@ Do not check the 'use default supervisor add-on' checkbox, which allows you to m
 
 Use this url: `http://77f1785d-zwave-mock-server:3000`
 
-NOTE: If you want to connect from your development machine to the mock server running on another machine/instance, you need to open the port in the add-on settings for the mock server addon and then you can connect to port 3000 of the host running the mock addon.
+NOTE: If you want to connect from your development machine to the mock server running on another machine/instance, you need to open the port in the add-on settings for the mock server add-on and then you can connect to port 3000 of the host running the mock add-on.
 
 ### How to import mock/dump files ?
 
