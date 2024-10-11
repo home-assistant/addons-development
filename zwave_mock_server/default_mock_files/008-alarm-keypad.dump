@@ -1,0 +1,6146 @@
+{
+  "id": 8,
+  "manufacturer": "Ring",
+  "label": "4AK1SZ",
+  "description": "Keypad v2",
+  "fingerprint": {
+    "manufacturerId": "0x0346",
+    "productType": "0x0101",
+    "productId": "0x0401",
+    "firmwareVersion": "2.0.0",
+    "hardwareVersion": 4
+  },
+  "interviewStage": "Complete",
+  "ready": true,
+  "securityClasses": {
+    "S2_AccessControl": true,
+    "S2_Authenticated": false,
+    "S2_Unauthenticated": false,
+    "S0_Legacy": false
+  },
+  "isListening": false,
+  "isFrequentListening": "250ms",
+  "isRouting": true,
+  "supportsBeaming": true,
+  "supportsSecurity": false,
+  "protocol": "ZWave",
+  "protocolVersion": "4.5x / 6.0x",
+  "sdkVersion": "7.16.3",
+  "supportedDataRates": [
+    40000,
+    100000
+  ],
+  "deviceClass": {
+    "basic": {
+      "key": 4,
+      "label": "Routing End Node"
+    },
+    "generic": {
+      "key": 64,
+      "label": "Entry Control"
+    },
+    "specific": {
+      "key": 11,
+      "label": "Secure Keypad"
+    }
+  },
+  "commandClasses": {
+    "Z-Wave Plus Info": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": false,
+      "version": 2,
+      "values": [
+        {
+          "property": "zwavePlusVersion",
+          "value": 2,
+          "timestamp": "2024-10-10T12:31:22.391Z",
+          "internal": true
+        },
+        {
+          "property": "nodeType",
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:22.391Z",
+          "internal": true
+        },
+        {
+          "property": "roleType",
+          "value": 7,
+          "timestamp": "2024-10-10T12:31:22.391Z",
+          "internal": true
+        },
+        {
+          "property": "installerIcon",
+          "value": 8193,
+          "timestamp": "2024-10-10T12:31:22.391Z",
+          "internal": true
+        },
+        {
+          "property": "userIcon",
+          "value": 8193,
+          "timestamp": "2024-10-10T12:31:22.391Z",
+          "internal": true
+        }
+      ]
+    },
+    "Security": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": true,
+      "version": 1,
+      "values": []
+    },
+    "Security 2": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": true,
+      "version": 1,
+      "values": []
+    },
+    "Supervision": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": false,
+      "version": 2,
+      "values": []
+    },
+    "Transport Service": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": false,
+      "version": 2,
+      "values": []
+    },
+    "Association Group Information": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": true,
+      "version": 3,
+      "values": [
+        {
+          "property": "name",
+          "propertyKey": 1,
+          "value": "Lifeline",
+          "timestamp": "2024-10-10T12:31:27.348Z",
+          "internal": true
+        },
+        {
+          "property": "issuedCommands",
+          "propertyKey": 1,
+          "value": {
+            "90": [
+              1
+            ],
+            "111": [
+              1
+            ],
+            "113": [
+              5
+            ],
+            "122": [
+              7
+            ],
+            "128": [
+              3
+            ],
+            "$$type$$": "map"
+          },
+          "timestamp": "2024-10-10T12:31:27.392Z",
+          "internal": true
+        },
+        {
+          "property": "hasDynamicInfo",
+          "value": false,
+          "timestamp": "2024-10-10T12:31:27.438Z",
+          "internal": true
+        },
+        {
+          "property": "info",
+          "propertyKey": 1,
+          "value": {
+            "mode": 0,
+            "profile": 1,
+            "eventCode": 0
+          },
+          "timestamp": "2024-10-10T12:31:27.438Z",
+          "internal": true
+        }
+      ]
+    },
+    "Association": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": true,
+      "version": 2,
+      "values": [
+        {
+          "property": "groupCount",
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:27.194Z",
+          "internal": true
+        },
+        {
+          "property": "maxNodes",
+          "propertyKey": 1,
+          "value": 5,
+          "timestamp": "2024-10-10T12:31:27.232Z",
+          "internal": true
+        },
+        {
+          "property": "nodeIds",
+          "propertyKey": 1,
+          "value": [
+            1
+          ],
+          "timestamp": "2024-10-10T12:31:27.232Z",
+          "internal": true
+        },
+        {
+          "property": "hasLifeline",
+          "value": true,
+          "timestamp": "2024-10-10T12:31:27.309Z",
+          "internal": true
+        }
+      ]
+    },
+    "Battery": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": true,
+      "version": 3,
+      "values": [
+        {
+          "property": "level",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "min": 0,
+            "max": 100,
+            "unit": "%",
+            "label": "Battery level"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:22.480Z"
+        },
+        {
+          "property": "isLow",
+          "metadata": {
+            "type": "boolean",
+            "readable": true,
+            "writeable": false,
+            "label": "Low battery level"
+          },
+          "value": false,
+          "timestamp": "2024-10-10T12:31:22.481Z"
+        },
+        {
+          "property": "chargingStatus",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "min": 0,
+            "max": 255,
+            "label": "Charging status",
+            "states": {
+              "0": "Discharging",
+              "1": "Charging",
+              "2": "Maintaining"
+            }
+          },
+          "value": 2,
+          "timestamp": "2024-10-10T12:31:22.482Z"
+        },
+        {
+          "property": "rechargeable",
+          "metadata": {
+            "type": "boolean",
+            "readable": true,
+            "writeable": false,
+            "label": "Rechargeable"
+          },
+          "value": true,
+          "timestamp": "2024-10-10T12:31:22.483Z"
+        },
+        {
+          "property": "backup",
+          "metadata": {
+            "type": "boolean",
+            "readable": true,
+            "writeable": false,
+            "label": "Used as backup"
+          },
+          "value": false,
+          "timestamp": "2024-10-10T12:31:22.484Z"
+        },
+        {
+          "property": "overheating",
+          "metadata": {
+            "type": "boolean",
+            "readable": true,
+            "writeable": false,
+            "label": "Overheating"
+          },
+          "value": false,
+          "timestamp": "2024-10-10T12:31:22.485Z"
+        },
+        {
+          "property": "lowFluid",
+          "metadata": {
+            "type": "boolean",
+            "readable": true,
+            "writeable": false,
+            "label": "Fluid is low"
+          },
+          "value": false,
+          "timestamp": "2024-10-10T12:31:22.486Z"
+        },
+        {
+          "property": "rechargeOrReplace",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "min": 0,
+            "max": 255,
+            "label": "Recharge or replace",
+            "states": {
+              "0": "No",
+              "1": "Soon",
+              "2": "Now"
+            }
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:22.487Z"
+        },
+        {
+          "property": "disconnected",
+          "metadata": {
+            "type": "boolean",
+            "readable": true,
+            "writeable": false,
+            "label": "Battery is disconnected"
+          },
+          "value": false,
+          "timestamp": "2024-10-10T12:31:22.488Z"
+        },
+        {
+          "property": "lowTemperatureStatus",
+          "metadata": {
+            "type": "boolean",
+            "readable": true,
+            "writeable": false,
+            "label": "Battery temperature is low"
+          },
+          "value": false,
+          "timestamp": "2024-10-10T12:31:22.489Z"
+        },
+        {
+          "property": "maximumCapacity",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "min": 0,
+            "max": 100,
+            "unit": "%",
+            "label": "Maximum capacity"
+          }
+        },
+        {
+          "property": "temperature",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "min": -128,
+            "max": 127,
+            "label": "Temperature"
+          }
+        }
+      ]
+    },
+    "Configuration": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": true,
+      "version": 4,
+      "values": [
+        {
+          "property": "isParamInformationFromConfig",
+          "value": true,
+          "timestamp": "2024-10-10T12:31:27.473Z",
+          "internal": true
+        },
+        {
+          "property": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 1,
+            "max": 70,
+            "default": 70,
+            "unit": "minutes",
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Heartbeat Interval",
+            "isFromConfig": true
+          },
+          "value": 70,
+          "timestamp": "2024-10-10T12:31:29.189Z"
+        },
+        {
+          "property": 2,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 5,
+            "default": 1,
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Message Retry Attempt Limit",
+            "isFromConfig": true
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:29.227Z"
+        },
+        {
+          "property": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 1,
+            "max": 60,
+            "default": 5,
+            "unit": "seconds",
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Delay Between Retry Attempts",
+            "isFromConfig": true
+          },
+          "value": 5,
+          "timestamp": "2024-10-10T12:31:29.270Z"
+        },
+        {
+          "property": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 10,
+            "default": 7,
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Announcement Audio Volume",
+            "isFromConfig": true
+          },
+          "value": 10,
+          "timestamp": "2024-10-10T12:31:29.310Z"
+        },
+        {
+          "property": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 10,
+            "default": 6,
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Key Tone Volume",
+            "isFromConfig": true
+          },
+          "value": 8,
+          "timestamp": "2024-10-10T12:31:29.350Z"
+        },
+        {
+          "property": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 10,
+            "default": 10,
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Siren Volume",
+            "isFromConfig": true
+          },
+          "value": 10,
+          "timestamp": "2024-10-10T12:31:29.391Z"
+        },
+        {
+          "property": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 2,
+            "max": 5,
+            "default": 3,
+            "unit": "seconds",
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Long Press Duration: Emergency Buttons",
+            "description": "Hold time required to capture a long press",
+            "isFromConfig": true
+          },
+          "value": 3,
+          "timestamp": "2024-10-10T12:31:29.434Z"
+        },
+        {
+          "property": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 2,
+            "max": 5,
+            "default": 3,
+            "unit": "seconds",
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Long Press Duration: Number Pad",
+            "description": "Hold time required to capture a long press",
+            "isFromConfig": true
+          },
+          "value": 3,
+          "timestamp": "2024-10-10T12:31:29.476Z"
+        },
+        {
+          "property": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 30,
+            "default": 5,
+            "unit": "seconds",
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Timeout: Proximity Display",
+            "isFromConfig": true
+          },
+          "value": 5,
+          "timestamp": "2024-10-10T12:31:29.515Z"
+        },
+        {
+          "property": 10,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 30,
+            "default": 5,
+            "unit": "seconds",
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Timeout: Display on Button Press",
+            "isFromConfig": true
+          },
+          "value": 5,
+          "timestamp": "2024-10-10T12:31:29.556Z"
+        },
+        {
+          "property": 11,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 1,
+            "max": 30,
+            "default": 5,
+            "unit": "seconds",
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Timeout: Display on Status Change",
+            "isFromConfig": true
+          },
+          "value": 5,
+          "timestamp": "2024-10-10T12:31:29.602Z"
+        },
+        {
+          "property": 12,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 100,
+            "default": 100,
+            "unit": "%",
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Brightness: Security Mode",
+            "isFromConfig": true
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:29.685Z"
+        },
+        {
+          "property": 13,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 100,
+            "default": 100,
+            "unit": "%",
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Brightness: Key Backlight",
+            "isFromConfig": true
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:29.730Z"
+        },
+        {
+          "property": 14,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 100,
+            "default": 20,
+            "unit": "%",
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Key Backlight Ambient Light Sensor Level",
+            "isFromConfig": true
+          },
+          "value": 20,
+          "timestamp": "2024-10-10T12:31:29.772Z"
+        },
+        {
+          "property": 15,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 1,
+            "default": 1,
+            "format": 0,
+            "allowManualEntry": false,
+            "states": {
+              "0": "Disable",
+              "1": "Enable"
+            },
+            "label": "Proximity Detection",
+            "isFromConfig": true
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:29.811Z"
+        },
+        {
+          "property": 16,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 255,
+            "default": 50,
+            "unit": "seconds",
+            "format": 1,
+            "allowManualEntry": true,
+            "label": "LED Ramp Time",
+            "isFromConfig": true
+          },
+          "value": 50,
+          "timestamp": "2024-10-10T12:31:29.850Z"
+        },
+        {
+          "property": 17,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 100,
+            "default": 15,
+            "unit": "%",
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Battery Low Threshold",
+            "isFromConfig": true
+          },
+          "value": 30,
+          "timestamp": "2024-10-10T12:31:29.888Z"
+        },
+        {
+          "property": 19,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 100,
+            "default": 5,
+            "unit": "%",
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Battery Warning Threshold",
+            "isFromConfig": true
+          },
+          "value": 10,
+          "timestamp": "2024-10-10T12:31:29.926Z"
+        },
+        {
+          "property": 18,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 31,
+            "default": 30,
+            "format": 0,
+            "allowManualEntry": true,
+            "states": {
+              "0": "English",
+              "2": "French",
+              "5": "Spanish"
+            },
+            "label": "Keypad Language",
+            "isFromConfig": true
+          },
+          "value": 6,
+          "timestamp": "2024-10-10T12:31:29.968Z"
+        },
+        {
+          "property": 20,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 1,
+            "max": 60,
+            "default": 2,
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "System Security Mode Blink Duration",
+            "isFromConfig": true
+          },
+          "value": 2,
+          "timestamp": "2024-10-10T12:31:30.005Z"
+        },
+        {
+          "property": 21,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 2,
+            "min": 500,
+            "max": 30000,
+            "default": 10000,
+            "unit": "ms",
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Supervision Report Timeout",
+            "isFromConfig": true
+          },
+          "value": 10000,
+          "timestamp": "2024-10-10T12:31:30.044Z"
+        },
+        {
+          "property": 22,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 2,
+            "min": 0,
+            "max": 601,
+            "default": 0,
+            "format": 0,
+            "allowManualEntry": true,
+            "states": {
+              "0": "Always off",
+              "601": "Always on"
+            },
+            "label": "System Security Mode Display",
+            "description": "Allowable range: 1-600",
+            "isFromConfig": true
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.154Z"
+        },
+        {
+          "property": 24,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 1,
+            "default": 0,
+            "format": 0,
+            "allowManualEntry": false,
+            "states": {
+              "0": "Disable",
+              "1": "Enable"
+            },
+            "label": "Calibrate Speaker",
+            "isFromConfig": true
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.260Z"
+        },
+        {
+          "property": 26,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "valueSize": 1,
+            "min": 0,
+            "max": 60,
+            "default": 3,
+            "unit": "seconds",
+            "format": 0,
+            "allowManualEntry": true,
+            "label": "Motion Sensor Timeout",
+            "isFromConfig": true
+          },
+          "value": 5,
+          "timestamp": "2024-10-10T12:31:30.300Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 1
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:30.202Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 2,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:30.204Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 1
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:30.206Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:30.207Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 16,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:30.208Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 32,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 1
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:30.209Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 64,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:30.211Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 128,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:30.211Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 256,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:30.212Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 512,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:30.213Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 1024,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:30.214Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 2048,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:30.214Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 4096,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:30.214Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 8192,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:30.215Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 16384,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.215Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 32768,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.216Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 65536,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.216Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 131072,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.217Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 262144,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.217Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 524288,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.218Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 1048576,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.218Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 2097152,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.218Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 4194304,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.219Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 8388608,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.219Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 16777216,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.220Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 33554432,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.220Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 67108864,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.220Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 134217728,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.221Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 268435456,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.221Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 536870912,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.222Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 1073741824,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.222Z"
+        },
+        {
+          "property": 23,
+          "propertyKey": 2147483648,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "format": 3,
+            "valueSize": 4,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 1,
+            "default": 0
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.223Z"
+        },
+        {
+          "property": 25,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "format": 1,
+            "valueSize": 1,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 15,
+            "default": 10,
+            "label": "Z-Wave Sleep Timeout",
+            "description": "Secs FLiRS device stays awake after last comms"
+          },
+          "value": 10,
+          "timestamp": "2024-10-10T12:31:30.345Z"
+        },
+        {
+          "property": 27,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "format": 1,
+            "valueSize": 1,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 255,
+            "default": 0,
+            "label": "Vol Offset TFA9896",
+            "description": "Vol Reduction 0.5 dB steps"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.390Z"
+        },
+        {
+          "property": 28,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "format": 1,
+            "valueSize": 1,
+            "requiresReInclusion": false,
+            "allowManualEntry": true,
+            "isAdvanced": true,
+            "noBulkSupport": false,
+            "isFromConfig": false,
+            "min": 0,
+            "max": 200,
+            "default": 0,
+            "label": "Vol Offset AW8896",
+            "description": "Vol Reduction 0.5 dB steps"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.437Z"
+        },
+        {
+          "property": 23,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "valueSize": 4,
+            "min": 0,
+            "max": 4294967295,
+            "default": 37,
+            "format": 1,
+            "allowManualEntry": false,
+            "label": "Languages Supported Report",
+            "description": "This parameter reports a bitmask of supported languages",
+            "isFromConfig": true
+          }
+        }
+      ]
+    },
+    "Device Reset Locally": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": true,
+      "version": 1,
+      "values": []
+    },
+    "Entry Control": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": true,
+      "version": 1,
+      "values": [
+        {
+          "property": "supportedKeys",
+          "value": [
+            48,
+            49,
+            50,
+            51,
+            52,
+            53,
+            54,
+            55,
+            56,
+            57,
+            64,
+            65,
+            66,
+            67,
+            68,
+            69,
+            70,
+            71,
+            72,
+            73
+          ],
+          "timestamp": "2024-10-10T12:31:30.492Z",
+          "internal": true
+        },
+        {
+          "property": "supportedDataTypes",
+          "value": [
+            2
+          ],
+          "timestamp": "2024-10-10T12:31:30.537Z",
+          "internal": true
+        },
+        {
+          "property": "supportedEventTypes",
+          "value": [
+            0,
+            1,
+            2,
+            3,
+            5,
+            6,
+            16,
+            17,
+            18,
+            19,
+            25
+          ],
+          "timestamp": "2024-10-10T12:31:30.537Z",
+          "internal": true
+        },
+        {
+          "property": "keyCacheSize",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "min": 4,
+            "max": 10,
+            "label": "Key cache size",
+            "description": "Number of character that must be stored before sending"
+          },
+          "value": 8,
+          "timestamp": "2024-10-10T12:31:30.582Z"
+        },
+        {
+          "property": "keyCacheTimeout",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "min": 1,
+            "max": 30,
+            "label": "Key cache timeout",
+            "unit": "seconds",
+            "description": "How long the key cache must wait for additional characters"
+          },
+          "value": 5,
+          "timestamp": "2024-10-10T12:31:30.584Z"
+        }
+      ]
+    },
+    "Firmware Update Meta Data": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": true,
+      "version": 5,
+      "values": [
+        {
+          "property": "firmwareUpgradable",
+          "value": true,
+          "timestamp": "2024-10-10T12:31:22.879Z",
+          "internal": true
+        },
+        {
+          "property": "additionalFirmwareIDs",
+          "value": [
+            0
+          ],
+          "timestamp": "2024-10-10T12:31:22.880Z",
+          "internal": true
+        },
+        {
+          "property": "supportsActivation",
+          "internal": true
+        },
+        {
+          "property": "continuesToFunction",
+          "internal": true
+        },
+        {
+          "property": "supportsResuming",
+          "internal": true
+        },
+        {
+          "property": "supportsNonSecureTransfer",
+          "internal": true
+        }
+      ]
+    },
+    "Indicator": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": true,
+      "version": 3,
+      "values": [
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 3,
+          "value": [
+            1,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "timestamp": "2024-10-10T12:31:23.041Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 2,
+          "value": [
+            1,
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:23.124Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 9,
+          "value": [
+            1,
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:23.205Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 10,
+          "value": [
+            1,
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:23.292Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 11,
+          "value": [
+            1,
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:23.381Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 12,
+          "value": [
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:23.474Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 13,
+          "value": [
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:23.559Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 14,
+          "value": [
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:23.640Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 15,
+          "value": [
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:23.729Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 16,
+          "value": [
+            1,
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:23.809Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 17,
+          "value": [
+            1,
+            6,
+            7,
+            8,
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:23.892Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 18,
+          "value": [
+            1,
+            6,
+            7,
+            8,
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:23.973Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 19,
+          "value": [
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:24.144Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 80,
+          "value": [
+            1,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "timestamp": "2024-10-10T12:31:24.225Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 96,
+          "value": [
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:24.302Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 97,
+          "value": [
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:24.381Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 98,
+          "value": [
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:24.467Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 99,
+          "value": [
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:24.555Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 100,
+          "value": [
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:24.641Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 21,
+          "value": [
+            1,
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:24.727Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 20,
+          "value": [
+            1,
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:24.813Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 129,
+          "value": [
+            1,
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:24.901Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 130,
+          "value": [
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:24.989Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 131,
+          "value": [
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:25.128Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 132,
+          "value": [
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:25.211Z",
+          "internal": true
+        },
+        {
+          "property": "supportedPropertyIDs",
+          "propertyKey": 133,
+          "value": [
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:25.323Z",
+          "internal": true
+        },
+        {
+          "property": "supportedIndicatorIds",
+          "value": [
+            0,
+            3,
+            2,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            80,
+            96,
+            97,
+            98,
+            99,
+            100,
+            21,
+            20,
+            129,
+            130,
+            131,
+            132,
+            133
+          ],
+          "timestamp": "2024-10-10T12:31:25.323Z",
+          "internal": true
+        },
+        {
+          "property": 0,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 0,
+              "propertyId": 1
+            },
+            "label": "0 (default) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:25.375Z"
+        },
+        {
+          "property": 0,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 0,
+              "propertyId": 3
+            },
+            "label": "0 (default) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.377Z"
+        },
+        {
+          "property": 0,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 0,
+              "propertyId": 4
+            },
+            "label": "0 (default) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.381Z"
+        },
+        {
+          "property": 0,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 0,
+              "propertyId": 5
+            },
+            "label": "0 (default) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.384Z"
+        },
+        {
+          "property": 0,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 0,
+              "propertyId": 7
+            },
+            "label": "0 (default) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.388Z"
+        },
+        {
+          "property": 0,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 0,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0 (default) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.391Z"
+        },
+        {
+          "property": 0,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 0,
+              "propertyId": 8
+            },
+            "label": "0 (default) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.394Z"
+        },
+        {
+          "property": 0,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 0,
+              "propertyId": 6
+            },
+            "label": "0 (default) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.397Z"
+        },
+        {
+          "property": "timeout",
+          "value": "",
+          "timestamp": "2024-10-10T12:31:27.158Z"
+        },
+        {
+          "property": 3,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 3,
+              "propertyId": 1
+            },
+            "label": "0x03 (Ready) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:25.454Z"
+        },
+        {
+          "property": 3,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 3,
+              "propertyId": 3
+            },
+            "label": "0x03 (Ready) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.457Z"
+        },
+        {
+          "property": 3,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 3,
+              "propertyId": 4
+            },
+            "label": "0x03 (Ready) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.460Z"
+        },
+        {
+          "property": 3,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 3,
+              "propertyId": 5
+            },
+            "label": "0x03 (Ready) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.463Z"
+        },
+        {
+          "property": 3,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 3,
+              "propertyId": 7
+            },
+            "label": "0x03 (Ready) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.465Z"
+        },
+        {
+          "property": 3,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 3,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x03 (Ready) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.469Z"
+        },
+        {
+          "property": 3,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 3,
+              "propertyId": 8
+            },
+            "label": "0x03 (Ready) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.471Z"
+        },
+        {
+          "property": 3,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 3,
+              "propertyId": 6
+            },
+            "label": "0x03 (Ready) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.473Z"
+        },
+        {
+          "property": 2,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 2,
+              "propertyId": 1
+            },
+            "label": "0x02 (Not armed / disarmed) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:25.523Z"
+        },
+        {
+          "property": 2,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 2,
+              "propertyId": 3
+            },
+            "label": "0x02 (Not armed / disarmed) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.525Z"
+        },
+        {
+          "property": 2,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 2,
+              "propertyId": 4
+            },
+            "label": "0x02 (Not armed / disarmed) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.527Z"
+        },
+        {
+          "property": 2,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 2,
+              "propertyId": 5
+            },
+            "label": "0x02 (Not armed / disarmed) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.529Z"
+        },
+        {
+          "property": 2,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 2,
+              "propertyId": 7
+            },
+            "label": "0x02 (Not armed / disarmed) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.531Z"
+        },
+        {
+          "property": 2,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 2,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x02 (Not armed / disarmed) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.533Z"
+        },
+        {
+          "property": 2,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 2,
+              "propertyId": 8
+            },
+            "label": "0x02 (Not armed / disarmed) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.535Z"
+        },
+        {
+          "property": 2,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 2,
+              "propertyId": 6
+            },
+            "label": "0x02 (Not armed / disarmed) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.537Z"
+        },
+        {
+          "property": 9,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 9,
+              "propertyId": 1
+            },
+            "label": "0x09 (Code not accepted) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:25.586Z"
+        },
+        {
+          "property": 9,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 9,
+              "propertyId": 3
+            },
+            "label": "0x09 (Code not accepted) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.589Z"
+        },
+        {
+          "property": 9,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 9,
+              "propertyId": 4
+            },
+            "label": "0x09 (Code not accepted) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.591Z"
+        },
+        {
+          "property": 9,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 9,
+              "propertyId": 5
+            },
+            "label": "0x09 (Code not accepted) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.594Z"
+        },
+        {
+          "property": 9,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 9,
+              "propertyId": 7
+            },
+            "label": "0x09 (Code not accepted) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.596Z"
+        },
+        {
+          "property": 9,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 9,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x09 (Code not accepted) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.599Z"
+        },
+        {
+          "property": 9,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 9,
+              "propertyId": 8
+            },
+            "label": "0x09 (Code not accepted) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.601Z"
+        },
+        {
+          "property": 9,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 9,
+              "propertyId": 6
+            },
+            "label": "0x09 (Code not accepted) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.603Z"
+        },
+        {
+          "property": 10,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 10,
+              "propertyId": 1
+            },
+            "label": "0x0a (Armed Stay) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:25.653Z"
+        },
+        {
+          "property": 10,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 10,
+              "propertyId": 3
+            },
+            "label": "0x0a (Armed Stay) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.655Z"
+        },
+        {
+          "property": 10,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 10,
+              "propertyId": 4
+            },
+            "label": "0x0a (Armed Stay) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.658Z"
+        },
+        {
+          "property": 10,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 10,
+              "propertyId": 5
+            },
+            "label": "0x0a (Armed Stay) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.662Z"
+        },
+        {
+          "property": 10,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 10,
+              "propertyId": 7
+            },
+            "label": "0x0a (Armed Stay) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.665Z"
+        },
+        {
+          "property": 10,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 10,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x0a (Armed Stay) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.669Z"
+        },
+        {
+          "property": 10,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 10,
+              "propertyId": 8
+            },
+            "label": "0x0a (Armed Stay) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.672Z"
+        },
+        {
+          "property": 10,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 10,
+              "propertyId": 6
+            },
+            "label": "0x0a (Armed Stay) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.676Z"
+        },
+        {
+          "property": 11,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 11,
+              "propertyId": 1
+            },
+            "label": "0x0b (Armed Away) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:25.729Z"
+        },
+        {
+          "property": 11,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 11,
+              "propertyId": 3
+            },
+            "label": "0x0b (Armed Away) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.732Z"
+        },
+        {
+          "property": 11,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 11,
+              "propertyId": 4
+            },
+            "label": "0x0b (Armed Away) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.735Z"
+        },
+        {
+          "property": 11,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 11,
+              "propertyId": 5
+            },
+            "label": "0x0b (Armed Away) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.736Z"
+        },
+        {
+          "property": 11,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 11,
+              "propertyId": 7
+            },
+            "label": "0x0b (Armed Away) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.737Z"
+        },
+        {
+          "property": 11,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 11,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x0b (Armed Away) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.739Z"
+        },
+        {
+          "property": 11,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 11,
+              "propertyId": 8
+            },
+            "label": "0x0b (Armed Away) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.742Z"
+        },
+        {
+          "property": 11,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 11,
+              "propertyId": 6
+            },
+            "label": "0x0b (Armed Away) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.744Z"
+        },
+        {
+          "property": 12,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 12,
+              "propertyId": 1
+            },
+            "label": "0x0c (Alarming) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:25.798Z"
+        },
+        {
+          "property": 12,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 12,
+              "propertyId": 3
+            },
+            "label": "0x0c (Alarming) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.801Z"
+        },
+        {
+          "property": 12,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 12,
+              "propertyId": 4
+            },
+            "label": "0x0c (Alarming) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.804Z"
+        },
+        {
+          "property": 12,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 12,
+              "propertyId": 5
+            },
+            "label": "0x0c (Alarming) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.808Z"
+        },
+        {
+          "property": 12,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 12,
+              "propertyId": 7
+            },
+            "label": "0x0c (Alarming) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.811Z"
+        },
+        {
+          "property": 12,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 12,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x0c (Alarming) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.814Z"
+        },
+        {
+          "property": 12,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 12,
+              "propertyId": 8
+            },
+            "label": "0x0c (Alarming) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.816Z"
+        },
+        {
+          "property": 12,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 12,
+              "propertyId": 6
+            },
+            "label": "0x0c (Alarming) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.819Z"
+        },
+        {
+          "property": 13,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 13,
+              "propertyId": 1
+            },
+            "label": "0x0d (Alarming: Burglar) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:25.870Z"
+        },
+        {
+          "property": 13,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 13,
+              "propertyId": 3
+            },
+            "label": "0x0d (Alarming: Burglar) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.873Z"
+        },
+        {
+          "property": 13,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 13,
+              "propertyId": 4
+            },
+            "label": "0x0d (Alarming: Burglar) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.876Z"
+        },
+        {
+          "property": 13,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 13,
+              "propertyId": 5
+            },
+            "label": "0x0d (Alarming: Burglar) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.879Z"
+        },
+        {
+          "property": 13,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 13,
+              "propertyId": 7
+            },
+            "label": "0x0d (Alarming: Burglar) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.882Z"
+        },
+        {
+          "property": 13,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 13,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x0d (Alarming: Burglar) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.885Z"
+        },
+        {
+          "property": 13,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 13,
+              "propertyId": 8
+            },
+            "label": "0x0d (Alarming: Burglar) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.888Z"
+        },
+        {
+          "property": 13,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 13,
+              "propertyId": 6
+            },
+            "label": "0x0d (Alarming: Burglar) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.891Z"
+        },
+        {
+          "property": 14,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 14,
+              "propertyId": 1
+            },
+            "label": "0x0e (Alarming: Smoke / Fire) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:25.941Z"
+        },
+        {
+          "property": 14,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 14,
+              "propertyId": 3
+            },
+            "label": "0x0e (Alarming: Smoke / Fire) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.945Z"
+        },
+        {
+          "property": 14,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 14,
+              "propertyId": 4
+            },
+            "label": "0x0e (Alarming: Smoke / Fire) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.948Z"
+        },
+        {
+          "property": 14,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 14,
+              "propertyId": 5
+            },
+            "label": "0x0e (Alarming: Smoke / Fire) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.951Z"
+        },
+        {
+          "property": 14,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 14,
+              "propertyId": 7
+            },
+            "label": "0x0e (Alarming: Smoke / Fire) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.955Z"
+        },
+        {
+          "property": 14,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 14,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x0e (Alarming: Smoke / Fire) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.958Z"
+        },
+        {
+          "property": 14,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 14,
+              "propertyId": 8
+            },
+            "label": "0x0e (Alarming: Smoke / Fire) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.961Z"
+        },
+        {
+          "property": 14,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 14,
+              "propertyId": 6
+            },
+            "label": "0x0e (Alarming: Smoke / Fire) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:25.964Z"
+        },
+        {
+          "property": 15,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 15,
+              "propertyId": 1
+            },
+            "label": "0x0f (Alarming: Carbon Monoxide) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:26.022Z"
+        },
+        {
+          "property": 15,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 15,
+              "propertyId": 3
+            },
+            "label": "0x0f (Alarming: Carbon Monoxide) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.024Z"
+        },
+        {
+          "property": 15,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 15,
+              "propertyId": 4
+            },
+            "label": "0x0f (Alarming: Carbon Monoxide) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.028Z"
+        },
+        {
+          "property": 15,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 15,
+              "propertyId": 5
+            },
+            "label": "0x0f (Alarming: Carbon Monoxide) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.030Z"
+        },
+        {
+          "property": 15,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 15,
+              "propertyId": 7
+            },
+            "label": "0x0f (Alarming: Carbon Monoxide) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.033Z"
+        },
+        {
+          "property": 15,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 15,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x0f (Alarming: Carbon Monoxide) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.036Z"
+        },
+        {
+          "property": 15,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 15,
+              "propertyId": 8
+            },
+            "label": "0x0f (Alarming: Carbon Monoxide) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.039Z"
+        },
+        {
+          "property": 15,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 15,
+              "propertyId": 6
+            },
+            "label": "0x0f (Alarming: Carbon Monoxide) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.043Z"
+        },
+        {
+          "property": 16,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 16,
+              "propertyId": 1
+            },
+            "label": "0x10 (Bypass challenge) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:26.100Z"
+        },
+        {
+          "property": 16,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 16,
+              "propertyId": 3
+            },
+            "label": "0x10 (Bypass challenge) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.102Z"
+        },
+        {
+          "property": 16,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 16,
+              "propertyId": 4
+            },
+            "label": "0x10 (Bypass challenge) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.105Z"
+        },
+        {
+          "property": 16,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 16,
+              "propertyId": 5
+            },
+            "label": "0x10 (Bypass challenge) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.107Z"
+        },
+        {
+          "property": 16,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 16,
+              "propertyId": 7
+            },
+            "label": "0x10 (Bypass challenge) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.110Z"
+        },
+        {
+          "property": 16,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 16,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x10 (Bypass challenge) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.113Z"
+        },
+        {
+          "property": 16,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 16,
+              "propertyId": 8
+            },
+            "label": "0x10 (Bypass challenge) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.116Z"
+        },
+        {
+          "property": 16,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 16,
+              "propertyId": 6
+            },
+            "label": "0x10 (Bypass challenge) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.119Z"
+        },
+        {
+          "property": 17,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 17,
+              "propertyId": 1
+            },
+            "label": "0x11 (Entry Delay) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:26.172Z"
+        },
+        {
+          "property": 17,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 17,
+              "propertyId": 3
+            },
+            "label": "0x11 (Entry Delay) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.174Z"
+        },
+        {
+          "property": 17,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 17,
+              "propertyId": 4
+            },
+            "label": "0x11 (Entry Delay) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.175Z"
+        },
+        {
+          "property": 17,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 17,
+              "propertyId": 5
+            },
+            "label": "0x11 (Entry Delay) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.177Z"
+        },
+        {
+          "property": 17,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 17,
+              "propertyId": 7
+            },
+            "label": "0x11 (Entry Delay) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.179Z"
+        },
+        {
+          "property": 17,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 17,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x11 (Entry Delay) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.181Z"
+        },
+        {
+          "property": 17,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 17,
+              "propertyId": 8
+            },
+            "label": "0x11 (Entry Delay) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.182Z"
+        },
+        {
+          "property": 17,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 17,
+              "propertyId": 6
+            },
+            "label": "0x11 (Entry Delay) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.183Z"
+        },
+        {
+          "property": 18,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 18,
+              "propertyId": 1
+            },
+            "label": "0x12 (Exit Delay) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:26.231Z"
+        },
+        {
+          "property": 18,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 18,
+              "propertyId": 3
+            },
+            "label": "0x12 (Exit Delay) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.234Z"
+        },
+        {
+          "property": 18,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 18,
+              "propertyId": 4
+            },
+            "label": "0x12 (Exit Delay) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.236Z"
+        },
+        {
+          "property": 18,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 18,
+              "propertyId": 5
+            },
+            "label": "0x12 (Exit Delay) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.238Z"
+        },
+        {
+          "property": 18,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 18,
+              "propertyId": 7
+            },
+            "label": "0x12 (Exit Delay) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.241Z"
+        },
+        {
+          "property": 18,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 18,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x12 (Exit Delay) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.243Z"
+        },
+        {
+          "property": 18,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 18,
+              "propertyId": 8
+            },
+            "label": "0x12 (Exit Delay) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.244Z"
+        },
+        {
+          "property": 18,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 18,
+              "propertyId": 6
+            },
+            "label": "0x12 (Exit Delay) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.245Z"
+        },
+        {
+          "property": 19,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 19,
+              "propertyId": 1
+            },
+            "label": "0x13 (Alarming: Medical) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:26.294Z"
+        },
+        {
+          "property": 19,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 19,
+              "propertyId": 3
+            },
+            "label": "0x13 (Alarming: Medical) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.295Z"
+        },
+        {
+          "property": 19,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 19,
+              "propertyId": 4
+            },
+            "label": "0x13 (Alarming: Medical) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.297Z"
+        },
+        {
+          "property": 19,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 19,
+              "propertyId": 5
+            },
+            "label": "0x13 (Alarming: Medical) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.299Z"
+        },
+        {
+          "property": 19,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 19,
+              "propertyId": 7
+            },
+            "label": "0x13 (Alarming: Medical) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.300Z"
+        },
+        {
+          "property": 19,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 19,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x13 (Alarming: Medical) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.302Z"
+        },
+        {
+          "property": 19,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 19,
+              "propertyId": 8
+            },
+            "label": "0x13 (Alarming: Medical) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.303Z"
+        },
+        {
+          "property": 19,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 19,
+              "propertyId": 6
+            },
+            "label": "0x13 (Alarming: Medical) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.304Z"
+        },
+        {
+          "property": 80,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 80,
+              "propertyId": 1
+            },
+            "label": "0x50 (Node Identify) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:26.355Z"
+        },
+        {
+          "property": 80,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 80,
+              "propertyId": 3
+            },
+            "label": "0x50 (Node Identify) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.358Z"
+        },
+        {
+          "property": 80,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 80,
+              "propertyId": 4
+            },
+            "label": "0x50 (Node Identify) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.361Z"
+        },
+        {
+          "property": 80,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 80,
+              "propertyId": 5
+            },
+            "label": "0x50 (Node Identify) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.363Z"
+        },
+        {
+          "property": 80,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 80,
+              "propertyId": 7
+            },
+            "label": "0x50 (Node Identify) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.366Z"
+        },
+        {
+          "property": 80,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 80,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x50 (Node Identify) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.369Z"
+        },
+        {
+          "property": 80,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 80,
+              "propertyId": 8
+            },
+            "label": "0x50 (Node Identify) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.372Z"
+        },
+        {
+          "property": 80,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 80,
+              "propertyId": 6
+            },
+            "label": "0x50 (Node Identify) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.375Z"
+        },
+        {
+          "property": 96,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 96,
+              "propertyId": 1
+            },
+            "label": "0x60 (Generic event sound notification 1) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:26.426Z"
+        },
+        {
+          "property": 96,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 96,
+              "propertyId": 3
+            },
+            "label": "0x60 (Generic event sound notification 1) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.428Z"
+        },
+        {
+          "property": 96,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 96,
+              "propertyId": 4
+            },
+            "label": "0x60 (Generic event sound notification 1) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.429Z"
+        },
+        {
+          "property": 96,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 96,
+              "propertyId": 5
+            },
+            "label": "0x60 (Generic event sound notification 1) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.430Z"
+        },
+        {
+          "property": 96,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 96,
+              "propertyId": 7
+            },
+            "label": "0x60 (Generic event sound notification 1) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.431Z"
+        },
+        {
+          "property": 96,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 96,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x60 (Generic event sound notification 1) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.432Z"
+        },
+        {
+          "property": 96,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 96,
+              "propertyId": 8
+            },
+            "label": "0x60 (Generic event sound notification 1) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.434Z"
+        },
+        {
+          "property": 96,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 96,
+              "propertyId": 6
+            },
+            "label": "0x60 (Generic event sound notification 1) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.435Z"
+        },
+        {
+          "property": 97,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 97,
+              "propertyId": 1
+            },
+            "label": "0x61 (Generic event sound notification 2) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:26.481Z"
+        },
+        {
+          "property": 97,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 97,
+              "propertyId": 3
+            },
+            "label": "0x61 (Generic event sound notification 2) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.483Z"
+        },
+        {
+          "property": 97,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 97,
+              "propertyId": 4
+            },
+            "label": "0x61 (Generic event sound notification 2) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.485Z"
+        },
+        {
+          "property": 97,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 97,
+              "propertyId": 5
+            },
+            "label": "0x61 (Generic event sound notification 2) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.489Z"
+        },
+        {
+          "property": 97,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 97,
+              "propertyId": 7
+            },
+            "label": "0x61 (Generic event sound notification 2) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.491Z"
+        },
+        {
+          "property": 97,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 97,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x61 (Generic event sound notification 2) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.493Z"
+        },
+        {
+          "property": 97,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 97,
+              "propertyId": 8
+            },
+            "label": "0x61 (Generic event sound notification 2) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.497Z"
+        },
+        {
+          "property": 97,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 97,
+              "propertyId": 6
+            },
+            "label": "0x61 (Generic event sound notification 2) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.499Z"
+        },
+        {
+          "property": 98,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 98,
+              "propertyId": 1
+            },
+            "label": "0x62 (Generic event sound notification 3) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:26.551Z"
+        },
+        {
+          "property": 98,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 98,
+              "propertyId": 3
+            },
+            "label": "0x62 (Generic event sound notification 3) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.554Z"
+        },
+        {
+          "property": 98,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 98,
+              "propertyId": 4
+            },
+            "label": "0x62 (Generic event sound notification 3) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.558Z"
+        },
+        {
+          "property": 98,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 98,
+              "propertyId": 5
+            },
+            "label": "0x62 (Generic event sound notification 3) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.560Z"
+        },
+        {
+          "property": 98,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 98,
+              "propertyId": 7
+            },
+            "label": "0x62 (Generic event sound notification 3) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.563Z"
+        },
+        {
+          "property": 98,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 98,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x62 (Generic event sound notification 3) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.566Z"
+        },
+        {
+          "property": 98,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 98,
+              "propertyId": 8
+            },
+            "label": "0x62 (Generic event sound notification 3) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.569Z"
+        },
+        {
+          "property": 98,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 98,
+              "propertyId": 6
+            },
+            "label": "0x62 (Generic event sound notification 3) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.572Z"
+        },
+        {
+          "property": 99,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 99,
+              "propertyId": 1
+            },
+            "label": "0x63 (Generic event sound notification 4) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:26.627Z"
+        },
+        {
+          "property": 99,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 99,
+              "propertyId": 3
+            },
+            "label": "0x63 (Generic event sound notification 4) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.631Z"
+        },
+        {
+          "property": 99,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 99,
+              "propertyId": 4
+            },
+            "label": "0x63 (Generic event sound notification 4) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.632Z"
+        },
+        {
+          "property": 99,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 99,
+              "propertyId": 5
+            },
+            "label": "0x63 (Generic event sound notification 4) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.634Z"
+        },
+        {
+          "property": 99,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 99,
+              "propertyId": 7
+            },
+            "label": "0x63 (Generic event sound notification 4) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.635Z"
+        },
+        {
+          "property": 99,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 99,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x63 (Generic event sound notification 4) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.636Z"
+        },
+        {
+          "property": 99,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 99,
+              "propertyId": 8
+            },
+            "label": "0x63 (Generic event sound notification 4) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.637Z"
+        },
+        {
+          "property": 99,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 99,
+              "propertyId": 6
+            },
+            "label": "0x63 (Generic event sound notification 4) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.638Z"
+        },
+        {
+          "property": 100,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 100,
+              "propertyId": 1
+            },
+            "label": "0x64 (Generic event sound notification 5) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:26.688Z"
+        },
+        {
+          "property": 100,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 100,
+              "propertyId": 3
+            },
+            "label": "0x64 (Generic event sound notification 5) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.691Z"
+        },
+        {
+          "property": 100,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 100,
+              "propertyId": 4
+            },
+            "label": "0x64 (Generic event sound notification 5) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.693Z"
+        },
+        {
+          "property": 100,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 100,
+              "propertyId": 5
+            },
+            "label": "0x64 (Generic event sound notification 5) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.696Z"
+        },
+        {
+          "property": 100,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 100,
+              "propertyId": 7
+            },
+            "label": "0x64 (Generic event sound notification 5) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.699Z"
+        },
+        {
+          "property": 100,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 100,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x64 (Generic event sound notification 5) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.702Z"
+        },
+        {
+          "property": 100,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 100,
+              "propertyId": 8
+            },
+            "label": "0x64 (Generic event sound notification 5) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.706Z"
+        },
+        {
+          "property": 100,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 100,
+              "propertyId": 6
+            },
+            "label": "0x64 (Generic event sound notification 5) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.709Z"
+        },
+        {
+          "property": 21,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 21,
+              "propertyId": 1
+            },
+            "label": "0x15 (Alarming: Water leak) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:26.764Z"
+        },
+        {
+          "property": 21,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 21,
+              "propertyId": 3
+            },
+            "label": "0x15 (Alarming: Water leak) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.767Z"
+        },
+        {
+          "property": 21,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 21,
+              "propertyId": 4
+            },
+            "label": "0x15 (Alarming: Water leak) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.770Z"
+        },
+        {
+          "property": 21,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 21,
+              "propertyId": 5
+            },
+            "label": "0x15 (Alarming: Water leak) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.772Z"
+        },
+        {
+          "property": 21,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 21,
+              "propertyId": 7
+            },
+            "label": "0x15 (Alarming: Water leak) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.776Z"
+        },
+        {
+          "property": 21,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 21,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x15 (Alarming: Water leak) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.778Z"
+        },
+        {
+          "property": 21,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 21,
+              "propertyId": 8
+            },
+            "label": "0x15 (Alarming: Water leak) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.782Z"
+        },
+        {
+          "property": 21,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 21,
+              "propertyId": 6
+            },
+            "label": "0x15 (Alarming: Water leak) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.785Z"
+        },
+        {
+          "property": 20,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 20,
+              "propertyId": 1
+            },
+            "label": "0x14 (Alarming: Freeze warning) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:26.842Z"
+        },
+        {
+          "property": 20,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 20,
+              "propertyId": 3
+            },
+            "label": "0x14 (Alarming: Freeze warning) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.845Z"
+        },
+        {
+          "property": 20,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 20,
+              "propertyId": 4
+            },
+            "label": "0x14 (Alarming: Freeze warning) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.849Z"
+        },
+        {
+          "property": 20,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 20,
+              "propertyId": 5
+            },
+            "label": "0x14 (Alarming: Freeze warning) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.851Z"
+        },
+        {
+          "property": 20,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 20,
+              "propertyId": 7
+            },
+            "label": "0x14 (Alarming: Freeze warning) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.852Z"
+        },
+        {
+          "property": 20,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 20,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x14 (Alarming: Freeze warning) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.853Z"
+        },
+        {
+          "property": 20,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 20,
+              "propertyId": 8
+            },
+            "label": "0x14 (Alarming: Freeze warning) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.856Z"
+        },
+        {
+          "property": 20,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 20,
+              "propertyId": 6
+            },
+            "label": "0x14 (Alarming: Freeze warning) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.859Z"
+        },
+        {
+          "property": 129,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 129,
+              "propertyId": 1
+            },
+            "label": "0x81 (Manufacturer defined 2) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:26.917Z"
+        },
+        {
+          "property": 129,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 129,
+              "propertyId": 3
+            },
+            "label": "0x81 (Manufacturer defined 2) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.921Z"
+        },
+        {
+          "property": 129,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 129,
+              "propertyId": 4
+            },
+            "label": "0x81 (Manufacturer defined 2) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.923Z"
+        },
+        {
+          "property": 129,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 129,
+              "propertyId": 5
+            },
+            "label": "0x81 (Manufacturer defined 2) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.926Z"
+        },
+        {
+          "property": 129,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 129,
+              "propertyId": 7
+            },
+            "label": "0x81 (Manufacturer defined 2) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.928Z"
+        },
+        {
+          "property": 129,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 129,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x81 (Manufacturer defined 2) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.931Z"
+        },
+        {
+          "property": 129,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 129,
+              "propertyId": 8
+            },
+            "label": "0x81 (Manufacturer defined 2) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.933Z"
+        },
+        {
+          "property": 129,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 129,
+              "propertyId": 6
+            },
+            "label": "0x81 (Manufacturer defined 2) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.934Z"
+        },
+        {
+          "property": 130,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 130,
+              "propertyId": 1
+            },
+            "label": "0x82 (Manufacturer defined 3) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:26.985Z"
+        },
+        {
+          "property": 130,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 130,
+              "propertyId": 3
+            },
+            "label": "0x82 (Manufacturer defined 3) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.988Z"
+        },
+        {
+          "property": 130,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 130,
+              "propertyId": 4
+            },
+            "label": "0x82 (Manufacturer defined 3) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.991Z"
+        },
+        {
+          "property": 130,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 130,
+              "propertyId": 5
+            },
+            "label": "0x82 (Manufacturer defined 3) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.994Z"
+        },
+        {
+          "property": 130,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 130,
+              "propertyId": 7
+            },
+            "label": "0x82 (Manufacturer defined 3) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.997Z"
+        },
+        {
+          "property": 130,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 130,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x82 (Manufacturer defined 3) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:26.999Z"
+        },
+        {
+          "property": 130,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 130,
+              "propertyId": 8
+            },
+            "label": "0x82 (Manufacturer defined 3) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.001Z"
+        },
+        {
+          "property": 130,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 130,
+              "propertyId": 6
+            },
+            "label": "0x82 (Manufacturer defined 3) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.002Z"
+        },
+        {
+          "property": 131,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 131,
+              "propertyId": 1
+            },
+            "label": "0x83 (Manufacturer defined 4) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:27.048Z"
+        },
+        {
+          "property": 131,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 131,
+              "propertyId": 3
+            },
+            "label": "0x83 (Manufacturer defined 4) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.049Z"
+        },
+        {
+          "property": 131,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 131,
+              "propertyId": 4
+            },
+            "label": "0x83 (Manufacturer defined 4) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.050Z"
+        },
+        {
+          "property": 131,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 131,
+              "propertyId": 5
+            },
+            "label": "0x83 (Manufacturer defined 4) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.051Z"
+        },
+        {
+          "property": 131,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 131,
+              "propertyId": 7
+            },
+            "label": "0x83 (Manufacturer defined 4) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.052Z"
+        },
+        {
+          "property": 131,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 131,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x83 (Manufacturer defined 4) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.053Z"
+        },
+        {
+          "property": 131,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 131,
+              "propertyId": 8
+            },
+            "label": "0x83 (Manufacturer defined 4) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.054Z"
+        },
+        {
+          "property": 131,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 131,
+              "propertyId": 6
+            },
+            "label": "0x83 (Manufacturer defined 4) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.055Z"
+        },
+        {
+          "property": 132,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 132,
+              "propertyId": 1
+            },
+            "label": "0x84 (Manufacturer defined 5) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:27.099Z"
+        },
+        {
+          "property": 132,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 132,
+              "propertyId": 3
+            },
+            "label": "0x84 (Manufacturer defined 5) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.100Z"
+        },
+        {
+          "property": 132,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 132,
+              "propertyId": 4
+            },
+            "label": "0x84 (Manufacturer defined 5) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.101Z"
+        },
+        {
+          "property": 132,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 132,
+              "propertyId": 5
+            },
+            "label": "0x84 (Manufacturer defined 5) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.102Z"
+        },
+        {
+          "property": 132,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 132,
+              "propertyId": 7
+            },
+            "label": "0x84 (Manufacturer defined 5) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.103Z"
+        },
+        {
+          "property": 132,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 132,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x84 (Manufacturer defined 5) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.104Z"
+        },
+        {
+          "property": 132,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 132,
+              "propertyId": 8
+            },
+            "label": "0x84 (Manufacturer defined 5) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.105Z"
+        },
+        {
+          "property": 132,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 132,
+              "propertyId": 6
+            },
+            "label": "0x84 (Manufacturer defined 5) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.106Z"
+        },
+        {
+          "property": 133,
+          "propertyKey": 1,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 133,
+              "propertyId": 1
+            },
+            "label": "0x85 (Manufacturer defined 6) - Multilevel"
+          },
+          "value": 100,
+          "timestamp": "2024-10-10T12:31:27.151Z"
+        },
+        {
+          "property": 133,
+          "propertyKey": 3,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 133,
+              "propertyId": 3
+            },
+            "label": "0x85 (Manufacturer defined 6) - On/Off Period: Duration",
+            "description": "Sets the duration of an on/off period in 1/10th seconds. Must be set together with \"On/Off Cycle Count\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.152Z"
+        },
+        {
+          "property": 133,
+          "propertyKey": 4,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 133,
+              "propertyId": 4
+            },
+            "label": "0x85 (Manufacturer defined 6) - On/Off Cycle Count",
+            "description": "Sets the number of on/off periods. 0xff means infinite. Must be set together with \"On/Off Period duration\""
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.153Z"
+        },
+        {
+          "property": 133,
+          "propertyKey": 5,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 133,
+              "propertyId": 5
+            },
+            "label": "0x85 (Manufacturer defined 6) - On/Off Period: On time",
+            "description": "This property is used to set the length of the On time during an On/Off period. It allows asymmetric On/Off periods. The value 0x00 MUST represent symmetric On/Off period (On time equal to Off time)"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.154Z"
+        },
+        {
+          "property": 133,
+          "propertyKey": 7,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 133,
+              "propertyId": 7
+            },
+            "label": "0x85 (Manufacturer defined 6) - Timeout: Seconds",
+            "description": "Turns the indicator of after this amount of seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.155Z"
+        },
+        {
+          "property": 133,
+          "propertyKey": 9,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 133,
+              "propertyId": 9
+            },
+            "max": 100,
+            "label": "0x85 (Manufacturer defined 6) - Sound level",
+            "description": "This property is used to set the volume of a indicator. 0 means off/mute."
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.156Z"
+        },
+        {
+          "property": 133,
+          "propertyKey": 8,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 133,
+              "propertyId": 8
+            },
+            "label": "0x85 (Manufacturer defined 6) - Timeout: 1/100th seconds",
+            "description": "Turns the indicator of after this amount of 1/100th seconds. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.157Z"
+        },
+        {
+          "property": 133,
+          "propertyKey": 6,
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": true,
+            "ccSpecific": {
+              "indicatorId": 133,
+              "propertyId": 6
+            },
+            "label": "0x85 (Manufacturer defined 6) - Timeout: Minutes",
+            "description": "Turns the indicator of after this amount of minutes. Can be used together with other timeout properties"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:27.158Z"
+        },
+        {
+          "property": "value"
+        },
+        {
+          "property": "identify"
+        }
+      ]
+    },
+    "Manufacturer Specific": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": true,
+      "version": 2,
+      "values": [
+        {
+          "property": "manufacturerId",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "min": 0,
+            "max": 65535,
+            "label": "Manufacturer ID"
+          },
+          "value": 838,
+          "timestamp": "2024-10-10T12:31:20.332Z"
+        },
+        {
+          "property": "productType",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "min": 0,
+            "max": 65535,
+            "label": "Product type"
+          },
+          "value": 257,
+          "timestamp": "2024-10-10T12:31:20.333Z"
+        },
+        {
+          "property": "productId",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "min": 0,
+            "max": 65535,
+            "label": "Product ID"
+          },
+          "value": 1025,
+          "timestamp": "2024-10-10T12:31:20.335Z"
+        }
+      ]
+    },
+    "Multi Channel Association": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": true,
+      "version": 3,
+      "values": [
+        {
+          "property": "groupCount",
+          "value": 1,
+          "timestamp": "2024-10-10T12:31:27.270Z",
+          "internal": true
+        },
+        {
+          "property": "maxNodes",
+          "propertyKey": 1,
+          "value": 5,
+          "timestamp": "2024-10-10T12:31:27.307Z",
+          "internal": true
+        },
+        {
+          "property": "nodeIds",
+          "propertyKey": 1,
+          "value": [
+            1
+          ],
+          "timestamp": "2024-10-10T12:31:27.307Z",
+          "internal": true
+        },
+        {
+          "property": "endpoints",
+          "propertyKey": 1,
+          "value": [],
+          "timestamp": "2024-10-10T12:31:27.307Z",
+          "internal": true
+        }
+      ]
+    },
+    "Notification": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": true,
+      "version": 8,
+      "values": [
+        {
+          "property": "supportsV1Alarm",
+          "value": false,
+          "timestamp": "2024-10-10T12:31:30.627Z",
+          "internal": true
+        },
+        {
+          "property": "supportedNotificationTypes",
+          "value": [
+            7,
+            8,
+            9
+          ],
+          "timestamp": "2024-10-10T12:31:30.627Z",
+          "internal": true
+        },
+        {
+          "property": "supportedNotificationEvents",
+          "propertyKey": 7,
+          "value": [
+            8
+          ],
+          "timestamp": "2024-10-10T12:31:30.670Z",
+          "internal": true
+        },
+        {
+          "property": "Home Security",
+          "propertyKey": "Motion sensor status",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "min": 0,
+            "max": 255,
+            "label": "Motion sensor status",
+            "states": {
+              "0": "idle",
+              "8": "Motion detection"
+            },
+            "ccSpecific": {
+              "notificationType": 7
+            }
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.810Z"
+        },
+        {
+          "property": "supportedNotificationEvents",
+          "propertyKey": 8,
+          "value": [
+            1,
+            2,
+            3,
+            5
+          ],
+          "timestamp": "2024-10-10T12:31:30.723Z",
+          "internal": true
+        },
+        {
+          "property": "Power Management",
+          "propertyKey": "Power status",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "min": 0,
+            "max": 255,
+            "label": "Power status",
+            "states": {
+              "0": "idle",
+              "1": "Power has been applied"
+            },
+            "ccSpecific": {
+              "notificationType": 8
+            }
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.855Z"
+        },
+        {
+          "property": "supportedNotificationEvents",
+          "propertyKey": 9,
+          "value": [
+            4,
+            5
+          ],
+          "timestamp": "2024-10-10T12:31:30.766Z",
+          "internal": true
+        },
+        {
+          "property": "System",
+          "propertyKey": "Software status",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "min": 0,
+            "max": 255,
+            "label": "Software status",
+            "states": {
+              "0": "idle",
+              "4": "System software failure (with failure code)"
+            },
+            "ccSpecific": {
+              "notificationType": 9
+            }
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:30.896Z"
+        },
+        {
+          "property": "notificationMode",
+          "value": "push",
+          "timestamp": "2024-10-10T12:31:30.768Z",
+          "internal": true
+        },
+        {
+          "property": "Power Management",
+          "propertyKey": "Mains status",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "min": 0,
+            "max": 255,
+            "label": "Mains status",
+            "states": {
+              "2": "AC mains disconnected",
+              "3": "AC mains re-connected"
+            },
+            "ccSpecific": {
+              "notificationType": 8
+            }
+          }
+        },
+        {
+          "property": "lastRefresh",
+          "internal": true
+        },
+        {
+          "property": "alarmType"
+        },
+        {
+          "property": "alarmLevel"
+        }
+      ]
+    },
+    "Powerlevel": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": true,
+      "version": 1,
+      "values": []
+    },
+    "Version": {
+      "isSupported": true,
+      "isControlled": false,
+      "secure": true,
+      "version": 3,
+      "values": [
+        {
+          "property": "libraryType",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "label": "Library type",
+            "states": {
+              "0": "Unknown",
+              "1": "Static Controller",
+              "2": "Controller",
+              "3": "Enhanced Slave",
+              "4": "Slave",
+              "5": "Installer",
+              "6": "Routing Slave",
+              "7": "Bridge Controller",
+              "8": "Device under Test",
+              "9": "N/A",
+              "10": "AV Remote",
+              "11": "AV Device"
+            }
+          },
+          "value": 3,
+          "timestamp": "2024-10-10T12:31:20.503Z"
+        },
+        {
+          "property": "protocolVersion",
+          "metadata": {
+            "type": "string",
+            "readable": true,
+            "writeable": false,
+            "label": "Z-Wave protocol version"
+          },
+          "value": "7.16",
+          "timestamp": "2024-10-10T12:31:20.505Z"
+        },
+        {
+          "property": "firmwareVersions",
+          "metadata": {
+            "type": "string[]",
+            "readable": true,
+            "writeable": false,
+            "label": "Z-Wave chip firmware versions"
+          },
+          "value": [
+            "2.0",
+            "1.1"
+          ],
+          "timestamp": "2024-10-10T12:31:20.507Z"
+        },
+        {
+          "property": "hardwareVersion",
+          "metadata": {
+            "type": "number",
+            "readable": true,
+            "writeable": false,
+            "label": "Z-Wave chip hardware version"
+          },
+          "value": 4,
+          "timestamp": "2024-10-10T12:31:20.508Z"
+        },
+        {
+          "property": "supportsZWaveSoftwareGet",
+          "value": true,
+          "timestamp": "2024-10-10T12:31:22.190Z",
+          "internal": true
+        },
+        {
+          "property": "sdkVersion",
+          "metadata": {
+            "type": "string",
+            "readable": true,
+            "writeable": false,
+            "label": "SDK version"
+          },
+          "value": "7.16.3",
+          "timestamp": "2024-10-10T12:31:22.305Z"
+        },
+        {
+          "property": "applicationFrameworkAPIVersion",
+          "metadata": {
+            "type": "string",
+            "readable": true,
+            "writeable": false,
+            "label": "Z-Wave application framework API version"
+          },
+          "value": "10.16.3",
+          "timestamp": "2024-10-10T12:31:22.306Z"
+        },
+        {
+          "property": "applicationFrameworkBuildNumber",
+          "metadata": {
+            "type": "string",
+            "readable": true,
+            "writeable": false,
+            "label": "Z-Wave application framework API build number"
+          },
+          "value": 297,
+          "timestamp": "2024-10-10T12:31:22.307Z"
+        },
+        {
+          "property": "hostInterfaceVersion",
+          "metadata": {
+            "type": "string",
+            "readable": true,
+            "writeable": false,
+            "label": "Serial API version"
+          },
+          "value": "unused",
+          "timestamp": "2024-10-10T12:31:22.308Z"
+        },
+        {
+          "property": "hostInterfaceBuildNumber",
+          "metadata": {
+            "type": "string",
+            "readable": true,
+            "writeable": false,
+            "label": "Serial API build number"
+          },
+          "value": 0,
+          "timestamp": "2024-10-10T12:31:22.309Z"
+        },
+        {
+          "property": "zWaveProtocolVersion",
+          "metadata": {
+            "type": "string",
+            "readable": true,
+            "writeable": false,
+            "label": "Z-Wave protocol version"
+          },
+          "value": "7.16.3",
+          "timestamp": "2024-10-10T12:31:22.310Z"
+        },
+        {
+          "property": "zWaveProtocolBuildNumber",
+          "metadata": {
+            "type": "string",
+            "readable": true,
+            "writeable": false,
+            "label": "Z-Wave protocol build number"
+          },
+          "value": 297,
+          "timestamp": "2024-10-10T12:31:22.311Z"
+        },
+        {
+          "property": "applicationVersion",
+          "metadata": {
+            "type": "string",
+            "readable": true,
+            "writeable": false,
+            "label": "Application version"
+          },
+          "value": "2.0.0",
+          "timestamp": "2024-10-10T12:31:22.312Z"
+        },
+        {
+          "property": "applicationBuildNumber",
+          "metadata": {
+            "type": "string",
+            "readable": true,
+            "writeable": false,
+            "label": "Application build number"
+          },
+          "value": 24,
+          "timestamp": "2024-10-10T12:31:22.314Z"
+        }
+      ]
+    }
+  },
+  "maySupportBasicCC": false,
+  "configFileName": "/data/db/devices/0x0346/keypad_v2.json",
+  "compatFlags": {
+    "disableStrictEntryControlDataValidation": true
+  }
+}

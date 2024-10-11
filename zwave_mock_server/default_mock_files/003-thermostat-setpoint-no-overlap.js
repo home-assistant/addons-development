@@ -1,14 +1,10 @@
+/// This mock simulates a thermostat without overlap between its thermostat modes and thermostat setpoints
+/// It MUST be possible to change all setpoints
+
 // @ts-check
-const {
-	CommandClasses,
-} = require("@zwave-js/core");
-const {
-	ccCaps,
-} = require("@zwave-js/testing");
-const {
-	ThermostatMode,
-	ThermostatSetpointType,
-} = require("zwave-js");
+const { CommandClasses } = require("@zwave-js/core");
+const { ccCaps } = require("@zwave-js/testing");
+const { ThermostatMode, ThermostatSetpointType } = require("zwave-js");
 
 /** @type {import("zwave-js/Testing").MockServerOptions["config"]} */
 module.exports.default = {
