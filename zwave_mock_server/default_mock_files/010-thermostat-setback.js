@@ -7,7 +7,7 @@ const { CommandClasses } = require("@zwave-js/core");
 module.exports.default = {
 	nodes: [
 		{
-			id: 2,
+			id: 10,
 			capabilities: {
 				commandClasses: [
 					CommandClasses.Version,
