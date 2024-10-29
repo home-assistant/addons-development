@@ -2,5 +2,5 @@ build_from:
   amd64: ghcr.io/home-assistant/amd64-base:3.19
   aarch64: ghcr.io/home-assistant/aarch64-base:3.19
 args:
-  ZWAVEJS_SERVER_VERSION: 1.38.0
-  ZWAVEJS_VERSION: 13.8.0
+  ZWAVEJS_SERVER_VERSION: 1.39.0
+  ZWAVEJS_VERSION: 13.10.2
