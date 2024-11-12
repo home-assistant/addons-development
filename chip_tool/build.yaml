@@ -4,4 +4,4 @@ build_from:
 args:
   LIBWEBSOCKETS_VERSION: 4.3.2
   TTYD_VERSION: 1.7.3
-  CHIP_VERSION: v1.3.0.0
+  CHIP_VERSION: v1.4.0.0
