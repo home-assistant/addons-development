@@ -40,5 +40,5 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [forum]: https://community.home-assistant.io
 [reddit]: https://reddit.com/r/homeassistant
 [issue]: https://github.com/home-assistant/addons-development/issues
-[chip_tool_guide]: https://github.com/project-chip/connectedhomeip/blob/master/docs/guides/chip_tool_guide.md
+[chip_tool_guide]: https://github.com/project-chip/connectedhomeip/blob/master/docs/development_controllers/chip-tool/chip_tool_guide.md
 
