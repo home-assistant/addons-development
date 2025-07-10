@@ -9,7 +9,7 @@
   - all-clusters - All clusters
   - all-clusters-minimal - All clusters for minimal end device
   - chip-cert - Certification tool
-  - chip-tool - Contact sensor
+  - chip-tool - Controller implementation
   - contact-sensor-app - Contact sensor
   - chip-dishwasher-app - Dishwasher
   - energy-gateway - Electrical price of energy and grid conditions
