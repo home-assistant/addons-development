@@ -1,5 +1,33 @@
 # Changelog
 
+## 0.5.0
+
+- Bump to CHIP version/Matter SDK v1.4.2.0
+- The following examples are included:
+  - air-purifier - Air purifier
+  - air-quality-sensor - Air purifier
+  - all-clusters - All clusters
+  - all-clusters-minimal - All clusters for minimal end device
+  - chip-cert - Certification tool
+  - chip-tool - Controller implementation
+  - contact-sensor-app - Contact sensor
+  - chip-dishwasher-app - Dishwasher
+  - energy-gateway - Electrical price of energy and grid conditions
+  - energy-management - Energy Management (specifically EVSE - Electric vehicle supply equipment and Water heater)
+  - light - Light
+  - lock - Lock
+  - microwave-oven - Microwave oven
+  - network-manager - Thread network manager
+  - ota-provider - Over-the-air update provider
+  - ota-requestor - Over-the-air update requestor
+  - refrigerator - Refrigerator
+  - rvc - Robotic Vacuum Cleaner
+  - terms-and-conditions - Terms-and-conditions during commissioning 
+  - thermostat - Thermostat
+  - tv-app - TV Example
+  - tv-casting-app - TV Casting app
+  - water-leak-detector - Water leak detector
+
 ## 0.4.0
 
 - Bump to CHIP version/Matter SDK v1.3.0.0
