@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.1
+
+- Fix terminal by enabling writeable mode explicitly
+
 ## 0.5.0
 
 - Bump to CHIP version/Matter SDK v1.4.2.0
