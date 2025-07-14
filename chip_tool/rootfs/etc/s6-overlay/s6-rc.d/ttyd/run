@@ -14,4 +14,4 @@ if bashio::config.true 'chip_debug'; then
     chip_repl_options="${chip_repl_options} -d"
 fi
 
-exec ttyd -p "${chip_repl_port}" -w /root tmux -u new-session -A -s homeassistant bash -l
+exec ttyd --writable -p "${chip_repl_port}" -w /root tmux -u new-session -A -s homeassistant bash -l
