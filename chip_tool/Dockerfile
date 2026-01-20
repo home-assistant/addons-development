@@ -91,12 +91,10 @@ RUN \
      && . "${VENV_PATH}/bin/activate" \
      && pip install --no-cache-dir --upgrade pip==23.3.2 \
      && pip install --no-cache-dir click==8.1.7 coloredlogs==15.0.1 \
-    && git clone --depth 1 --no-single-branch -b master \
+    && git clone --depth 1 --no-tags --branch ${CHIP_VERSION} \
        https://github.com/project-chip/connectedhomeip \
     && cd connectedhomeip \
-    && git fetch origin ${CHIP_VERSION} \
-     && git checkout ${CHIP_VERSION} \
-     && git submodule update --init --recursive \
+     && scripts/checkout_submodules.py --shallow --platform linux \
      && rm -rf /var/lib/apt/lists/*
 
 RUN \
