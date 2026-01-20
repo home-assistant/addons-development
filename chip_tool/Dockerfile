@@ -87,6 +87,34 @@ RUN \
     && git fetch origin ${CHIP_VERSION} \
     && git checkout ${CHIP_VERSION}
 
+RUN \
+    set -x \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       gcc \
+       g++ \
+       make \
+       cmake \
+       ninja-build \
+       pkg-config \
+       libssl-dev \
+       libdbus-1-dev \
+       libglib2.0-dev \
+       libnl-3-dev \
+       libnl-route-3-dev \
+       libmbedtls-dev \
+       libavahi-client-dev \
+       curl \
+       wget \
+       git \
+       pigz \
+       gzip \
+       bzip2 \
+       xz-utils \
+       coreutils \
+    && cd /usr/src/connectedhomeip \
+    && ./scripts/build/build_examples.py --target linux-x86_64-chip-tool --output-dir /usr/src/connectedhomeip/out
+
 FROM $BUILD_FROM
 
 # Set shell
@@ -118,23 +146,30 @@ COPY --from=builder-ttyd /usr/src/ttyd/build/install /
 
 RUN \
     set -x \
-    && export REPO_OWNER="agners" \
-    && export REPO_NAME="matter-linux-example-apps" \
     && if [ "${BUILD_ARCH}" = "amd64" ]; then \
-            export EXAMPLE_ARCH="x86-64"; \
+            export EXAMPLE_ARCH="x86_64"; \
        elif [ "${BUILD_ARCH}" = "aarch64" ]; then \
             export EXAMPLE_ARCH="aarch64"; \
        else \
             exit 1; \
        fi \
-    && export API_URL="https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/tags/${CHIP_VERSION}" \
-    && curl -s $API_URL | \
-       jq -r --arg suffix "-${EXAMPLE_ARCH}" '.assets[] | select(.name | endswith($suffix)) | .browser_download_url, (.name | rtrimstr($suffix))' | \
-       while read -r url; read -r name; do \
-         echo "Downloading $url..."; \
-         curl -Lo "/usr/local/bin/$name" "$url"; \
-         chmod +x "/usr/local/bin/$name"; \
-       done
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       gcc \
+       g++ \
+       make \
+       cmake \
+       ninja-build \
+       pkg-config \
+       libssl-dev \
+       libdbus-1-dev \
+       libglib2.0-dev \
+       libnl-3-dev \
+       libnl-route-3-dev \
+       libmbedtls-dev \
+       libavahi-client-dev
+
+COPY --from=builder-amd64-base /usr/src/connectedhomeip/out/linux-x86_64-chip-tool/chip-* /usr/local/bin/
 
 RUN ldconfig
 
