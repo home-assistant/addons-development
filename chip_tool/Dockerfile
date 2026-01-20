@@ -72,8 +72,8 @@ ARG CHIP_VERSION
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-# Allow pip to install in the base environment (PEP 668)
-ENV PIP_BREAK_SYSTEM_PACKAGES=1
+ENV VENV_PATH=/opt/chip-venv
+ENV PATH="${VENV_PATH}/bin:${PATH}"
 
 WORKDIR /usr/src
 
@@ -87,13 +87,16 @@ RUN \
          python3-venv \
          python3-dev \
          python3-pip \
+     && python3 -m venv "${VENV_PATH}" \
+     && . "${VENV_PATH}/bin/activate" \
+     && pip install --no-cache-dir --upgrade pip \
+     && pip install --no-cache-dir click coloredlogs \
     && git clone --depth 1 --no-single-branch -b master \
        https://github.com/project-chip/connectedhomeip \
     && cd connectedhomeip \
     && git fetch origin ${CHIP_VERSION} \
      && git checkout ${CHIP_VERSION} \
-     && python3 -m pip install --no-cache-dir --upgrade pip \
-    && python3 -m pip install --no-cache-dir click coloredlogs
+     && rm -rf /var/lib/apt/lists/*
 
 RUN \
     set -x \
