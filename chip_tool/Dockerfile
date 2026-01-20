@@ -124,7 +124,7 @@ RUN \
        xz-utils \
        coreutils \
     && cd /usr/src/connectedhomeip \
-    && ./scripts/build/build_examples.py --target linux-x86_64-chip-tool --output-dir /usr/src/connectedhomeip/out
+    && ./scripts/build/build_examples.py build --target linux-x86_64-chip-tool
 
 FROM $BUILD_FROM
 
