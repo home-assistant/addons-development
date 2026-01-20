@@ -125,7 +125,7 @@ RUN \
        xz-utils \
        coreutils \
     && cd /usr/src/connectedhomeip \
-    && bash -c "source scripts/activate.sh && ./scripts/build/build_examples.py build linux-x86_64-chip-tool" \
+    && bash -c "source scripts/activate.sh && scripts/build/build_examples.py --target linux-x86_64-chip-tool build" \
     && mkdir -p /usr/src/connectedhomeip/out/linux-x86_64-chip-tool \
     && find /usr/src/connectedhomeip -type f -name "chip-*" -path "*/out/*" -exec cp {} /usr/src/connectedhomeip/out/linux-x86_64-chip-tool/ \; \
     && rm -rf /var/lib/apt/lists/*
