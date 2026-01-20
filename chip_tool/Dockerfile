@@ -65,7 +65,7 @@ RUN \
     && make DESTDIR=./install install
 
 # Use amd64 stage to generate ZAP files (zap-cli is only available for amd64)
-FROM --platform=linux/amd64 debian:bullseye AS builder-amd64-base
+FROM --platform=linux/amd64 debian:bookworm AS builder-amd64-base
 
 ARG CHIP_VERSION
 
