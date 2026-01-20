@@ -96,6 +96,7 @@ RUN \
     && cd connectedhomeip \
     && git fetch origin ${CHIP_VERSION} \
      && git checkout ${CHIP_VERSION} \
+     && git submodule update --init --recursive \
      && rm -rf /var/lib/apt/lists/*
 
 RUN \
@@ -124,7 +125,7 @@ RUN \
        xz-utils \
        coreutils \
     && cd /usr/src/connectedhomeip \
-    && bash -c "source scripts/activate.sh && ./scripts/build/build_examples.py build --target linux-x86_64-chip-tool" \
+    && bash -c "source scripts/activate.sh && ./scripts/build/build_examples.py build --target-platform linux-x86_64-chip-tool" \
     && mkdir -p /usr/src/connectedhomeip/out/linux-x86_64-chip-tool \
     && find /usr/src/connectedhomeip -type f -name "chip-*" -path "*/out/*" -exec cp {} /usr/src/connectedhomeip/out/linux-x86_64-chip-tool/ \; \
     && rm -rf /var/lib/apt/lists/*
