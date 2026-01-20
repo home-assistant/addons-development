@@ -89,7 +89,7 @@ RUN \
          python3-pip \
      && python3 -m venv "${VENV_PATH}" \
      && . "${VENV_PATH}/bin/activate" \
-     && pip install --no-cache-dir --upgrade pip \
+     && pip install --no-cache-dir --upgrade pip==23.3.2 \
      && pip install --no-cache-dir click==8.1.7 coloredlogs==15.0.1 \
     && git clone --depth 1 --no-single-branch -b master \
        https://github.com/project-chip/connectedhomeip \
