@@ -72,6 +72,9 @@ ARG CHIP_VERSION
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+# Allow pip to install in the base environment (PEP 668)
+ENV PIP_BREAK_SYSTEM_PACKAGES=1
+
 WORKDIR /usr/src
 
 RUN \
