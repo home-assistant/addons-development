@@ -83,7 +83,8 @@ RUN \
     && apt-get install -y --no-install-recommends \
        git \
        ca-certificates \
-       libgirepository-1.0-dev \
+       gir1.2-glib-2.0 \
+       libgirepository1.0-dev \
        python3 \
        python3-venv \
        python3-dev \
