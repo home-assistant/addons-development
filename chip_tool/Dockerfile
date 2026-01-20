@@ -83,10 +83,11 @@ RUN \
     && apt-get install -y --no-install-recommends \
        git \
        ca-certificates \
-         python3 \
-         python3-venv \
-         python3-dev \
-         python3-pip \
+       libgirepository-1.0-dev \
+       python3 \
+       python3-venv \
+       python3-dev \
+       python3-pip \
      && python3 -m venv "${VENV_PATH}" \
      && . "${VENV_PATH}/bin/activate" \
      && pip install --no-cache-dir --upgrade pip==23.3.2 \
@@ -123,7 +124,7 @@ RUN \
        xz-utils \
        coreutils \
     && cd /usr/src/connectedhomeip \
-    && bash -c "source scripts/activate.sh && ./scripts/build/build_examples.py build --target-platform linux-x86_64-chip-tool" \
+    && bash -c "source scripts/activate.sh && ./scripts/build/build_examples.py build linux-x86_64-chip-tool" \
     && mkdir -p /usr/src/connectedhomeip/out/linux-x86_64-chip-tool \
     && find /usr/src/connectedhomeip -type f -name "chip-*" -path "*/out/*" -exec cp {} /usr/src/connectedhomeip/out/linux-x86_64-chip-tool/ \; \
     && rm -rf /var/lib/apt/lists/*
