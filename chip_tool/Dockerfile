@@ -90,7 +90,7 @@ RUN \
     && git fetch origin ${CHIP_VERSION} \
      && git checkout ${CHIP_VERSION} \
      && python3 -m pip install --no-cache-dir --upgrade pip \
-     && python3 -m pip install --no-cache-dir click
+    && python3 -m pip install --no-cache-dir click coloredlogs
 
 RUN \
     set -x \
