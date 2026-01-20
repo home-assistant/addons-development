@@ -172,7 +172,8 @@ RUN \
        libnl-3-dev \
        libnl-route-3-dev \
        libmbedtls-dev \
-       libavahi-client-dev
+       libavahi-client-dev \
+     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder-amd64-base /usr/src/connectedhomeip/out/linux-x86_64-chip-tool/chip-* /usr/local/bin/
 
