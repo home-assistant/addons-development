@@ -90,7 +90,7 @@ RUN \
      && python3 -m venv "${VENV_PATH}" \
      && . "${VENV_PATH}/bin/activate" \
      && pip install --no-cache-dir --upgrade pip \
-     && pip install --no-cache-dir click coloredlogs \
+     && pip install --no-cache-dir click==8.1.7 coloredlogs==15.0.1 \
     && git clone --depth 1 --no-single-branch -b master \
        https://github.com/project-chip/connectedhomeip \
     && cd connectedhomeip \
@@ -124,7 +124,10 @@ RUN \
        xz-utils \
        coreutils \
     && cd /usr/src/connectedhomeip \
-    && ./scripts/build/build_examples.py build --target linux-x86_64-chip-tool
+    && ./scripts/build/build_examples.py build --target linux-x86_64-chip-tool \
+    && mkdir -p /usr/src/connectedhomeip/out/linux-x86_64-chip-tool \
+    && find /usr/src/connectedhomeip -type f -name "chip-*" -path "*/out/*" -exec cp {} /usr/src/connectedhomeip/out/linux-x86_64-chip-tool/ \; \
+    && rm -rf /var/lib/apt/lists/*
 
 FROM $BUILD_FROM
 
