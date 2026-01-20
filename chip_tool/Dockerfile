@@ -80,12 +80,17 @@ RUN \
     && apt-get install -y --no-install-recommends \
        git \
        ca-certificates \
-       python3 \
+         python3 \
+         python3-venv \
+         python3-dev \
+         python3-pip \
     && git clone --depth 1 --no-single-branch -b master \
        https://github.com/project-chip/connectedhomeip \
     && cd connectedhomeip \
     && git fetch origin ${CHIP_VERSION} \
-    && git checkout ${CHIP_VERSION}
+     && git checkout ${CHIP_VERSION} \
+     && python3 -m pip install --no-cache-dir --upgrade pip \
+     && python3 -m pip install --no-cache-dir click
 
 RUN \
     set -x \
