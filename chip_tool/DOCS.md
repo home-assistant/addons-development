@@ -1,18 +1,18 @@
-# Home Assistant Add-on: CHIP Tool
+# Home Assistant App: CHIP Tool
 
 ## Installation
 
-Use the following steps to install this add-on.
+Use the following steps to install this app.
 
-1. Click the Home Assistant My button below to open the add-on page on your
+1. Click the Home Assistant My button below to open the app page on your
    Home Assistant instance.
 
-   [![Open this add-on in your Home Assistant instance.][addon-badge]][addon]
+   [![Open this app in your Home Assistant instance.][addon-badge]][addon]
 
-1. If it's the first time you install an Add-on from this repository, Home
+1. If it's the first time you install an App from this repository, Home
    Assitant will ask you to add the 'addons-development' repository. Click
    "Add" to add the repository.
-1. Click the "Install" button to install the add-on.
+1. Click the "Install" button to install the app.
 
 ## How to use
 
@@ -21,7 +21,7 @@ documentation part of the Matter/Connected Home over IP project.
 
 ## Configuration
 
-No Add-on configuration currently.
+No App configuration currently.
 
 ## Support
 

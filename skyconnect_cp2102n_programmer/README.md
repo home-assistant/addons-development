@@ -1,4 +1,4 @@
-# Home Assistant Add-on: SkyConnect CP2102N Programmer
+# Home Assistant App: SkyConnect CP2102N Programmer
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]

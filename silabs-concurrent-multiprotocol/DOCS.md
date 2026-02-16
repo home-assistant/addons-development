@@ -1,26 +1,26 @@
-# Home Assistant Add-on: Silicon Labs Concurrent Multiprotocol
+# Home Assistant App: Silicon Labs Concurrent Multiprotocol
 
 ## Installation
 
-Follow these steps to get the add-on installed on your system:
+Follow these steps to get the app installed on your system:
 
-1. Navigate in your Home Assistant frontend to **Settings** -> **Add-ons, Backup & Supervisor** -> **Add-on Store**.
-2. Find the "Silicon Labs Concurrent Multiprotocol" add-on and click it.
+1. Navigate in your Home Assistant frontend to **Settings** -> **Apps** -> **Install app**.
+2. Find the "Silicon Labs Concurrent Multiprotocol" app and click it.
 3. Click on the "INSTALL" button.
 
 ## How to use
 
-The add-on needs a Silicon Labs based wireless module accessible through a
+The app needs a Silicon Labs based wireless module accessible through a
 serial port (like the module on Yellow or most USB based wireless adapters).
 
-**NOTE:** The Silicon Labs Multiprotocol add-on needs the Zigbee NCP and
+**NOTE:** The Silicon Labs Multiprotocol app needs the Zigbee NCP and
 OpenThread RCP firmware loaded on the Silicon Labs wireless controller. For
 Yellow or SkyConnect, you can find this firmware at [github.com/NabuCasa/silabs-firmware](https://github.com/NabuCasa/silabs-firmware).
 
 Once the firmware is loaded follow the following steps:
 
-1. Select the correct `device` in the add-on configuration tab and press `Save`.
-2. Start the add-on.
+1. Select the correct `device` in the app configuration tab and press `Save`.
+2. Start the app.
 
 **NOTE:** the Web frontend is only accessible when OpenThread is enabled (see below).
 
@@ -28,7 +28,7 @@ Once the firmware is loaded follow the following steps:
 
 To use Zigbee with ZHA configure the Integration as follows:
 
-1. Remember/copy the hostname of the add-on (e.g. `c8f00288-silabs-concurrent-multiprotocol`).
+1. Remember/copy the hostname of the app (e.g. `c8f00288-silabs-concurrent-multiprotocol`).
 2. Add the Zigbee Home Automation (ZHA) integration to Home Assitant Core
 3. When asked for the Serial Device Path, choose `Enter Manually`.
 4. Choose `EZSP` as Radio type.
@@ -39,11 +39,11 @@ To use Zigbee with ZHA configure the Integration as follows:
 
 ### OpenThread
 
-At this point OpenThread support is experimental. This add-on makes your Home
+At this point OpenThread support is experimental. This app makes your Home
 Assistant installation an OpenThread BorderRouter (OTBR). There is no integration
 in Home Assistant Core at this point.
 
-To use the OTBR enable it in the Configuration tab and restart the add-on. With
+To use the OTBR enable it in the Configuration tab and restart the app. With
 that you will be able to access the OTBR web frontend. When joining or forming a
 network make sure to use the same IEEE 802.15.4 channel for both OpenThread and
 Zigbee, and *different* PAN IDs. This limitations stem from the fact that a single
@@ -54,7 +54,7 @@ Commissioner](https://openthread.io/guides/commissioner) guide.
 
 ## Configuration
 
-Add-on configuration:
+App configuration:
 
 | Configuration      | Description                                            |
 |--------------------|--------------------------------------------------------|
@@ -70,7 +70,7 @@ Add-on configuration:
 
 - ezspd is sometimes unable to connect to cpcd, leading to errors like:
   Connected to CPC daemon, endpoint 5: ERROR (errno 11)
-  Workaround: Restart the add-on
+  Workaround: Restart the app
 
 ## Support
 

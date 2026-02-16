@@ -1,4 +1,4 @@
-# Home Assistant Add-on: Python CHIP Controller REPL
+# Home Assistant App: Python CHIP Controller REPL
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
