@@ -1,4 +1,4 @@
-# Home Assistant Add-on: Real-Time Latency test
+# Home Assistant App: Real-Time Latency test
 
 ## How to use
 
@@ -26,14 +26,14 @@ action:
       payload_template: "{{ trigger.to_state.state }}"
 ```
 
-Then open the ingress Web-UI of the add-on and launch `mqtt-rt-test`:
+Then open the ingress Web-UI of the app and launch `mqtt-rt-test`:
 ```
 Usage: mqtt-rt-test SERVER_URI USERNAME PASSWORD
 ```
 
 Press Ctrl+C after a while to get a summary of the latencies measured.
 
-Note: The add-on runs with real-time priority (FIFO scheduler, priority 90).
+Note: The app runs with real-time priority (FIFO scheduler, priority 90).
 To change priority of other components of Home Assistant `chrt -f -p 90 <pid>`
 from the OS shell can be used.
 
