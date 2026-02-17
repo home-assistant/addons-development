@@ -63,13 +63,17 @@ jobs:
           fi
   build:
     needs: init
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runs-on }}
     if: needs.init.outputs.changed == 'true'
     name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
     strategy:
       matrix:
         addon: ${{ fromJson(needs.init.outputs.changed_addons) }}
         arch: ["aarch64", "amd64"]
+        include:
+          - runs-on: ubuntu-24.04
+          - runs-on: ubuntu-24.04-arm
+            arch: aarch64
 
     steps:
       - name: Check out repository
@@ -116,6 +120,7 @@ jobs:
         if: steps.check.outputs.build_arch == 'true'
         uses: home-assistant/builder@2025.11.0
         with:
+          image: ${{ matrix.arch }}
           args: |
             ${{ env.BUILD_ARGS }} \
             --${{ matrix.arch }} \
