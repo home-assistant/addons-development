@@ -4,11 +4,8 @@ slug: remote_debug
 description: Remote Debug proxy for Supervisor/ptvsd
 url: https://developers.home-assistant.io/docs/supervisor/debugging
 arch:
-- armhf
-- armv7
 - aarch64
 - amd64
-- i386
 startup: once
 advanced: true
 stage: experimental

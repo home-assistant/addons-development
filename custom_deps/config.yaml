@@ -5,11 +5,8 @@ slug: custom_deps
 description: Manage custom Python modules in Home Assistant deps
 url: https://github.com/home-assistant/addons-development
 arch:
-- armhf
-- armv7
 - aarch64
 - amd64
-- i386
 startup: once
 advanced: true
 homeassistant: 2021.7.0
