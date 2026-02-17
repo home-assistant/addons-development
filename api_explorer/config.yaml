@@ -1,0 +1,16 @@
+name: API Explorer
+version: "1.0.0"
+slug: api_explorer
+description: Inspect ingress headers and test Home Assistant Core API calls through Supervisor
+url: https://www.home-assistant.io
+arch:
+  - amd64
+  - aarch64
+ingress: true
+ingress_port: 8099
+panel_icon: mdi:api
+panel_title: API Explorer
+homeassistant_api: true
+init: false
+startup: application
+boot: manual

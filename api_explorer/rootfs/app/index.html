@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Explorer</title>
+<style>
+  :root {
+    --bg: #1c1c1c;
+    --surface: #2a2a2a;
+    --border: #444;
+    --text: #e0e0e0;
+    --text-muted: #999;
+    --accent: #4fc3f7;
+    --accent-hover: #81d4fa;
+    --success: #66bb6a;
+    --error: #ef5350;
+    --highlight-bg: #3a3a2a;
+    --font-mono: "SF Mono", "Cascadia Code", "Fira Code", Consolas, monospace;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 20px;
+  }
+
+  h1 { font-size: 1.4em; margin-bottom: 16px; color: var(--accent); }
+  h2 { font-size: 1.1em; margin-bottom: 12px; color: var(--text); }
+
+  .panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 16px;
+  }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .panel-headers { grid-column: 1; grid-row: 1; }
+  .panel-request { grid-column: 2; grid-row: 1 / span 2; }
+  .panel-quick { grid-column: 1; grid-row: 2; }
+
+  button {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 600;
+  }
+  button:hover { background: var(--accent-hover); }
+
+  .btn-small {
+    padding: 4px 10px;
+    font-size: 0.8em;
+    margin: 2px;
+  }
+
+  .btn-remove {
+    background: var(--error);
+    padding: 2px 8px;
+    font-size: 0.75em;
+  }
+
+  select, input, textarea {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+  }
+
+  select { cursor: pointer; }
+  textarea { width: 100%; resize: vertical; min-height: 80px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82em;
+    font-family: var(--font-mono);
+  }
+  th, td {
+    text-align: left;
+    padding: 4px 8px;
+    border-bottom: 1px solid var(--border);
+    word-break: break-all;
+  }
+  th { color: var(--text-muted); font-weight: 600; }
+  tr.highlight { background: var(--highlight-bg); }
+
+  .form-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .form-row input[type="text"] { flex: 1; }
+
+  .header-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .header-row input { flex: 1; }
+
+  .response-section { margin-top: 14px; }
+
+  .status-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 3px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+  }
+  .status-2xx { background: var(--success); color: #000; }
+  .status-4xx { background: #ff9800; color: #000; }
+  .status-5xx { background: var(--error); color: #fff; }
+  .status-other { background: var(--border); }
+
+  pre {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px;
+    overflow-x: auto;
+    font-size: 0.82em;
+    max-height: 400px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .quick-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .loading { opacity: 0.6; pointer-events: none; }
+
+  @media (max-width: 900px) {
+    .panels {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+    }
+    .panel-headers { grid-column: 1; grid-row: 1; }
+    .panel-quick { grid-column: 1; grid-row: 2; }
+    .panel-request { grid-column: 1; grid-row: 3; }
+  }
+</style>
+</head>
+<body>
+
+<h1>API Explorer</h1>
+
+<div class="panels">
+
+  <!-- Panel 1: Ingress Headers -->
+  <div class="panel panel-headers">
+    <h2>Ingress Headers</h2>
+    <button id="btn-fetch-headers" onclick="fetchHeaders()">Fetch Headers</button>
+    <div id="headers-result" style="margin-top: 10px;"></div>
+  </div>
+
+  <!-- Panel 3: Quick Actions -->
+  <div class="panel panel-quick">
+    <h2>Quick Actions</h2>
+    <div class="quick-grid">
+      <button class="btn-small" onclick="quickAction('GET', '/api/')">GET /api/</button>
+      <button class="btn-small" onclick="quickAction('GET', '/api/config')">GET /api/config</button>
+      <button class="btn-small" onclick="quickAction('GET', '/api/states')">GET /api/states</button>
+      <button class="btn-small" onclick="quickAction('GET', '/api/services')">GET /api/services</button>
+      <button class="btn-small" onclick="quickAction('GET', '/api/events')">GET /api/events</button>
+      <button class="btn-small" onclick="quickAction('POST', '/api/states/input_boolean.test', JSON.stringify({state:'on',attributes:{friendly_name:'Test'}}, null, 2))">POST input_boolean.test</button>
+    </div>
+  </div>
+
+  <!-- Panel 2: API Request Builder -->
+  <div class="panel panel-request">
+    <h2>API Request Builder</h2>
+
+    <div class="form-row">
+      <select id="req-method">
+        <option>GET</option>
+        <option>POST</option>
+        <option>PUT</option>
+        <option>DELETE</option>
+        <option>PATCH</option>
+        <option>OPTIONS</option>
+      </select>
+      <input type="text" id="req-path" value="/api/states" placeholder="/api/...">
+      <button id="btn-send" onclick="sendRequest()">Send</button>
+    </div>
+
+    <div style="margin-bottom: 8px;">
+      <strong style="font-size: 0.85em;">Custom Headers</strong>
+      <button class="btn-small" onclick="addHeaderRow()" style="margin-left: 8px;">+ Add</button>
+    </div>
+    <div id="custom-headers"></div>
+
+    <div style="margin-bottom: 8px; margin-top: 8px;">
+      <strong style="font-size: 0.85em;">Request Body (JSON)</strong>
+    </div>
+    <textarea id="req-body" placeholder='{"key": "value"}'></textarea>
+
+    <div class="response-section" id="response-section" style="display: none;">
+      <h2>Response</h2>
+      <div id="resp-status" style="margin-bottom: 8px;"></div>
+
+      <details style="margin-bottom: 8px;">
+        <summary style="cursor: pointer; font-size: 0.85em; color: var(--text-muted);">Response Headers</summary>
+        <div id="resp-headers" style="margin-top: 4px;"></div>
+      </details>
+
+      <strong style="font-size: 0.85em;">Body</strong>
+      <pre id="resp-body"></pre>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const HIGHLIGHT_HEADERS = [
+    'x-remote-user-id',
+    'x-remote-user-name',
+    'x-remote-user-display-name',
+    'x-forwarded-for',
+    'host'
+  ];
+
+  function makeHeaderTable(headers, highlightList) {
+    const entries = Object.entries(headers).sort((a, b) => a[0].localeCompare(b[0]));
+    let html = '<table><tr><th>Header</th><th>Value</th></tr>';
+    for (const [key, value] of entries) {
+      const hl = highlightList && highlightList.includes(key.toLowerCase()) ? ' class="highlight"' : '';
+      html += `<tr${hl}><td>${esc(key)}</td><td>${esc(value)}</td></tr>`;
+    }
+    html += '</table>';
+    return html;
+  }
+
+  function esc(str) {
+    const d = document.createElement('div');
+    d.textContent = String(str);
+    return d.innerHTML;
+  }
+
+  async function fetchHeaders() {
+    const btn = document.getElementById('btn-fetch-headers');
+    const result = document.getElementById('headers-result');
+    btn.classList.add('loading');
+    try {
+      const resp = await fetch('api/ingress-headers');
+      const data = await resp.json();
+      result.innerHTML = makeHeaderTable(data, HIGHLIGHT_HEADERS);
+    } catch (err) {
+      result.innerHTML = `<pre style="color: var(--error);">${esc(err.message)}</pre>`;
+    }
+    btn.classList.remove('loading');
+  }
+
+  function addHeaderRow(key, value) {
+    const container = document.getElementById('custom-headers');
+    const row = document.createElement('div');
+    row.className = 'header-row';
+    row.innerHTML = `
+      <input type="text" placeholder="Header name" value="${esc(key || '')}">
+      <input type="text" placeholder="Value" value="${esc(value || '')}">
+      <button class="btn-remove" onclick="this.parentElement.remove()">x</button>
+    `;
+    container.appendChild(row);
+  }
+
+  function getCustomHeaders() {
+    const headers = {};
+    const rows = document.querySelectorAll('#custom-headers .header-row');
+    for (const row of rows) {
+      const inputs = row.querySelectorAll('input');
+      const key = inputs[0].value.trim();
+      const val = inputs[1].value.trim();
+      if (key) headers[key] = val;
+    }
+    return headers;
+  }
+
+  async function sendRequest() {
+    const method = document.getElementById('req-method').value;
+    const path = document.getElementById('req-path').value.trim();
+    const bodyText = document.getElementById('req-body').value.trim();
+    const btn = document.getElementById('btn-send');
+
+    // Strip leading /api/ since the proxy adds it
+    let proxyPath = path;
+    if (proxyPath.startsWith('/api/')) {
+      proxyPath = proxyPath.slice(5);
+    } else if (proxyPath.startsWith('/')) {
+      proxyPath = proxyPath.slice(1);
+    }
+
+    const fetchOpts = {
+      method: method,
+      headers: { 'Content-Type': 'application/json' },
+    };
+
+    // Add custom headers as query param (they get forwarded server-side via the proxy)
+    const customHeaders = getCustomHeaders();
+
+    if (bodyText && method !== 'GET') {
+      fetchOpts.body = bodyText;
+    }
+
+    btn.classList.add('loading');
+    const section = document.getElementById('response-section');
+
+    try {
+      const resp = await fetch(`api/proxy/${proxyPath}`, fetchOpts);
+      const data = await resp.json();
+
+      section.style.display = 'block';
+
+      // Status badge
+      const statusClass =
+        data.status >= 200 && data.status < 300 ? 'status-2xx' :
+        data.status >= 400 && data.status < 500 ? 'status-4xx' :
+        data.status >= 500 ? 'status-5xx' : 'status-other';
+      document.getElementById('resp-status').innerHTML =
+        `<span class="status-badge ${statusClass}">${data.status}</span>`;
+
+      // Response headers
+      document.getElementById('resp-headers').innerHTML = makeHeaderTable(data.headers || {});
+
+      // Body
+      const body = typeof data.body === 'object' ? JSON.stringify(data.body, null, 2) : String(data.body);
+      document.getElementById('resp-body').textContent = body;
+    } catch (err) {
+      section.style.display = 'block';
+      document.getElementById('resp-status').innerHTML =
+        `<span class="status-badge status-5xx">Error</span>`;
+      document.getElementById('resp-headers').innerHTML = '';
+      document.getElementById('resp-body').textContent = err.message;
+    }
+    btn.classList.remove('loading');
+  }
+
+  function quickAction(method, path, body) {
+    document.getElementById('req-method').value = method;
+    document.getElementById('req-path').value = path;
+    document.getElementById('req-body').value = body || '';
+    sendRequest();
+  }
+
+  // Auto-fetch headers on load
+  fetchHeaders();
+</script>
+</body>
+</html>
