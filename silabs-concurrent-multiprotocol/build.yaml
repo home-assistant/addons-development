@@ -1,7 +1,0 @@
-build_from:
-  amd64: ghcr.io/home-assistant/amd64-base-debian:bullseye
-  aarch64: ghcr.io/home-assistant/aarch64-base-debian:bullseye
-  armv7: ghcr.io/home-assistant/armv7-base-debian:bullseye
-args:
-  CPCD_VERSION: v4.1.2
-  GECKO_SDK_VERSION: v4.1.3

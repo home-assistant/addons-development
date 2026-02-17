@@ -1,5 +1,0 @@
-#!/usr/bin/with-contenv bashio
-#==============================================================================
-# EmberZNet Protocol gateway daemon finish script
-#==============================================================================
-bashio::log.info "ezspd ended with exit code ${1} (signal ${2})..."
