@@ -65,12 +65,15 @@ RUN \
     && make DESTDIR=./install install
 
 # Use amd64 stage to generate ZAP files (zap-cli is only available for amd64)
-FROM --platform=linux/amd64 debian:bullseye AS builder-amd64-base
+FROM --platform=linux/amd64 debian:bookworm AS builder-amd64-base
 
 ARG CHIP_VERSION
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+ENV VENV_PATH=/opt/chip-venv
+ENV PATH="${VENV_PATH}/bin:${PATH}"
 
 WORKDIR /usr/src
 
@@ -80,12 +83,52 @@ RUN \
     && apt-get install -y --no-install-recommends \
        git \
        ca-certificates \
+       gir1.2-glib-2.0 \
+       libgirepository1.0-dev \
        python3 \
-    && git clone --depth 1 --no-single-branch -b master \
+       python3-venv \
+       python3-dev \
+       python3-pip \
+     && python3 -m venv "${VENV_PATH}" \
+     && . "${VENV_PATH}/bin/activate" \
+     && pip install --no-cache-dir --upgrade pip==23.3.2 \
+     && pip install --no-cache-dir click==8.1.7 coloredlogs==15.0.1 \
+    && git clone --depth 1 --no-tags --branch ${CHIP_VERSION} \
        https://github.com/project-chip/connectedhomeip \
     && cd connectedhomeip \
-    && git fetch origin ${CHIP_VERSION} \
-    && git checkout ${CHIP_VERSION}
+     && scripts/checkout_submodules.py --shallow --platform linux \
+     && rm -rf /var/lib/apt/lists/*
+
+RUN \
+    set -x \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       gcc \
+       g++ \
+       make \
+       cmake \
+       ninja-build \
+       pkg-config \
+       libssl-dev \
+       libdbus-1-dev \
+       libglib2.0-dev \
+       libnl-3-dev \
+       libnl-route-3-dev \
+       libmbedtls-dev \
+       libavahi-client-dev \
+       curl \
+       wget \
+       git \
+       pigz \
+       gzip \
+       bzip2 \
+       xz-utils \
+       coreutils \
+    && cd /usr/src/connectedhomeip \
+    && bash -c "source scripts/activate.sh && scripts/build/build_examples.py --target linux-x86_64-chip-tool build" \
+    && mkdir -p /usr/src/connectedhomeip/out/linux-x86_64-chip-tool \
+    && find /usr/src/connectedhomeip -type f -name "chip-*" -path "*/out/*" -exec cp {} /usr/src/connectedhomeip/out/linux-x86_64-chip-tool/ \; \
+    && rm -rf /var/lib/apt/lists/*
 
 FROM $BUILD_FROM
 
@@ -118,23 +161,31 @@ COPY --from=builder-ttyd /usr/src/ttyd/build/install /
 
 RUN \
     set -x \
-    && export REPO_OWNER="agners" \
-    && export REPO_NAME="matter-linux-example-apps" \
     && if [ "${BUILD_ARCH}" = "amd64" ]; then \
-            export EXAMPLE_ARCH="x86-64"; \
+            export EXAMPLE_ARCH="x86_64"; \
        elif [ "${BUILD_ARCH}" = "aarch64" ]; then \
             export EXAMPLE_ARCH="aarch64"; \
        else \
             exit 1; \
        fi \
-    && export API_URL="https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/releases/tags/${CHIP_VERSION}" \
-    && curl -s $API_URL | \
-       jq -r --arg suffix "-${EXAMPLE_ARCH}" '.assets[] | select(.name | endswith($suffix)) | .browser_download_url, (.name | rtrimstr($suffix))' | \
-       while read -r url; read -r name; do \
-         echo "Downloading $url..."; \
-         curl -Lo "/usr/local/bin/$name" "$url"; \
-         chmod +x "/usr/local/bin/$name"; \
-       done
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+       gcc \
+       g++ \
+       make \
+       cmake \
+       ninja-build \
+       pkg-config \
+       libssl-dev \
+       libdbus-1-dev \
+       libglib2.0-dev \
+       libnl-3-dev \
+       libnl-route-3-dev \
+       libmbedtls-dev \
+       libavahi-client-dev \
+     && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder-amd64-base /usr/src/connectedhomeip/out/linux-x86_64-chip-tool/chip-* /usr/local/bin/
 
 RUN ldconfig
 
