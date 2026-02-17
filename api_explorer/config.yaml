@@ -6,6 +6,7 @@ url: https://www.home-assistant.io
 arch:
   - amd64
   - aarch64
+image: homeassistant/{arch}-app-api-explorer
 ingress: true
 ingress_port: 8099
 panel_icon: mdi:api

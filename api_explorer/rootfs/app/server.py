@@ -1,12 +1,17 @@
 """API Explorer app server."""
 
+import asyncio
 import json
+import logging
 import os
 
 import aiohttp
 from aiohttp import web
 
+_LOGGER = logging.getLogger(__name__)
+
 SUPERVISOR_URL = "http://supervisor"
+SUPERVISOR_WS_URL = "ws://supervisor/core/websocket"
 SUPERVISOR_TOKEN = os.environ.get("SUPERVISOR_TOKEN", "")
 INGRESS_PORT = 8099
 INDEX_PATH = os.path.join(os.path.dirname(__file__), "index.html")
@@ -76,11 +81,105 @@ async def proxy_to_core(request: web.Request) -> web.Response:
             )
 
 
+async def websocket_proxy(request: web.Request) -> web.WebSocketResponse:
+    """Proxy WebSocket connection to Home Assistant Core via Supervisor."""
+    browser_ws = web.WebSocketResponse()
+    await browser_ws.prepare(request)
+
+    session = aiohttp.ClientSession()
+    try:
+        core_ws = await session.ws_connect(SUPERVISOR_WS_URL)
+    except aiohttp.ClientError as err:
+        _LOGGER.error("Failed to connect to Core WebSocket: %s", err)
+        await browser_ws.close(
+            code=aiohttp.WSCloseCode.GOING_AWAY,
+            message=b"Failed to connect to Core",
+        )
+        await session.close()
+        return browser_ws
+
+    try:
+        # Auth handshake: read auth_required from Core
+        msg = await core_ws.receive()
+        if msg.type != aiohttp.WSMsgType.TEXT:
+            await browser_ws.close(
+                code=aiohttp.WSCloseCode.PROTOCOL_ERROR,
+                message=b"Unexpected message from Core",
+            )
+            return browser_ws
+
+        # Send auth token to Core
+        await core_ws.send_json(
+            {"type": "auth", "access_token": SUPERVISOR_TOKEN}
+        )
+
+        # Read auth result from Core
+        msg = await core_ws.receive()
+        if msg.type != aiohttp.WSMsgType.TEXT:
+            await browser_ws.close(
+                code=aiohttp.WSCloseCode.PROTOCOL_ERROR,
+                message=b"Auth failed",
+            )
+            return browser_ws
+
+        auth_result = json.loads(msg.data)
+        if auth_result.get("type") != "auth_ok":
+            await browser_ws.send_json(auth_result)
+            await browser_ws.close(
+                code=aiohttp.WSCloseCode.PROTOCOL_ERROR,
+                message=b"Auth rejected",
+            )
+            return browser_ws
+
+        # Notify browser that auth succeeded
+        await browser_ws.send_json(auth_result)
+
+        # Bidirectional forwarding
+        async def forward_browser_to_core():
+            async for msg in browser_ws:
+                if msg.type == aiohttp.WSMsgType.TEXT:
+                    await core_ws.send_str(msg.data)
+                elif msg.type in (
+                    aiohttp.WSMsgType.CLOSE,
+                    aiohttp.WSMsgType.CLOSING,
+                    aiohttp.WSMsgType.CLOSED,
+                    aiohttp.WSMsgType.ERROR,
+                ):
+                    break
+
+        async def forward_core_to_browser():
+            async for msg in core_ws:
+                if msg.type == aiohttp.WSMsgType.TEXT:
+                    await browser_ws.send_str(msg.data)
+                elif msg.type in (
+                    aiohttp.WSMsgType.CLOSE,
+                    aiohttp.WSMsgType.CLOSING,
+                    aiohttp.WSMsgType.CLOSED,
+                    aiohttp.WSMsgType.ERROR,
+                ):
+                    break
+
+        await asyncio.gather(
+            forward_browser_to_core(),
+            forward_core_to_browser(),
+            return_exceptions=True,
+        )
+    finally:
+        if not core_ws.closed:
+            await core_ws.close()
+        await session.close()
+        if not browser_ws.closed:
+            await browser_ws.close()
+
+    return browser_ws
+
+
 def main() -> None:
     """Start the server."""
     app = web.Application()
     app.router.add_get("/", serve_index)
     app.router.add_get("/api/ingress-headers", ingress_headers)
+    app.router.add_get("/api/ws", websocket_proxy)
     app.router.add_route("*", "/api/proxy/{path:.*}", proxy_to_core)
     web.run_app(app, host="0.0.0.0", port=INGRESS_PORT)
 
