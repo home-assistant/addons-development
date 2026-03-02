@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>API Explorer</title>
+<style>
+  :root {
+    --bg: #1c1c1c;
+    --surface: #2a2a2a;
+    --border: #444;
+    --text: #e0e0e0;
+    --text-muted: #999;
+    --accent: #4fc3f7;
+    --accent-hover: #81d4fa;
+    --success: #66bb6a;
+    --error: #ef5350;
+    --highlight-bg: #3a3a2a;
+    --font-mono: "SF Mono", "Cascadia Code", "Fira Code", Consolas, monospace;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 20px;
+  }
+
+  h1 { font-size: 1.4em; margin-bottom: 16px; color: var(--accent); }
+  h2 { font-size: 1.1em; margin-bottom: 12px; color: var(--text); }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  .tab {
+    padding: 8px 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    border: 1px solid transparent;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+    background: transparent;
+    color: var(--text-muted);
+    margin-bottom: -1px;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active {
+    background: var(--surface);
+    color: var(--accent);
+    border-color: var(--border);
+    border-bottom: 1px solid var(--surface);
+  }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* REST panels */
+  .panels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 16px;
+  }
+
+  .panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+  }
+
+  .panel-headers { grid-column: 1; grid-row: 1; }
+  .panel-request { grid-column: 2; grid-row: 1 / span 2; }
+  .panel-quick { grid-column: 1; grid-row: 2; }
+
+  button {
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 600;
+  }
+  button:hover { background: var(--accent-hover); }
+
+  .btn-small {
+    padding: 4px 10px;
+    font-size: 0.8em;
+    margin: 2px;
+  }
+
+  .btn-remove {
+    background: var(--error);
+    padding: 2px 8px;
+    font-size: 0.75em;
+  }
+
+  select, input, textarea {
+    background: var(--bg);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+  }
+
+  select { cursor: pointer; }
+  textarea { width: 100%; resize: vertical; min-height: 80px; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82em;
+    font-family: var(--font-mono);
+  }
+  th, td {
+    text-align: left;
+    padding: 4px 8px;
+    border-bottom: 1px solid var(--border);
+    word-break: break-all;
+  }
+  th { color: var(--text-muted); font-weight: 600; }
+  tr.highlight { background: var(--highlight-bg); }
+
+  .form-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .form-row input[type="text"] { flex: 1; }
+
+  .header-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-bottom: 4px;
+  }
+  .header-row input { flex: 1; }
+
+  .response-section { margin-top: 14px; }
+
+  .status-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 3px;
+    font-weight: 700;
+    font-family: var(--font-mono);
+  }
+  .status-2xx { background: var(--success); color: #000; }
+  .status-4xx { background: #ff9800; color: #000; }
+  .status-5xx { background: var(--error); color: #fff; }
+  .status-other { background: var(--border); }
+
+  pre {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px;
+    overflow-x: auto;
+    font-size: 0.82em;
+    max-height: 400px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .quick-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .loading { opacity: 0.6; pointer-events: none; }
+
+  /* WebSocket panel */
+  .ws-toolbar {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+
+  .ws-status {
+    font-size: 0.82em;
+    font-family: var(--font-mono);
+    padding: 2px 10px;
+    border-radius: 3px;
+    font-weight: 700;
+  }
+  .ws-status-disconnected { background: var(--border); color: var(--text); }
+  .ws-status-connecting { background: #ff9800; color: #000; }
+  .ws-status-connected { background: var(--success); color: #000; }
+
+  .ws-log {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 10px;
+    font-family: var(--font-mono);
+    font-size: 0.78em;
+    height: 450px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .ws-log-entry { margin-bottom: 6px; }
+  .ws-log-sent { color: var(--accent); }
+  .ws-log-recv { color: var(--success); }
+  .ws-log-info { color: var(--text-muted); }
+  .ws-log-error { color: var(--error); }
+
+  .ws-send-row {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .ws-send-row textarea {
+    flex: 1;
+    min-height: 100px;
+    max-height: 200px;
+  }
+
+  .ws-quick {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  @media (max-width: 900px) {
+    .panels {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+    }
+    .panel-headers { grid-column: 1; grid-row: 1; }
+    .panel-quick { grid-column: 1; grid-row: 2; }
+    .panel-request { grid-column: 1; grid-row: 3; }
+  }
+</style>
+</head>
+<body>
+
+<h1>API Explorer</h1>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('rest')">REST API</div>
+  <div class="tab" onclick="switchTab('ws')">WebSocket</div>
+</div>
+
+<!-- REST API Tab -->
+<div id="tab-rest" class="tab-content active">
+  <div class="panels">
+
+    <!-- Panel 1: Ingress Headers -->
+    <div class="panel panel-headers">
+      <h2>Ingress Headers</h2>
+      <button id="btn-fetch-headers" onclick="fetchHeaders()">Fetch Headers</button>
+      <div id="headers-result" style="margin-top: 10px;"></div>
+    </div>
+
+    <!-- Panel 3: Quick Actions -->
+    <div class="panel panel-quick">
+      <h2>Quick Actions</h2>
+      <div class="quick-grid">
+        <button class="btn-small" onclick="quickAction('GET', '/api/')">GET /api/</button>
+        <button class="btn-small" onclick="quickAction('GET', '/api/config')">GET /api/config</button>
+        <button class="btn-small" onclick="quickAction('GET', '/api/states')">GET /api/states</button>
+        <button class="btn-small" onclick="quickAction('GET', '/api/services')">GET /api/services</button>
+        <button class="btn-small" onclick="quickAction('GET', '/api/events')">GET /api/events</button>
+        <button class="btn-small" onclick="quickAction('POST', '/api/states/input_boolean.test', JSON.stringify({state:'on',attributes:{friendly_name:'Test'}}, null, 2))">POST input_boolean.test</button>
+      </div>
+    </div>
+
+    <!-- Panel 2: API Request Builder -->
+    <div class="panel panel-request">
+      <h2>API Request Builder</h2>
+
+      <div class="form-row">
+        <select id="req-method">
+          <option>GET</option>
+          <option>POST</option>
+          <option>PUT</option>
+          <option>DELETE</option>
+          <option>PATCH</option>
+          <option>OPTIONS</option>
+        </select>
+        <input type="text" id="req-path" value="/api/states" placeholder="/api/...">
+        <button id="btn-send" onclick="sendRequest()">Send</button>
+      </div>
+
+      <div style="margin-bottom: 8px;">
+        <strong style="font-size: 0.85em;">Custom Headers</strong>
+        <button class="btn-small" onclick="addHeaderRow()" style="margin-left: 8px;">+ Add</button>
+      </div>
+      <div id="custom-headers"></div>
+
+      <div style="margin-bottom: 8px; margin-top: 8px;">
+        <strong style="font-size: 0.85em;">Request Body (JSON)</strong>
+      </div>
+      <textarea id="req-body" placeholder='{"key": "value"}'></textarea>
+
+      <div class="response-section" id="response-section" style="display: none;">
+        <h2>Response</h2>
+        <div id="resp-status" style="margin-bottom: 8px;"></div>
+
+        <details style="margin-bottom: 8px;">
+          <summary style="cursor: pointer; font-size: 0.85em; color: var(--text-muted);">Response Headers</summary>
+          <div id="resp-headers" style="margin-top: 4px;"></div>
+        </details>
+
+        <strong style="font-size: 0.85em;">Body</strong>
+        <pre id="resp-body"></pre>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- WebSocket Tab -->
+<div id="tab-ws" class="tab-content">
+  <div class="panel">
+    <div class="ws-toolbar">
+      <button id="ws-btn-connect" onclick="wsToggle()">Connect</button>
+      <span id="ws-status" class="ws-status ws-status-disconnected">disconnected</span>
+      <button class="btn-small" onclick="wsClearLog()" style="margin-left: auto;">Clear Log</button>
+    </div>
+
+    <div class="ws-quick">
+      <button class="btn-small" onclick="wsQuick({type:'subscribe_events'})">Subscribe All Events</button>
+      <button class="btn-small" onclick="wsQuick({type:'subscribe_events',event_type:'state_changed'})">Subscribe State Changes</button>
+      <button class="btn-small" onclick="wsQuick({type:'get_states'})">Get States</button>
+      <button class="btn-small" onclick="wsQuick({type:'get_config'})">Get Config</button>
+      <button class="btn-small" onclick="wsQuick({type:'get_services'})">Get Services</button>
+    </div>
+
+    <div id="ws-log" class="ws-log"></div>
+
+    <div class="ws-send-row">
+      <textarea id="ws-input" placeholder='{"type": "get_config"}'></textarea>
+      <button id="ws-btn-send" onclick="wsSend()" disabled>Send</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // --- Tab switching ---
+  function switchTab(name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelector(`.tab-content#tab-${name}`).classList.add('active');
+    document.querySelectorAll('.tab')[name === 'rest' ? 0 : 1].classList.add('active');
+  }
+
+  // --- Shared utilities ---
+  const HIGHLIGHT_HEADERS = [
+    'x-remote-user-id',
+    'x-remote-user-name',
+    'x-remote-user-display-name',
+    'x-forwarded-for',
+    'host'
+  ];
+
+  function makeHeaderTable(headers, highlightList) {
+    const entries = Object.entries(headers).sort((a, b) => a[0].localeCompare(b[0]));
+    let html = '<table><tr><th>Header</th><th>Value</th></tr>';
+    for (const [key, value] of entries) {
+      const hl = highlightList && highlightList.includes(key.toLowerCase()) ? ' class="highlight"' : '';
+      html += `<tr${hl}><td>${esc(key)}</td><td>${esc(value)}</td></tr>`;
+    }
+    html += '</table>';
+    return html;
+  }
+
+  function esc(str) {
+    const d = document.createElement('div');
+    d.textContent = String(str);
+    return d.innerHTML;
+  }
+
+  // --- REST API ---
+  async function fetchHeaders() {
+    const btn = document.getElementById('btn-fetch-headers');
+    const result = document.getElementById('headers-result');
+    btn.classList.add('loading');
+    try {
+      const resp = await fetch('api/ingress-headers');
+      const data = await resp.json();
+      result.innerHTML = makeHeaderTable(data, HIGHLIGHT_HEADERS);
+    } catch (err) {
+      result.innerHTML = `<pre style="color: var(--error);">${esc(err.message)}</pre>`;
+    }
+    btn.classList.remove('loading');
+  }
+
+  function addHeaderRow(key, value) {
+    const container = document.getElementById('custom-headers');
+    const row = document.createElement('div');
+    row.className = 'header-row';
+    row.innerHTML = `
+      <input type="text" placeholder="Header name" value="${esc(key || '')}">
+      <input type="text" placeholder="Value" value="${esc(value || '')}">
+      <button class="btn-remove" onclick="this.parentElement.remove()">x</button>
+    `;
+    container.appendChild(row);
+  }
+
+  function getCustomHeaders() {
+    const headers = {};
+    const rows = document.querySelectorAll('#custom-headers .header-row');
+    for (const row of rows) {
+      const inputs = row.querySelectorAll('input');
+      const key = inputs[0].value.trim();
+      const val = inputs[1].value.trim();
+      if (key) headers[key] = val;
+    }
+    return headers;
+  }
+
+  async function sendRequest() {
+    const method = document.getElementById('req-method').value;
+    const path = document.getElementById('req-path').value.trim();
+    const bodyText = document.getElementById('req-body').value.trim();
+    const btn = document.getElementById('btn-send');
+
+    // Strip leading /api/ since the proxy adds it
+    let proxyPath = path;
+    if (proxyPath.startsWith('/api/')) {
+      proxyPath = proxyPath.slice(5);
+    } else if (proxyPath.startsWith('/')) {
+      proxyPath = proxyPath.slice(1);
+    }
+
+    const fetchOpts = {
+      method: method,
+      headers: { 'Content-Type': 'application/json' },
+    };
+
+    // Add custom headers as query param (they get forwarded server-side via the proxy)
+    const customHeaders = getCustomHeaders();
+
+    if (bodyText && method !== 'GET') {
+      fetchOpts.body = bodyText;
+    }
+
+    btn.classList.add('loading');
+    const section = document.getElementById('response-section');
+
+    try {
+      const resp = await fetch(`api/proxy/${proxyPath}`, fetchOpts);
+      const data = await resp.json();
+
+      section.style.display = 'block';
+
+      // Status badge
+      const statusClass =
+        data.status >= 200 && data.status < 300 ? 'status-2xx' :
+        data.status >= 400 && data.status < 500 ? 'status-4xx' :
+        data.status >= 500 ? 'status-5xx' : 'status-other';
+      document.getElementById('resp-status').innerHTML =
+        `<span class="status-badge ${statusClass}">${data.status}</span>`;
+
+      // Response headers
+      document.getElementById('resp-headers').innerHTML = makeHeaderTable(data.headers || {});
+
+      // Body
+      const body = typeof data.body === 'object' ? JSON.stringify(data.body, null, 2) : String(data.body);
+      document.getElementById('resp-body').textContent = body;
+    } catch (err) {
+      section.style.display = 'block';
+      document.getElementById('resp-status').innerHTML =
+        `<span class="status-badge status-5xx">Error</span>`;
+      document.getElementById('resp-headers').innerHTML = '';
+      document.getElementById('resp-body').textContent = err.message;
+    }
+    btn.classList.remove('loading');
+  }
+
+  function quickAction(method, path, body) {
+    document.getElementById('req-method').value = method;
+    document.getElementById('req-path').value = path;
+    document.getElementById('req-body').value = body || '';
+    sendRequest();
+  }
+
+  // Auto-fetch headers on load
+  fetchHeaders();
+
+  // --- WebSocket Console ---
+  let ws = null;
+  let wsNextId = 1;
+
+  function wsSetStatus(state) {
+    const el = document.getElementById('ws-status');
+    el.textContent = state;
+    el.className = 'ws-status ws-status-' + state;
+
+    const btn = document.getElementById('ws-btn-connect');
+    btn.textContent = state === 'disconnected' ? 'Connect' : 'Disconnect';
+
+    document.getElementById('ws-btn-send').disabled = state !== 'connected';
+  }
+
+  function wsLogEntry(direction, text) {
+    const log = document.getElementById('ws-log');
+    const entry = document.createElement('div');
+    entry.className = 'ws-log-entry ws-log-' + direction;
+
+    const now = new Date();
+    const ts = now.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' })
+      + '.' + String(now.getMilliseconds()).padStart(3, '0');
+
+    const prefix = direction === 'sent' ? '\u25b6 SENT' : direction === 'recv' ? '\u25c0 RECV' : direction === 'error' ? '\u2716 ERROR' : '\u2139 INFO';
+
+    // Try to pretty-print JSON
+    let display = text;
+    try {
+      const parsed = JSON.parse(text);
+      display = JSON.stringify(parsed, null, 2);
+    } catch {}
+
+    entry.textContent = `[${ts}] ${prefix}\n${display}`;
+    log.appendChild(entry);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function wsClearLog() {
+    document.getElementById('ws-log').innerHTML = '';
+  }
+
+  function wsToggle() {
+    if (ws && ws.readyState <= WebSocket.OPEN) {
+      ws.close();
+      return;
+    }
+    wsConnect();
+  }
+
+  function wsConnect() {
+    wsSetStatus('connecting');
+
+    // Build ws:// URL relative to current page
+    const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const wsUrl = proto + '//' + location.host + location.pathname.replace(/\/$/, '') + '/api/ws';
+    wsLogEntry('info', 'Connecting to ' + wsUrl);
+
+    ws = new WebSocket(wsUrl);
+
+    ws.onopen = () => {
+      wsLogEntry('info', 'WebSocket connection opened, waiting for auth...');
+    };
+
+    ws.onmessage = (event) => {
+      wsLogEntry('recv', event.data);
+
+      try {
+        const msg = JSON.parse(event.data);
+        if (msg.type === 'auth_ok') {
+          wsSetStatus('connected');
+          wsLogEntry('info', 'Authenticated successfully');
+        }
+      } catch {}
+    };
+
+    ws.onclose = (event) => {
+      wsSetStatus('disconnected');
+      wsLogEntry('info', `Connection closed (code: ${event.code}, reason: ${event.reason || 'none'})`);
+      ws = null;
+    };
+
+    ws.onerror = () => {
+      wsLogEntry('error', 'WebSocket error');
+    };
+  }
+
+  function wsSend() {
+    if (!ws || ws.readyState !== WebSocket.OPEN) return;
+
+    const input = document.getElementById('ws-input');
+    const text = input.value.trim();
+    if (!text) return;
+
+    // Try to inject id if missing
+    try {
+      const obj = JSON.parse(text);
+      if (!('id' in obj)) {
+        obj.id = wsNextId++;
+      } else {
+        // Track the highest id used so auto-increment stays ahead
+        if (typeof obj.id === 'number' && obj.id >= wsNextId) {
+          wsNextId = obj.id + 1;
+        }
+      }
+      const toSend = JSON.stringify(obj);
+      ws.send(toSend);
+      wsLogEntry('sent', toSend);
+    } catch {
+      // Send raw if not valid JSON
+      ws.send(text);
+      wsLogEntry('sent', text);
+    }
+  }
+
+  function wsQuick(cmd) {
+    cmd.id = wsNextId++;
+    const text = JSON.stringify(cmd, null, 2);
+    document.getElementById('ws-input').value = text;
+
+    if (ws && ws.readyState === WebSocket.OPEN) {
+      ws.send(JSON.stringify(cmd));
+      wsLogEntry('sent', JSON.stringify(cmd));
+    }
+  }
+</script>
+</body>
+</html>
