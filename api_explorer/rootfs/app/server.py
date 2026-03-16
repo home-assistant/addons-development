@@ -13,14 +13,16 @@ _LOGGER = logging.getLogger(__name__)
 SUPERVISOR_URL = "http://supervisor"
 SUPERVISOR_WS_URL = "ws://supervisor/core/websocket"
 SUPERVISOR_TOKEN = os.environ.get("SUPERVISOR_TOKEN", "")
-INGRESS_PORT = 8099
+INGRESS_PORT = int(os.environ.get("INGRESS_PORT", "8099"))
 INDEX_PATH = os.path.join(os.path.dirname(__file__), "index.html")
+
+with open(INDEX_PATH) as _f:
+    INDEX_HTML_CONTENT = _f.read()
 
 
 async def serve_index(request: web.Request) -> web.Response:
     """Serve the main UI page."""
-    with open(INDEX_PATH) as f:
-        return web.Response(text=f.read(), content_type="text/html")
+    return web.Response(text=INDEX_HTML_CONTENT, content_type="text/html")
 
 
 async def ingress_headers(request: web.Request) -> web.Response:
@@ -49,6 +51,16 @@ async def proxy_to_core(request: web.Request) -> web.Response:
     content_type = request.headers.get("Content-Type")
     if content_type:
         forward_headers["Content-Type"] = content_type
+
+    # Forward custom headers from the browser (skip internal/auth headers)
+    skip_headers = {
+        "host", "content-type", "content-length", "authorization",
+        "connection", "accept", "accept-encoding", "accept-language",
+        "origin", "referer", "user-agent",
+    }
+    for key, value in request.headers.items():
+        if key.lower() not in skip_headers:
+            forward_headers[key] = value
 
     async with aiohttp.ClientSession() as session:
         try:
@@ -159,11 +171,19 @@ async def websocket_proxy(request: web.Request) -> web.WebSocketResponse:
                 ):
                     break
 
-        await asyncio.gather(
-            forward_browser_to_core(),
-            forward_core_to_browser(),
-            return_exceptions=True,
+        # Cancel the other direction when one side disconnects
+        browser_task = asyncio.create_task(forward_browser_to_core())
+        core_task = asyncio.create_task(forward_core_to_browser())
+
+        done, pending = await asyncio.wait(
+            {browser_task, core_task},
+            return_when=asyncio.FIRST_COMPLETED,
         )
+
+        for task in pending:
+            task.cancel()
+
+        await asyncio.gather(*pending, return_exceptions=True)
     finally:
         if not core_ws.closed:
             await core_ws.close()

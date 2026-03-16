@@ -1,3 +1,4 @@
 #!/command/with-contenv bashio
 # shellcheck shell=bash
+export INGRESS_PORT=$(bashio::addon.ingress_port)
 exec python3 /app/server.py

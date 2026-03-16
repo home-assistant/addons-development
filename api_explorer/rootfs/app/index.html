@@ -411,11 +411,28 @@
     const container = document.getElementById('custom-headers');
     const row = document.createElement('div');
     row.className = 'header-row';
-    row.innerHTML = `
-      <input type="text" placeholder="Header name" value="${esc(key || '')}">
-      <input type="text" placeholder="Value" value="${esc(value || '')}">
-      <button class="btn-remove" onclick="this.parentElement.remove()">x</button>
-    `;
+
+    const keyInput = document.createElement('input');
+    keyInput.type = 'text';
+    keyInput.placeholder = 'Header name';
+    keyInput.value = key || '';
+
+    const valueInput = document.createElement('input');
+    valueInput.type = 'text';
+    valueInput.placeholder = 'Value';
+    valueInput.value = value || '';
+
+    const removeButton = document.createElement('button');
+    removeButton.className = 'btn-remove';
+    removeButton.type = 'button';
+    removeButton.textContent = 'x';
+    removeButton.addEventListener('click', function () {
+      row.remove();
+    });
+
+    row.appendChild(keyInput);
+    row.appendChild(valueInput);
+    row.appendChild(removeButton);
     container.appendChild(row);
   }
 
@@ -450,8 +467,9 @@
       headers: { 'Content-Type': 'application/json' },
     };
 
-    // Add custom headers as query param (they get forwarded server-side via the proxy)
+    // Merge custom headers into request so they are forwarded by the proxy
     const customHeaders = getCustomHeaders();
+    Object.assign(fetchOpts.headers, customHeaders);
 
     if (bodyText && method !== 'GET') {
       fetchOpts.body = bodyText;
