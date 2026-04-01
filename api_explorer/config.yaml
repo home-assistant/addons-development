@@ -1,5 +1,5 @@
 name: API Explorer
-version: "1.1.0"
+version: "1.0.0"
 slug: api_explorer
 description: Inspect ingress headers and test Home Assistant Core API calls through Supervisor
 url: https://www.home-assistant.io
