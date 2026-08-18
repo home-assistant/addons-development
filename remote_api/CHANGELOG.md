@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.0
+
+- Change default host port to 8880 to avoid conflicts with port 80
+- Upgrade base image to Alpine 3.24
+
 ## 1.3.0
 
 - Upgrade base image to alpine 3.19

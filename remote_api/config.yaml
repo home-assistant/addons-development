@@ -1,5 +1,5 @@
 name: Remote API proxy
-version: 1.3.0
+version: 1.4.0
 slug: remote_api
 description: Remote API proxy for Home Assistant
 url: https://developers.home-assistant.io/docs/supervisor/development/#supervisor-api-access
@@ -12,7 +12,7 @@ boot: manual
 hassio_api: true
 hassio_role: admin
 ports:
-  80/tcp: 80
+  80/tcp: 8880
 options: {}
 schema: false
 image: homeassistant/{arch}-addon-dev-remote_api
