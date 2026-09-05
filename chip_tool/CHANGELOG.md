@@ -1,5 +1,36 @@
 # Changelog
 
+## 0.6.0
+
+- Bump to CHIP version/Matter SDK v1.6.0.0
+- The following examples are included:
+  - air-purifier - Air purifier
+  - air-quality-sensor - Air quality sensor
+  - all-devices - Combined example covering every device type
+  - chip-cert - Certification tool
+  - chip-tool - Controller implementation
+  - closure - Closure (e.g. gate, garage door)
+  - contact-sensor - Contact sensor
+  - dishwasher - Dishwasher
+  - energy-gateway - Electrical price of energy and grid conditions
+  - energy-management - Energy Management
+  - evse - Electric vehicle supply equipment
+  - light - Light
+  - lock - Lock
+  - microwave-oven - Microwave oven
+  - network-manager - Thread network manager
+  - ota-provider - Over-the-air update provider
+  - ota-requestor - Over-the-air update requestor
+  - refrigerator - Refrigerator
+  - rvc - Robotic Vacuum Cleaner
+  - terms-and-conditions - Terms-and-conditions during commissioning
+  - thermostat - Thermostat
+  - tv-app - TV Example
+  - tv-casting-app - TV Casting app
+  - water-heater - Water heater
+  - water-leak-detector - Water leak detector
+- Removed all-clusters and all-clusters-minimal examples
+
 ## 0.5.1
 
 - Fix terminal by enabling writeable mode explicitly
