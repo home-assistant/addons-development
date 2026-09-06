@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.6.0
+## 0.6.0 - 2026-09-06
 
 - Bump to CHIP version/Matter SDK v1.6.0.0
 - The following examples are included:
