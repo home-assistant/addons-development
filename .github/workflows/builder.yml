@@ -129,7 +129,7 @@ jobs:
           container-registry-password: ${{ secrets.GITHUB_TOKEN }}
           image: ghcr.io/home-assistant/${{ matrix.arch }}-addon-${{ matrix.addon }}
           image-tags: |
-            ${{ steps.info.outputs.version }}
+            ${{ fromJSON(steps.info.outputs.version) }}
           push: ${{ github.head_ref == '' && github.event_name == 'push' }}
           version: ${{ steps.info.outputs.version }}
 
