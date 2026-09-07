@@ -1,4 +1,4 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/home-assistant/base-debian:trixie
 FROM $BUILD_FROM AS builder-base
 
 # hadolint ignore=DL3009
@@ -33,8 +33,8 @@ RUN \
 
 FROM builder-base AS builder-ttyd
 
-ARG LIBWEBSOCKETS_VERSION
-ARG TTYD_VERSION
+ARG LIBWEBSOCKETS_VERSION=4.3.5
+ARG TTYD_VERSION=1.7.3
 
 RUN \
     set -x \
@@ -82,7 +82,7 @@ RUN \
 
 FROM $BUILD_FROM
 
-ARG HOME_ASSISTANT_CHIP_VERSION
+ARG HOME_ASSISTANT_CHIP_VERSION=2023.5.2
 
 RUN \
     set -x \
@@ -125,13 +125,13 @@ COPY --from=builder-python-dbus-wheel /usr/src/psutil-5.9.5-*.whl /root
 
 # hadolint ignore=DL3013
 RUN \
-    pip3 install \
+    pip3 install --break-system-packages \
        dbus_python-1.2.18-*.whl \
        psutil-5.9.5-*.whl \
-    && pip3 install \
+    && pip3 install --break-system-packages \
        home-assistant-chip-clusters==${HOME_ASSISTANT_CHIP_VERSION} \
        home-assistant-chip-core==${HOME_ASSISTANT_CHIP_VERSION} \
        home-assistant-chip-repl==${HOME_ASSISTANT_CHIP_VERSION} \
-    && pip3 install --no-cache-dir jupyter-console
+    && pip3 install --break-system-packages --no-cache-dir jupyter-console
 
 COPY rootfs /
