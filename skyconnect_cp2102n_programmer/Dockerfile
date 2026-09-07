@@ -1,7 +1,8 @@
-ARG BUILD_FROM
-ARG CP210X_CFG_COMMIT
+ARG BUILD_FROM=ghcr.io/home-assistant/base-debian:trixie
 
 FROM $BUILD_FROM AS builder
+
+ARG CP210X_CFG_COMMIT=b417a28b3367a65990ad501c6cb98da2c32b7ea4
 
 # hadolint ignore=SC2086
 RUN \
