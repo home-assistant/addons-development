@@ -1,5 +1,10 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/home-assistant/base-debian:bookworm
 ARG BUILD_ARCH
+ARG BUILD_VERSION
+
+ARG LIBWEBSOCKETS_VERSION=4.3.5
+ARG TTYD_VERSION=1.7.7
+ARG CHIP_VERSION=v1.6.0.0
 
 FROM $BUILD_FROM AS builder-base
 
@@ -65,7 +70,7 @@ RUN \
     && make DESTDIR=./install install
 
 # Use amd64 stage to generate ZAP files (zap-cli is only available for amd64)
-FROM --platform=linux/amd64 debian:bullseye AS builder-amd64-base
+FROM --platform=linux/amd64 debian:bookworm AS builder-amd64-base
 
 ARG CHIP_VERSION
 
