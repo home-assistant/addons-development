@@ -23,15 +23,15 @@ jobs:
       changed_apps: ${{ steps.filter.outputs.changed_apps }}
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Get changed files
         id: changed_files
-        uses: tj-actions/changed-files@v47
+        uses: tj-actions/changed-files@24d32ffd492484c1d75e0c0b894501ddb9d30d62 # v47
 
       - name: Find app directories
         id: apps
-        uses: home-assistant/actions/helpers/find-addons@master
+        uses: home-assistant/actions/helpers/find-addons@master # zizmor: ignore[unpinned-uses]
 
       - name: Filter changed apps
         id: filter
