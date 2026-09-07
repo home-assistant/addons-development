@@ -36,20 +36,23 @@ jobs:
 
       - name: Normalize app information
         id: normalize
+        env:
+          IMAGE: ${{ fromJSON(steps.info.outputs.image) }}
+          VERSION: ${{ fromJSON(steps.info.outputs.version) }}
+          NAME: ${{ fromJSON(steps.info.outputs.name) }}
+          DESCRIPTION: ${{ fromJSON(steps.info.outputs.description) }}
+          URL: ${{ fromJSON(steps.info.outputs.url) }}
         run: |
-          image=${{ steps.info.outputs.image }}
-          echo "image_name=${image##*/}" >> "$GITHUB_OUTPUT"
-          echo "registry_prefix=${image%/*}" >> "$GITHUB_OUTPUT"
-          version=${{ steps.info.outputs.version }}
-          echo "version=${version}" >> "$GITHUB_OUTPUT"
-          name=${{ steps.info.outputs.name }}
-          echo "name=${name}" >> "$GITHUB_OUTPUT"
-          description=${{ steps.info.outputs.description }}
-          echo "description=${description}" >> "$GITHUB_OUTPUT"
-          url=${{ steps.info.outputs.url }}
-          if [[ -n "$url" && "$url" != "null" ]]; then
-            echo "url=${url}" >> "$GITHUB_OUTPUT"
-          fi
+          {
+            echo "image_name=${IMAGE##*/}"
+            echo "registry_prefix=${IMAGE%/*}"
+            echo "version=${VERSION}"
+            echo "name=${NAME}"
+            echo "description=${DESCRIPTION}"
+            if [[ -n "$URL" ]]; then
+              echo "url=${URL}"
+            fi
+          } >> "$GITHUB_OUTPUT"
 
       - name: Prepare build matrix
         id: matrix
