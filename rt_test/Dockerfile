@@ -1,9 +1,7 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/home-assistant/base:3.24
 FROM $BUILD_FROM AS builder
 
 # Setup base
-ARG LIBWEBSOCKETS_VERSION
-ARG TTYD_VERSION
 
 WORKDIR /usr/src
 
@@ -34,6 +32,10 @@ RUN \
         zlib-dev \
         paho-mqtt-c-dev
 
+# Build libwebsockets
+
+ARG LIBWEBSOCKETS_VERSION=4.3.5
+
 RUN \
     set -x \
     && git clone --branch "v${LIBWEBSOCKETS_VERSION}" --depth=1 \
@@ -43,6 +45,7 @@ RUN \
     && mkdir -p build \
     && cd build \
     && cmake .. \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
         -DCMAKE_BUILD_TYPE=MinSizeRel \
         -DCMAKE_INSTALL_PREFIX=/usr/local \
         -DCMAKE_VERBOSE_MAKEFILE=TRUE \
@@ -56,6 +59,10 @@ RUN \
     && make install \
     && make DESTDIR=./install install
 
+# Build ttyd
+
+ARG TTYD_VERSION=1.7.3
+
 RUN \
     set -x \
     && git clone --branch main --single-branch \
@@ -67,13 +74,15 @@ RUN \
     && cd build \
     && cmake .. \
         -DCMAKE_BUILD_TYPE=MinSizeRel \
+        -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
         -DCMAKE_INSTALL_PREFIX=/usr/local \
         -DCMAKE_VERBOSE_MAKEFILE=TRUE \
     && make \
     && make DESTDIR=./install install
 
-COPY mqtt-rt-test.c /usr/src/mqtt-rt-test/
-COPY CMakeLists.txt /usr/src/mqtt-rt-test/
+# Build mqtt-rt-test
+
+COPY build /usr/src/mqtt-rt-test/
 
 RUN \
     set -x \
@@ -83,6 +92,7 @@ RUN \
     && cmake .. \
     && make
 
+# Combine binaries for the app image
 
 FROM $BUILD_FROM
 

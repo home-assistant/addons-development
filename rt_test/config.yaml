@@ -1,5 +1,5 @@
 ---
-version: 0.1.0
+version: 0.2.0
 slug: rt_test
 name: Real-Time latency test
 description: Testing Home Assistant latency using MQTT.
@@ -8,7 +8,7 @@ arch:
   - aarch64
   - amd64
 hassio_api: true
-image: homeassistant/{arch}-addon-rt-test
+image: ghcr.io/home-assistant/app-rt-test
 init: false
 realtime: true
 stage: experimental
