@@ -1,3 +1,0 @@
-build_from:
-  amd64: ghcr.io/home-assistant/amd64-base-python:3.11-alpine3.18
-  aarch64: ghcr.io/home-assistant/aarch64-base-python:3.11-alpine3.18
