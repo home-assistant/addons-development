@@ -15,5 +15,5 @@ ports:
   80/tcp: 8880
 options: {}
 schema: false
-image: homeassistant/{arch}-addon-dev-remote_api
+image: ghcr.io/home-assistant/app-dev-remote_api
 init: false
