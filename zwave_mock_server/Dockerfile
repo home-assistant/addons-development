@@ -1,8 +1,8 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/home-assistant/base:3.24
 FROM $BUILD_FROM
 
-ARG ZWAVEJS_SERVER_VERSION
-ARG ZWAVEJS_VERSION
+ARG ZWAVEJS_SERVER_VERSION=3.1.0
+ARG ZWAVEJS_VERSION=15.3.0
 
 # install nodejs + yarn
 RUN set -x \
@@ -18,11 +18,8 @@ RUN set -x \
     "@zwave-js/server@${ZWAVEJS_SERVER_VERSION}" \
     "sinon@17.0.1"
 
-COPY run.sh /
+COPY rootfs /
 RUN chmod a+x /run.sh
-
-# include default mock files
-COPY default_mock_files /default_mock_files
 
 # Symlink @zwave-js/* packages and other packages,
 # which zwave-js server depends on without specifying it in package.json
@@ -35,5 +32,3 @@ RUN NODE_PATH="$( npm root --quiet -g )" \
     && ln -s "$NODE_PATH/zwave-js/node_modules/alcalzone-shared" "$NODE_PATH/alcalzone-shared"
 
 CMD [ "/run.sh" ]
-
-
