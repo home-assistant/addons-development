@@ -10,7 +10,7 @@ For convenience, this app also hosts the Z-Wave JS Server directly, making it an
 Within Home Assistant, add a new Integration., click Z-Wave.
 Do not check the 'use default supervisor app' checkbox, which allows you to manually enter the URL.
 
-Use this url: `http://77f1785d-zwave-mock-server:3000`
+Use this url: `http://a99ed31d-zwave-mock-server:3000`
 
 NOTE: If you want to connect from your development machine to the mock server running on another machine/instance, you need to open the port in the app settings for the mock server app and then you can connect to port 3000 of the host running the mock app.
 

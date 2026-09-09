@@ -52,5 +52,5 @@ In case you've found a bug, please [open an issue on our GitHub][issue].
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
 [reddit]: https://reddit.com/r/homeassistant
-[issue]: https://github.com/home-assistant/addons-development/issues
+[issue]: https://github.com/home-assistant/apps-development/issues
 

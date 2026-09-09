@@ -13,7 +13,7 @@ on:
 jobs:
   prepare:
     name: Prepare
-    if: github.repository == 'home-assistant/addons-development'
+    if: github.repository == 'home-assistant/apps-development'
     runs-on: ubuntu-latest
     outputs:
       architectures: ${{ steps.info.outputs.architectures }}

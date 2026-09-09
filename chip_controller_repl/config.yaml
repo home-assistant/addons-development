@@ -2,7 +2,7 @@ version: 0.4.1
 slug: chip_controller_repl
 name: CHIP Controller REPL
 description: Connected Home over IP (Matter) Python Controller REPL
-url: https://github.com/home-assistant/addons-development/tree/master/chip_controller_repl
+url: https://github.com/home-assistant/apps-development/tree/master/chip_controller_repl
 arch:
   - aarch64
   - amd64

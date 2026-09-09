@@ -10,7 +10,7 @@ Use the following steps to install this app.
    [![Open this app in your Home Assistant instance.][app-badge]][app]
 
 1. If it's the first time you install an App from this repository, Home
-   Assitant will ask you to add the 'addons-development' repository. Click
+   Assitant will ask you to add the 'apps-development' repository. Click
    "Add" to add the repository.
 1. Click the "Install" button to install the app.
 
@@ -35,10 +35,10 @@ You have several options to get them answered:
 
 In case you've found a bug, please [open an issue on our GitHub][issue].
 
-[app]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=77f1785d_chip_tool&repository_url=https%3A%2F%2Fgithub.com%2Fhome-assistant%2Faddons-development
+[app]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=a99ed31d_chip_tool&repository_url=https%3A%2F%2Fgithub.com%2Fhome-assistant%2Fapps-development
 [discord]: https://discord.gg/c5DvZ4e
 [forum]: https://community.home-assistant.io
 [reddit]: https://reddit.com/r/homeassistant
-[issue]: https://github.com/home-assistant/addons-development/issues
+[issue]: https://github.com/home-assistant/apps-development/issues
 [chip_tool_guide]: https://github.com/project-chip/connectedhomeip/blob/master/docs/development_controllers/chip-tool/chip_tool_guide.md
 

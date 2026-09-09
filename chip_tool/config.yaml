@@ -2,7 +2,7 @@ version: 0.5.2
 slug: chip_tool
 name: CHIP Tool
 description: Connected Home over IP (Matter) Tool example application.
-url: https://github.com/home-assistant/addons-development/tree/master/chip_tool
+url: https://github.com/home-assistant/apps-development/tree/master/chip_tool
 arch:
   - aarch64
   - amd64
