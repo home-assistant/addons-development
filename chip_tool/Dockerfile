@@ -67,7 +67,7 @@ RUN \
 # Use amd64 stage to generate ZAP files (zap-cli is only available for amd64)
 FROM --platform=linux/amd64 debian:trixie AS builder-amd64-base
 
-ARG CHIP_VERSION=v1.4.2.0
+ARG CHIP_VERSION=v1.6.0.0
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
