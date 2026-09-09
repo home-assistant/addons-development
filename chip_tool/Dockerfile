@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/base-debian:bookworm
+ARG BUILD_FROM=ghcr.io/home-assistant/base-debian:trixie
 ARG BUILD_ARCH
 ARG BUILD_VERSION
 
@@ -21,8 +21,8 @@ RUN \
 
 FROM builder-base AS builder-ttyd
 
-ARG LIBWEBSOCKETS_VERSION
-ARG TTYD_VERSION
+ARG LIBWEBSOCKETS_VERSION=4.3.5
+ARG TTYD_VERSION=1.7.7
 
 WORKDIR /usr/src
 
@@ -70,9 +70,9 @@ RUN \
     && make DESTDIR=./install install
 
 # Use amd64 stage to generate ZAP files (zap-cli is only available for amd64)
-FROM --platform=linux/amd64 debian:bookworm AS builder-amd64-base
+FROM --platform=linux/amd64 debian:trixie AS builder-amd64-base
 
-ARG CHIP_VERSION
+ARG CHIP_VERSION=v1.4.2.0
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -98,7 +98,7 @@ FROM $BUILD_FROM
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ARG BUILD_ARCH
-ARG CHIP_VERSION
+ARG CHIP_VERSION=v1.4.2.0
 
 RUN \
     set -x \

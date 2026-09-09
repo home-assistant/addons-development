@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.6.0 - 2026-09-07
+## 0.6.0
 
 - Bump to CHIP version/Matter SDK v1.6.0.0
 - The following examples are included:
@@ -30,6 +30,10 @@
   - water-heater - Water heater
   - water-leak-detector - Water leak detector
 - Removed all-clusters and all-clusters-minimal examples
+
+## 0.5.2
+
+- Update base to Debian Trixie
 
 ## 0.5.1
 

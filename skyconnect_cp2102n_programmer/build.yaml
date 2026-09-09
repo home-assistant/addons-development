@@ -1,5 +1,0 @@
-build_from:
-  amd64: ghcr.io/home-assistant/amd64-base-debian:bookworm
-  aarch64: ghcr.io/home-assistant/aarch64-base-debian:bookworm
-args:
-  CP210X_CFG_COMMIT: b417a28b3367a65990ad501c6cb98da2c32b7ea4
