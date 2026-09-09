@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.1
+
+- Update base image to Trixie
+- Update libwebsockets to 4.3.5
+
 ## 0.4.0
 
 - Use pre-built Home Assistant specific Python Wheels (2023.5.2)

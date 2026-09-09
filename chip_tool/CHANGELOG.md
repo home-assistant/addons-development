@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.2
+
+- Update base to Debian Trixie
+
 ## 0.5.1
 
 - Fix terminal by enabling writeable mode explicitly

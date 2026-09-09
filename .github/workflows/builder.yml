@@ -1,143 +1,81 @@
----
-# yamllint disable rule:line-length rule:truthy
-name: Build add-on
+name: Builder
 
 env:
-  BUILD_ARGS: "--test"
-  MONITORED_FILES: "build.yaml config.yaml Dockerfile run.sh rootfs"
+  MONITORED_FILES: "config.json config.yaml config.yml Dockerfile rootfs build"
 
 on:
   pull_request:
-    branches: ["master"]
+    branches:
+      - master
   push:
-    branches: ["master"]
+    branches:
+      - master
 
 permissions:
   contents: read
 
 jobs:
   init:
-    runs-on: ubuntu-latest
     name: Initialize builds
+    runs-on: ubuntu-latest
     outputs:
-      changed_files: ${{ steps.changed_files.outputs.all }}
-      changed_addons: ${{ steps.changed_addons.outputs.addons }}
-      changed: ${{ steps.changed_addons.outputs.changed }}
+      changed: ${{ steps.filter.outputs.changed }}
+      changed_apps: ${{ steps.filter.outputs.changed_apps }}
     steps:
       - name: Check out the repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
 
       - name: Get changed files
         id: changed_files
-        uses: masesgroup/retrieve-changed-files@45a8b3b496d2d6037cbd553e8a3450989b9384a2 # v4.0.0
+        uses: tj-actions/changed-files@24d32ffd492484c1d75e0c0b894501ddb9d30d62 # v47
 
-      - name: Get apps
-        id: addons
-        run: |
-          declare -a addons
-          for addon in $(find ./ -name config.yaml | cut -d "/" -f2 | sort -u); do
-            addons+=("$addon");
-          done
-          echo "addons=${addons[@]}" >> "$GITHUB_OUTPUT"
+      - name: Find app directories
+        id: apps
+        uses: home-assistant/actions/helpers/find-addons@master # zizmor: ignore[unpinned-uses]
 
-      - name: Get changed apps
-        id: changed_addons
+      - name: Filter changed apps
+        id: filter
         env:
-          ADDONS: ${{ steps.addons.outputs.addons }}
-          CHANGED_FILES: ${{ steps.changed_files.outputs.all }}
+          APPS: ${{ steps.apps.outputs.addons }}
+          CHANGED_FILES: ${{ steps.changed_files.outputs.all_modified_files }}
         run: |
-          declare -a changed_addons
-          for addon in ${ADDONS}; do
-            if [[ "${CHANGED_FILES}" =~ $addon ]]; then
-              for file in ${{ env.MONITORED_FILES }}; do
-                  if [[ "${CHANGED_FILES}" =~ $addon/$file ]]; then
-                    if [[ ! "${changed_addons[@]}" =~ $addon ]]; then
-                      changed_addons+=("\"${addon}\",");
-                    fi
-                  fi
-              done
-            fi
-          done
+          changed_apps=()
 
-          changed=$(echo ${changed_addons[@]} | rev | cut -c 2- | rev)
-          if [[ -n ${changed} ]]; then
-            echo "Changed apps: $changed";
-            echo "changed=true" >> "$GITHUB_OUTPUT";
-            echo "addons=[$changed]" >> "$GITHUB_OUTPUT";
+          # If the workflow file itself changed, rebuild all apps
+          if [[ "${CHANGED_FILES}" =~ \.github/workflows/(builder|build-app)\.yml ]]; then
+            changed_apps=(${APPS})
           else
-            echo "No app had any monitored files changed (${{ env.MONITORED_FILES }})";
+            for app in ${APPS}; do
+              for file in ${MONITORED_FILES}; do
+                if [[ "${CHANGED_FILES}" =~ (^| )${app}/${file} ]]; then
+                  changed_apps+=("${app}")
+                  break
+                fi
+              done
+            done
           fi
-  build:
+
+          if [[ ${#changed_apps[@]} -gt 0 ]]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "changed_apps=$(jq -nc '$ARGS.positional' --args "${changed_apps[@]}")" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+  build-app:
+    name: Build ${{ matrix.app }}
     needs: init
-    runs-on: ${{ matrix.runs-on }}
     if: needs.init.outputs.changed == 'true'
-    name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
     permissions:
       contents: read
+      id-token: write
       packages: write
     strategy:
+      fail-fast: false
       matrix:
-        addon: ${{ fromJson(needs.init.outputs.changed_addons) }}
-        arch: ["aarch64", "amd64"]
-        include:
-          - runs-on: ubuntu-24.04
-          - runs-on: ubuntu-24.04-arm
-            arch: aarch64
-
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          persist-credentials: false
-
-      - name: Get information
-        id: info
-        uses: home-assistant/actions/helpers/info@master # zizmor: ignore[unpinned-uses]
-        with:
-          path: "./${{ matrix.addon }}"
-
-      - name: Check add-on
-        id: check
-        env:
-          ADDON: ${{ matrix.addon }}
-          ARCHITECTURES: ${{ steps.info.outputs.architectures }}
-          BUILD_ARCH: ${{ matrix.arch }}
-        run: |
-          if [[ "${ARCHITECTURES}" =~ ${BUILD_ARCH} ]]; then
-             echo "build_arch=true" >> "$GITHUB_OUTPUT";
-           else
-             echo "${BUILD_ARCH} is not a valid arch for ${ADDON}, skipping build";
-          fi
-
-      - name: Set build arguments
-        if: steps.check.outputs.build_arch == 'true' && github.head_ref == '' && github.event_name == 'push'
-        run: |
-          echo "BUILD_ARGS=--docker-hub-check" >> "$GITHUB_ENV";
-
-      - name: Login to DockerHub
-        if: env.BUILD_ARGS == '--docker-hub-check'
-        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Login to GitHub Container Registry
-        if: env.BUILD_ARGS == '--docker-hub-check'
-        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
-        with:
-          registry: ghcr.io
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build ${{ matrix.addon }} add-on
-        if: steps.check.outputs.build_arch == 'true'
-        uses: home-assistant/builder@6cb4fd3d1338b6e22d0958a4bcb53e0965ea63b4 # 2026.02.1
-        with:
-          image: ${{ matrix.arch }}
-          args: |
-            ${{ env.BUILD_ARGS }} \
-            --${{ matrix.arch }} \
-            --target /data/${{ matrix.addon }} \
-            --addon
+        app: ${{ fromJSON(needs.init.outputs.changed_apps) }}
+    uses: ./.github/workflows/build-app.yml
+    with:
+      app: ${{ matrix.app }}
+      publish: ${{ github.event_name == 'push' }}
+    secrets: inherit

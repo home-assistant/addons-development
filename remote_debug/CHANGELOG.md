@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0
+
+- Upgrade base image to alpine 3.24
+
 ## 1.2.0
 
 - Upgrade base image to alpine 3.19

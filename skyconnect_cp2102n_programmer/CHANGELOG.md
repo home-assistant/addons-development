@@ -1,3 +1,7 @@
+## 1.0.2
+
+ - Update base image to Trixie
+
 ## 1.0.1
 
  - Fix permissions on banner script to allow execution

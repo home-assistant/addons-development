@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.3.5
+ - Update Python to 3.14
+
 ## 1.3.4
  - Update Python to 3.11
 
