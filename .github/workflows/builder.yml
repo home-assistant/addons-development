@@ -47,7 +47,7 @@ jobs:
           else
             for app in ${APPS}; do
               for file in ${MONITORED_FILES}; do
-                if [[ "${CHANGED_FILES}" =~ ${app}/${file} ]]; then
+                if [[ "${CHANGED_FILES}" =~ (^| )${app}/${file} ]]; then
                   changed_apps+=("${app}")
                   break
                 fi
