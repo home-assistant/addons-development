@@ -70,8 +70,6 @@ jobs:
       contents: read
       id-token: write
       packages: write
-      id-token: write
-
     strategy:
       fail-fast: false
       matrix:
